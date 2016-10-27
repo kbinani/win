@@ -1,0 +1,4 @@
+package win
+
+//ref CRYPTOAPI_BLOB_
+type CERT_NAME_BLOB CRYPTOAPI_BLOB_

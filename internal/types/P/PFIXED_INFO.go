@@ -1,0 +1,4 @@
+package win
+
+//ref FIXED_INFO_W2KSP1
+type PFIXED_INFO *FIXED_INFO_W2KSP1

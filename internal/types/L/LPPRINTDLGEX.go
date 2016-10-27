@@ -1,0 +1,4 @@
+package win
+
+//ref PRINTDLGEX
+type LPPRINTDLGEX *PRINTDLGEX

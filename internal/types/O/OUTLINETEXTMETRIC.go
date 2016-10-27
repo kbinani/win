@@ -1,0 +1,42 @@
+package win
+
+//ref UINT
+//ref TEXTMETRIC
+//ref BYTE
+//ref PANOSE
+//ref RECT
+//ref PSTR
+type OUTLINETEXTMETRIC struct {
+	OtmSize                UINT
+	OtmTextMetrics         TEXTMETRIC
+	OtmFiller              BYTE
+	OtmPanoseNumber        PANOSE
+	OtmfsSelection         UINT
+	OtmfsType              UINT
+	OtmsCharSlopeRise      int32
+	OtmsCharSlopeRun       int32
+	OtmItalicAngle         int32
+	OtmEMSquare            UINT
+	OtmAscent              int32
+	OtmDescent             int32
+	OtmLineGap             UINT
+	OtmsCapEmHeight        UINT
+	OtmsXHeight            UINT
+	OtmrcFontBox           RECT
+	OtmMacAscent           int32
+	OtmMacDescent          int32
+	OtmMacLineGap          UINT
+	OtmusMinimumPPEM       UINT
+	OtmptSubscriptSize     POINT
+	OtmptSubscriptOffset   POINT
+	OtmptSuperscriptSize   POINT
+	OtmptSuperscriptOffset POINT
+	OtmsStrikeoutSize      UINT
+	OtmsStrikeoutPosition  int32
+	OtmsUnderscoreSize     int32
+	OtmsUnderscorePosition int32
+	OtmpFamilyName         PSTR
+	OtmpFaceName           PSTR
+	OtmpStyleName          PSTR
+	OtmpFullName           PSTR
+}

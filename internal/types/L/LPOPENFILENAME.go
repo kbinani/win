@@ -1,0 +1,4 @@
+package win
+
+//ref OPENFILENAME
+type LPOPENFILENAME *OPENFILENAME

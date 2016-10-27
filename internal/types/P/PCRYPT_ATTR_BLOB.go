@@ -1,0 +1,4 @@
+package win
+
+//ref CRYPT_ATTR_BLOB
+type PCRYPT_ATTR_BLOB *CRYPT_ATTR_BLOB

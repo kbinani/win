@@ -1,0 +1,4 @@
+package win
+
+//ref BOOLEAN
+type SECURITY_CONTEXT_TRACKING_MODE BOOLEAN

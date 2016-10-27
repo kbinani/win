@@ -1,0 +1,7 @@
+package win
+
+//ref WCHAR
+type IP_ADAPTER_DNS_SUFFIX struct {
+	Next   *IP_ADAPTER_DNS_SUFFIX
+	String [MAX_DNS_SUFFIX_STRING_LENGTH]WCHAR
+}

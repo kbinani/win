@@ -1,0 +1,4 @@
+package win
+
+//ref WSAVERSION
+type LPWSAVERSION *WSAVERSION

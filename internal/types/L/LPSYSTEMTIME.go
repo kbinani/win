@@ -1,0 +1,4 @@
+package win
+
+//ref SYSTEMTIME
+type LPSYSTEMTIME *SYSTEMTIME

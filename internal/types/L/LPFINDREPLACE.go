@@ -1,0 +1,4 @@
+package win
+
+//ref FINDREPLACE
+type LPFINDREPLACE *FINDREPLACE

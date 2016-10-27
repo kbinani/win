@@ -1,0 +1,4 @@
+package win
+
+//ref CHARSETINFO
+type LPCHARSETINFO *CHARSETINFO

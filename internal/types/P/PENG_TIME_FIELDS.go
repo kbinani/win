@@ -1,0 +1,4 @@
+package win
+
+//ref ENG_TIME_FIELDS
+type PENG_TIME_FIELDS *ENG_TIME_FIELDS

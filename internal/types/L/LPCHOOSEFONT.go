@@ -1,0 +1,4 @@
+package win
+
+//ref CHOOSEFONT
+type LPCHOOSEFONT *CHOOSEFONT

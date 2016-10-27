@@ -1,0 +1,4 @@
+package win
+
+//ref MIB_IPSTATS_LH
+type PMIB_IPSTATS *MIB_IPSTATS_LH

@@ -1,0 +1,4 @@
+package win
+
+//ref IP_ADDR_STRING
+type PIP_ADDR_STRING *IP_ADDR_STRING

@@ -1,0 +1,4 @@
+package win
+
+//ref CRYPT_DER_BLOB
+type PCRYPT_DER_BLOB *CRYPT_DER_BLOB

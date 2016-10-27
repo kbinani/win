@@ -1,0 +1,5 @@
+package win
+
+//ref DWORD
+//ref LPWSAOVERLAPPED
+type LPLOOKUPSERVICE_COMPLETION_ROUTINE func(dwError DWORD, dwBytes DWORD, lpOverlapped LPWSAOVERLAPPED)

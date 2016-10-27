@@ -1,0 +1,11 @@
+package win
+
+//ref FLOAT
+type XFORM struct {
+	EM11 FLOAT
+	EM12 FLOAT
+	EM21 FLOAT
+	EM22 FLOAT
+	EDx  FLOAT
+	EDy  FLOAT
+}

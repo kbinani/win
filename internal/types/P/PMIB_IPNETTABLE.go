@@ -1,0 +1,4 @@
+package win
+
+//ref MIB_IPNETTABLE
+type PMIB_IPNETTABLE *MIB_IPNETTABLE

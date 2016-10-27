@@ -1,0 +1,11 @@
+package win
+
+//ref FLOATL
+type XFORML struct {
+	EM11 FLOATL
+	EM12 FLOATL
+	EM21 FLOATL
+	EM22 FLOATL
+	EDx  FLOATL
+	EDy  FLOATL
+}

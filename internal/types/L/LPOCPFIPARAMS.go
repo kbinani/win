@@ -1,0 +1,4 @@
+package win
+
+//ref OCPFIPARAMS
+type LPOCPFIPARAMS *OCPFIPARAMS

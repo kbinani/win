@@ -1,0 +1,4 @@
+package win
+
+//ref IP_INTERFACE_INFO
+type PIP_INTERFACE_INFO *IP_INTERFACE_INFO

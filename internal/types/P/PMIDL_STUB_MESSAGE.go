@@ -1,0 +1,4 @@
+package win
+
+//ref MIDL_STUB_MESSAGE
+type PMIDL_STUB_MESSAGE *MIDL_STUB_MESSAGE

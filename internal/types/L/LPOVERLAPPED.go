@@ -1,0 +1,4 @@
+package win
+
+//ref OVERLAPPED
+type LPOVERLAPPED *OVERLAPPED

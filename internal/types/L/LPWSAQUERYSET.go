@@ -1,0 +1,4 @@
+package win
+
+//ref WSAQUERYSET
+type LPWSAQUERYSET *WSAQUERYSET

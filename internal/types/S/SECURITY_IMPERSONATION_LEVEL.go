@@ -1,0 +1,3 @@
+package win
+
+type SECURITY_IMPERSONATION_LEVEL int32

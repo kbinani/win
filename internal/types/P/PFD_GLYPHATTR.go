@@ -1,0 +1,4 @@
+package win
+
+//ref FD_GLYPHATTR
+type PFD_GLYPHATTR *FD_GLYPHATTR

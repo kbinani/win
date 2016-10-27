@@ -1,0 +1,4 @@
+package win
+
+//ref GCP_RESULTS
+type LPGCP_RESULTS *GCP_RESULTS

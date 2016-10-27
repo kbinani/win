@@ -1,0 +1,4 @@
+package win
+
+//ref CSADDR_INFO
+type LPCSADDR_INFO *CSADDR_INFO

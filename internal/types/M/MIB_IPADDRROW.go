@@ -1,0 +1,4 @@
+package win
+
+//ref MIB_IPADDRROW_XP
+type MIB_IPADDRROW MIB_IPADDRROW_XP

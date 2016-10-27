@@ -1,0 +1,4 @@
+package win
+
+//ref IP_ADAPTER_INFO
+type PIP_ADAPTER_INFO *IP_ADAPTER_INFO

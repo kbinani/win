@@ -1,0 +1,4 @@
+package win
+
+//ref CERT_NAME_BLOB
+type PCERT_NAME_BLOB *CERT_NAME_BLOB

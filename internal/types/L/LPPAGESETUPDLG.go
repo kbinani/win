@@ -1,0 +1,4 @@
+package win
+
+//ref PAGESETUPDLG
+type LPPAGESETUPDLG *PAGESETUPDLG

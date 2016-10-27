@@ -1,0 +1,4 @@
+package win
+
+//ref MIB_ICMP_EX_XPSP1
+type PMIB_ICMP_EX *MIB_ICMP_EX_XPSP1

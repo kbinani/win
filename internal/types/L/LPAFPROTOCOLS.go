@@ -1,0 +1,4 @@
+package win
+
+//ref AFPROTOCOLS
+type LPAFPROTOCOLS *AFPROTOCOLS

@@ -1,0 +1,4 @@
+package win
+
+//ref CRYPTOAPI_BLOB_
+type CRYPT_UINT_BLOB CRYPTOAPI_BLOB_

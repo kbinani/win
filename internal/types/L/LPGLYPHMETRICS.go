@@ -1,0 +1,4 @@
+package win
+
+//ref GLYPHMETRICS
+type LPGLYPHMETRICS *GLYPHMETRICS

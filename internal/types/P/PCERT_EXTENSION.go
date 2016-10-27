@@ -1,0 +1,4 @@
+package win
+
+//ref CERT_EXTENSION
+type PCERT_EXTENSION *CERT_EXTENSION

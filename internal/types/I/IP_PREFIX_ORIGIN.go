@@ -1,0 +1,4 @@
+package win
+
+//ref NL_PREFIX_ORIGIN
+type IP_PREFIX_ORIGIN NL_PREFIX_ORIGIN

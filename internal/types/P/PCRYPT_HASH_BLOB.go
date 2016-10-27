@@ -1,0 +1,4 @@
+package win
+
+//ref CRYPT_HASH_BLOB
+type PCRYPT_HASH_BLOB *CRYPT_HASH_BLOB

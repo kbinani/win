@@ -1,0 +1,4 @@
+package win
+
+//ref I_RPC_HANDLE
+type RPC_BINDING_HANDLE I_RPC_HANDLE
