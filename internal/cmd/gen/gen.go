@@ -5,8 +5,6 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	. "github.com/kbinani/win/internal"
-	"github.com/ogier/pflag"
 	"go/format"
 	"io"
 	"io/ioutil"
@@ -15,11 +13,14 @@ import (
 	"regexp"
 	"sort"
 	"strings"
+
+	. "github.com/kbinani/win/internal"
+	"github.com/ogier/pflag"
 )
 
 func main() {
-	flagMinGWVersion := pflag.String("mingw-version", "v5.0.0", "Version number of MinGW") // https://github.com/mirror/mingw-w64/releases
-	flagWineVersion := pflag.String("wine-version", "1.9.23", "Version number of Wine")    // https://github.com/wine-mirror/wine/releases
+	flagMinGWVersion := pflag.String("mingw-version", DefaultMinGWVersion, "Version number of MinGW") // https://github.com/mirror/mingw-w64/releases
+	flagWineVersion := pflag.String("wine-version", DefaultWineVersion, "Version number of Wine")     // https://github.com/wine-mirror/wine/releases
 	// flagFunctions := pflag.String("functions", "", "Comma separated list of Win32API (ex. --functions=CreateFile,FindWindowEx)")
 	// flagAll := pflag.Bool("all", false, "Set this true if you want all Win32API")
 	pflag.Parse()
