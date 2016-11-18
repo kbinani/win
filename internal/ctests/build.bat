@@ -22,7 +22,7 @@ exit /b %errorlevel%
 	)
 
 	pushd internal\ctests\build\amd64
-	call :test_with_generator "Visual Studio 14 2015 Win64" build_amd64.log
+	call :test_with_generator "Visual Studio 14 2015 Win64" amd64
 	if not %errorlevel% == 0 (
 		popd
 		exit /b 4
@@ -30,7 +30,7 @@ exit /b %errorlevel%
 	popd
 
 	pushd internal\ctests\build\386
-	call :test_with_generator "Visual Studio 14 2015" build_386.log
+	call :test_with_generator "Visual Studio 14 2015" 386
 	if not %errorlevel% == 0 (
 		popd
 		exit /b 5
@@ -41,15 +41,15 @@ exit /b %errorlevel%
 
 :test_with_generator
 	call :clean_cmake_cache 2>nul
-	cmake ..\.. -G "%~1" > "..\..\..\..\%~2"
+	cmake ..\.. -G "%~1" > "..\..\..\..\build_%2.log"
 	if not %errorlevel% == 0 (
 		exit /b %errorlevel%
 	)
-	cmake --build . >> "..\..\..\..\%~2"
+	cmake --build . >> "..\..\..\..\build_%~2.log"
 	if not %errorlevel% == 0 (
 		exit /b %errorlevel%
 	)
-	Debug\ctests.exe
+	Debug\ctests.exe "--gtest_output=xml:..\..\..\..\test_%~2.xml" > "..\..\..\..\test_%~2.log"
 	if not %errorlevel% == 0 (
 		exit /b %errorlevel%
 	)
