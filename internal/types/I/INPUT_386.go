@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type INPUT struct {
 	Type uint32
 	data [24]byte

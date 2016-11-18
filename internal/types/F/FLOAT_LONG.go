@@ -2,7 +2,8 @@ package win
 
 //ref FLOATL
 //ref LONG
-//import unsafe
+import "unsafe"
+
 type FLOAT_LONG struct {
 	storage [4]byte
 }

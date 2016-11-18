@@ -2,7 +2,8 @@ package win
 
 //ref UINT
 //ref LPWSTR
-//import unsafe
+import "unsafe"
+
 func (this *STRRET) POleStr() *LPWSTR {
 	return (*LPWSTR)(unsafe.Pointer(&this.cStr[0]))
 }

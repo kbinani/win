@@ -305,12 +305,13 @@ func createTypedefFile(referencedTypes *StringSet) error {
 			if strings.HasPrefix(line, "package") || line == "" {
 				continue
 			}
+			if strings.HasPrefix(line, "import ") {
+				tokens := strings.Split(line, "import ")
+				imp := strings.Trim(strings.Trim(tokens[1], " "), "\"")
+				importedPackages.Put(imp)
+				continue
+			}
 			if strings.HasPrefix(line, "//") {
-				if strings.HasPrefix(line, "//import ") {
-					tokens := strings.Split(line, "//import ")
-					imp := strings.Trim(tokens[1], " ")
-					importedPackages.Put(imp)
-				}
 				continue
 			}
 			if strings.Contains(line, "func") && !strings.HasPrefix(line, "func") {
@@ -396,11 +397,12 @@ func createTypedefFile(referencedTypes *StringSet) error {
 					continue
 				}
 				if strings.HasPrefix(line, "//") {
-					if strings.HasPrefix(line, "//import ") {
-						tokens := strings.Split(line, "//import ")
-						imp := strings.Trim(tokens[1], " ")
-						localImports.Put(imp)
-					}
+					continue
+				}
+				if strings.HasPrefix(line, "import ") {
+					tokens := strings.Split(line, "import ")
+					imp := strings.Trim(strings.Trim(tokens[1], " "), "\"")
+					localImports.Put(imp)
 					continue
 				}
 				lines = append(lines, line)

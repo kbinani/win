@@ -4,7 +4,8 @@ package win
 //ref ULONG
 //ref DWORD
 //ref SOCKET_ADDRESS
-//import unsafe
+import "unsafe"
+
 func (this *IP_ADAPTER_DNS_SERVER_ADDRESS_XP) Alignment() *ULONGLONG {
 	return (*ULONGLONG)(unsafe.Pointer(&this.union1))
 }

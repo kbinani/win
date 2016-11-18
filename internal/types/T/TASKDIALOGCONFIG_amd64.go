@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type TASKDIALOGCONFIG struct {
 	storage [160]byte
 }

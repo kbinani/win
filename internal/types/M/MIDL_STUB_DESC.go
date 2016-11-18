@@ -12,12 +12,13 @@ package win
 //ref COMM_FAULT_OFFSETS
 //ref ULONG_PTR
 //ref NDR_EXPR_DESC
-//import unsafe
+import "unsafe"
+
 type MIDL_STUB_DESC struct {
 	RpcInterfaceInformation     uintptr
 	PfnAllocate                 uintptr // void* (__RPC_API *pfnAllocate)(size_t)
 	PfnFree                     uintptr // void (__RPC_API *pfnFree)(void *)
-	IMPLICIT_HANDLE_INFO        uintptr
+	IMPLICIT_HANDLE_INFO        MIDL_STUB_DESC__IMPLICIT_HANDLE_INFO
 	ApfnNdrRundownRoutines      uintptr // const NDR_RUNDOWN*
 	AGenericBindingRoutinePairs uintptr // const GENERIC_BINDING_ROUTINE_PAIR*
 	ApfnExprEval                uintptr // const EXPR_EVAL*
@@ -35,15 +36,18 @@ type MIDL_STUB_DESC struct {
 	ProxyServerInfo uintptr
 	PExprInfo/*const*/ *NDR_EXPR_DESC
 }
-
-func (this MIDL_STUB_DESC) PAutoHandle() *Handle_t {
-	return (*Handle_t)(unsafe.Pointer(&this.IMPLICIT_HANDLE_INFO))
+type MIDL_STUB_DESC__IMPLICIT_HANDLE_INFO struct {
+	storage uintptr
 }
 
-func (this MIDL_STUB_DESC) PPrimitiveHandle() *Handle_t {
-	return (*Handle_t)(unsafe.Pointer(&this.IMPLICIT_HANDLE_INFO))
+func (this *MIDL_STUB_DESC__IMPLICIT_HANDLE_INFO) PAutoHandle() *Handle_t {
+	return (*Handle_t)(unsafe.Pointer(&this.storage))
 }
 
-func (this MIDL_STUB_DESC) PGenericBindingInfo() PGENERIC_BINDING_INFO {
-	return (PGENERIC_BINDING_INFO)(unsafe.Pointer(&this.IMPLICIT_HANDLE_INFO))
+func (this *MIDL_STUB_DESC__IMPLICIT_HANDLE_INFO) PPrimitiveHandle() *Handle_t {
+	return (*Handle_t)(unsafe.Pointer(&this.storage))
+}
+
+func (this *MIDL_STUB_DESC__IMPLICIT_HANDLE_INFO) PGenericBindingInfo() *PGENERIC_BINDING_INFO {
+	return (*PGENERIC_BINDING_INFO)(unsafe.Pointer(&this.storage))
 }

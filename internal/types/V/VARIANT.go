@@ -26,7 +26,8 @@ package win
 //ref VARTYPE
 //ref WORD
 //ref IRecordInfo
-//import unsafe
+import "unsafe"
+
 func (this *VARIANT) Vt() *VARTYPE {
 	return (*VARTYPE)(unsafe.Pointer(&this.union1[0]))
 }
@@ -46,7 +47,6 @@ func (this *VARIANT) IVal() *SHORT            { return (*SHORT)(unsafe.Pointer(&
 func (this *VARIANT) FltVal() *FLOAT          { return (*FLOAT)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) DblVal() *DOUBLE         { return (*DOUBLE)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) BoolVal() *VARIANT_BOOL  { return (*VARIANT_BOOL)(unsafe.Pointer(&this.union1[8])) }
-func (this *VARIANT) Bool() *VARIANT_BOOL     { return (*VARIANT_BOOL)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) Scode() *SCODE           { return (*SCODE)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) CyVal() *CY              { return (*CY)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) Date() *DATE             { return (*DATE)(unsafe.Pointer(&this.union1[8])) }
@@ -61,7 +61,6 @@ func (this *VARIANT) PllVal() *LONGLONG       { return (*LONGLONG)(unsafe.Pointe
 func (this *VARIANT) PfltVal() *FLOAT         { return (*FLOAT)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) PdblVal() *DOUBLE        { return (*DOUBLE)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) PboolVal() *VARIANT_BOOL { return (*VARIANT_BOOL)(unsafe.Pointer(&this.union1[8])) }
-func (this *VARIANT) Pbool() *VARIANT_BOOL    { return (*VARIANT_BOOL)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) Pscode() *SCODE          { return (*SCODE)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) PcyVal() *CY             { return (*CY)(unsafe.Pointer(&this.union1[8])) }
 func (this *VARIANT) Pdate() *DATE            { return (*DATE)(unsafe.Pointer(&this.union1[8])) }

@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type LARGE_INTEGER struct {
 	QuadPart int64
 }

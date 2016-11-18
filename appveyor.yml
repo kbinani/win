@@ -1,0 +1,22 @@
+environment:
+  GOPATH: c:\gopath
+
+branches:
+  only:
+    - generator
+
+clone_folder: c:\gopath\src\github.com\kbinani\win
+
+cache:
+  - internal\cache.json
+
+install:
+  - go version
+  - go env
+  - cmake --version
+  - git --version
+  - git submodule update --init
+  - go get github.com/ogier/pflag
+
+build_script:
+  - call internal\ctests\build.bat

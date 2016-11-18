@@ -4,7 +4,8 @@ package win
 //ref SOCKET_ADDRESS
 //ref ULONG
 //ref DWORD
-//import unsafe
+import "unsafe"
+
 type IP_ADAPTER_PREFIX_XP struct {
 	union1       ULONGLONG
 	Next         *IP_ADAPTER_PREFIX_XP

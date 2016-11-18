@@ -1,5 +1,7 @@
 package win
 
+import "unsafe"
+
 type PRINTDLG struct {
 	storage [66]byte
 }

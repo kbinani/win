@@ -18,7 +18,8 @@ package win
 //ref NET_IF_CONNECTION_TYPE
 //ref TUNNEL_TYPE
 //ref PIP_ADAPTER_DNS_SUFFIX
-//import unsafe
+import "unsafe"
+
 func (this *IP_ADAPTER_ADDRESSES_LH) Alignment() *ULONGLONG {
 	return &this.union1
 }

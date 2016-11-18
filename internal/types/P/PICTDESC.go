@@ -6,7 +6,8 @@ package win
 //ref HMETAFILE
 //ref HICON
 //ref HENHMETAFILE
-//import unsafe
+import "unsafe"
+
 type PICTDESC struct {
 	CbSizeofstruct UINT
 	PicType        UINT

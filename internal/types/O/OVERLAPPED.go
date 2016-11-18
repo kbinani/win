@@ -4,7 +4,8 @@ package win
 //ref HANDLE
 //ref DWORD
 //ref PVOID
-//import unsafe
+import "unsafe"
+
 type OVERLAPPED struct {
 	Internal     ULONG_PTR
 	InternalHigh ULONG_PTR

@@ -2,7 +2,8 @@ package win
 
 //ref USHORT
 //ref BYTE
-//import unsafe
+import "unsafe"
+
 type SHITEMID struct {
 	storage [3]byte
 }

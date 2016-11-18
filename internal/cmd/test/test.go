@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	win "github.com/kbinani/win"
 	"os"
 	"path/filepath"
 	"reflect"
 	"runtime"
 	"sort"
 	"strings"
-	"sync"
+
+	win "github.com/kbinani/win"
 )
 
 var (
@@ -55,18 +55,9 @@ func main() {
 		os.Mkdir(dir, 0777)
 	}
 
-	var wg sync.WaitGroup
-	semaphore := make(chan int, runtime.NumCPU())
 	for _, name := range names {
-		wg.Add(1)
-		go func(n string) {
-			defer wg.Done()
-			semaphore <- 1
-			printTestCase(n)
-			<-semaphore
-		}(string([]byte(name)))
+		printTestCase(name)
 	}
-	wg.Wait()
 }
 
 func printTestCase(typename string) error {
@@ -197,8 +188,9 @@ func printTestCase(typename string) error {
 		}
 		fmt.Fprintf(f, "\n")
 
-		for i := 0; i < t.NumField(); i++ {
-			sf := t.Field(i)
+		fields := getFields(t)
+		for i := 0; i < len(fields); i++ {
+			sf := fields[i]
 			if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 				continue
 			}
@@ -218,8 +210,8 @@ func printTestCase(typename string) error {
 			}
 		}
 		fmt.Fprintf(f, "public:\n")
-		for i := 0; i < t.NumField(); i++ {
-			sf := t.Field(i)
+		for i := 0; i < len(fields); i++ {
+			sf := fields[i]
 			if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 				continue
 			}
@@ -241,8 +233,9 @@ func printTestCase(typename string) error {
 	fmt.Fprintf(f, "\n")
 
 	if t.Kind() == reflect.Struct {
-		for i := 0; i < t.NumField(); i++ {
-			sf := t.Field(i)
+		fields := getFields(t)
+		for i := 0; i < len(fields); i++ {
+			sf := fields[i]
 			if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 				continue
 			}
@@ -260,4 +253,37 @@ func printTestCase(typename string) error {
 		fmt.Fprintf(f, "#endif // !defined(_WIN64)\n")
 	}
 	return nil
+}
+
+type tagField struct {
+	Name   string
+	Offset uintptr
+}
+
+func getFields(t reflect.Type) []tagField {
+	ret := []tagField{}
+	for i := 0; i < t.NumField(); i++ {
+		sf := t.Field(i)
+		if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
+			continue
+		}
+		ret = append(ret, tagField{sf.Name, sf.Offset})
+	}
+
+	ptrType := reflect.PtrTo(t)
+	v := reflect.New(t)
+	base := v.Pointer()
+	for i := 0; i < ptrType.NumMethod(); i++ {
+		m := ptrType.Method(i)
+		for j := 0; j < m.Type.NumOut(); j++ {
+			o := m.Type.Out(j)
+			if o.Kind() != reflect.Ptr {
+				continue
+			}
+			r := m.Func.Call([]reflect.Value{v})
+			offset := r[0].Pointer() - base
+			ret = append(ret, tagField{m.Name, offset})
+		}
+	}
+	return ret
 }

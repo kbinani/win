@@ -4,7 +4,8 @@ package win
 //ref SECURITY_CONTEXT_TRACKING_MODE
 //ref BOOLEAN
 //ref DWORD
-//import unsafe
+import "unsafe"
+
 type SECURITY_QUALITY_OF_SERVICE struct {
 	storage [12]byte
 }

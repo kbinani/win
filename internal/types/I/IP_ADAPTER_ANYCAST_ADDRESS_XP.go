@@ -2,7 +2,8 @@ package win
 
 //ref ULONGLONG
 //ref SOCKET_ADDRESS
-//import unsafe
+import "unsafe"
+
 func (this *IP_ADAPTER_ANYCAST_ADDRESS_XP) Alignment() *ULONGLONG {
 	return (*ULONGLONG)(unsafe.Pointer(&this.union1))
 }

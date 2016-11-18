@@ -1,9 +1,11 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type INPUT struct {
-	Type uint32
-	data [36]byte
+	Type     uint32
+	padding1 [4]byte
+	data     [32]byte
 }
 
 func (this *INPUT) Mi() *MOUSEINPUT {

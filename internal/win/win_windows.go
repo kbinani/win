@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math"
 	"syscall"
-	"unsafe"
 )
 
 func doLoadLibrary(name string) uintptr {
@@ -89,26 +88,4 @@ func getUintptrFromBool(b bool) uintptr {
 	} else {
 		return 0
 	}
-}
-
-func getCOORDFromUintptr(v uintptr) COORD {
-	var ret COORD
-	u32 := uint32(v)
-	ret.X = *(*int16)(unsafe.Pointer(&u32))
-	ret.Y = *(*int16)(unsafe.Pointer(uintptr(unsafe.Pointer(&u32)) + uintptr(2)))
-	return ret
-}
-
-func getUintptrFromCOORD(c COORD) uintptr {
-	var ret uintptr
-	xPtr := (*int16)(unsafe.Pointer(&ret))
-	*xPtr = c.X
-	yPtr := (*int16)(unsafe.Pointer(uintptr(unsafe.Pointer(&ret)) + uintptr(2)))
-	*yPtr = c.Y
-	return ret
-}
-
-func getUintptrFromBLENDFUNCTION(v BLENDFUNCTION) uintptr {
-	ret := (uint32(v.BlendOp) << 12) | (uint32(v.BlendFlags) << 8) | (uint32(v.SourceConstantAlpha) << 4) | uint32(v.AlphaFormat)
-	return uintptr(ret)
 }

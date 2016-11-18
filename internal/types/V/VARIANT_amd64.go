@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type VARIANT struct {
 	union1 [24]byte
 }

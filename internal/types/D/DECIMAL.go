@@ -5,7 +5,8 @@ package win
 //ref USHORT
 //ref ULONG
 //ref ULONGLONG
-//import unsafe
+import "unsafe"
+
 type DECIMAL struct {
 	WReserved USHORT
 	union1    [2]byte

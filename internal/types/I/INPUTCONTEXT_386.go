@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type INPUTCONTEXT struct {
 	storage [320]byte
 }

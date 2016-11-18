@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type MIDIHDR struct {
 	storage [64]byte
 }

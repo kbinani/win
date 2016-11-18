@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type INPUTCONTEXT struct {
 	storage [352]byte
 }
@@ -32,27 +33,31 @@ func (this *INPUTCONTEXT) CfCompForm() *COMPOSITIONFORM { // 28
 func (this *INPUTCONTEXT) CfCandForm() *[4]CANDIDATEFORM { // 128
 	return (*[4]CANDIDATEFORM)(unsafe.Pointer(&this.storage[156]))
 }
+
+//padding 4
 func (this *INPUTCONTEXT) HCompStr() *HIMCC { // 8
-	return (*HIMCC)(unsafe.Pointer(&this.storage[284]))
+	return (*HIMCC)(unsafe.Pointer(&this.storage[288]))
 }
 func (this *INPUTCONTEXT) HCandInfo() *HIMCC { // 8
-	return (*HIMCC)(unsafe.Pointer(&this.storage[292]))
+	return (*HIMCC)(unsafe.Pointer(&this.storage[296]))
 }
 func (this *INPUTCONTEXT) HGuideLine() *HIMCC { // 8
-	return (*HIMCC)(unsafe.Pointer(&this.storage[300]))
+	return (*HIMCC)(unsafe.Pointer(&this.storage[304]))
 }
 func (this *INPUTCONTEXT) HPrivate() *HIMCC { // 8
-	return (*HIMCC)(unsafe.Pointer(&this.storage[308]))
+	return (*HIMCC)(unsafe.Pointer(&this.storage[312]))
 }
 func (this *INPUTCONTEXT) DwNumMsgBuf() *DWORD { // 4
-	return (*DWORD)(unsafe.Pointer(&this.storage[316]))
+	return (*DWORD)(unsafe.Pointer(&this.storage[320]))
 }
+
+//padding 4
 func (this *INPUTCONTEXT) HMsgBuf() *HIMCC { // 8
-	return (*HIMCC)(unsafe.Pointer(&this.storage[320]))
+	return (*HIMCC)(unsafe.Pointer(&this.storage[328]))
 }
 func (this *INPUTCONTEXT) FdwInit() *DWORD { // 4
-	return (*DWORD)(unsafe.Pointer(&this.storage[328]))
+	return (*DWORD)(unsafe.Pointer(&this.storage[336]))
 }
 func (this *INPUTCONTEXT) DwReserve() *[3]DWORD { // 12
-	return (*[3]DWORD)(unsafe.Pointer(&this.storage[332]))
+	return (*[3]DWORD)(unsafe.Pointer(&this.storage[340]))
 }

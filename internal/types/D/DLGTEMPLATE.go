@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 type DLGTEMPLATE struct {
 	storage [18]byte
 }

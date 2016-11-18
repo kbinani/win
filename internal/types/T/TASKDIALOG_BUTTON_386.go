@@ -1,7 +1,8 @@
 package win
 
 //ref PCWSTR
-//import unsafe
+import "unsafe"
+
 type TASKDIALOG_BUTTON struct {
 	storage [8]byte
 }

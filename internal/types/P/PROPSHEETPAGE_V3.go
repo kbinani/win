@@ -1,6 +1,7 @@
 package win
 
-//import unsafe
+import "unsafe"
+
 //ref DWORD
 //ref LPCWSTR
 //ref UINT
