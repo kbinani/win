@@ -20,3 +20,8 @@ install:
 
 build_script:
   - call internal\ctests\build.bat
+
+artifacts:
+  - path: '*.log'
+    type: zip
+    name: log

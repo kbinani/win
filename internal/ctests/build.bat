@@ -4,7 +4,7 @@ call :main
 exit /b %errorlevel%
 
 :main
-	go run internal\cmd\gen\gen.go
+	go run internal\cmd\gen\gen.go > generate.log
 	if not %errorlevel% == 0 (
 		exit /b 1
 	)
@@ -22,7 +22,7 @@ exit /b %errorlevel%
 	)
 
 	pushd internal\ctests\build\amd64
-	call :test_with_generator "Visual Studio 14 2015 Win64"
+	call :test_with_generator "Visual Studio 14 2015 Win64" build_amd64.log
 	if not %errorlevel% == 0 (
 		popd
 		exit /b 4
@@ -30,7 +30,7 @@ exit /b %errorlevel%
 	popd
 
 	pushd internal\ctests\build\386
-	call :test_with_generator "Visual Studio 14 2015"
+	call :test_with_generator "Visual Studio 14 2015" build_386.log
 	if not %errorlevel% == 0 (
 		popd
 		exit /b 5
@@ -40,12 +40,12 @@ exit /b %errorlevel%
 
 
 :test_with_generator
-	call :clean_cmake_cache
-	cmake ..\.. -G "%~1"
+	call :clean_cmake_cache 2>nul
+	cmake ..\.. -G "%~1" > "..\..\..\..\%~2"
 	if not %errorlevel% == 0 (
 		exit /b %errorlevel%
 	)
-	cmake --build .
+	cmake --build . >> "..\..\..\..\%~2"
 	if not %errorlevel% == 0 (
 		exit /b %errorlevel%
 	)
