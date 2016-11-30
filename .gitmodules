@@ -1,3 +1,9 @@
 [submodule "internal/ctests/googletest"]
 	path = internal/ctests/googletest
 	url = https://github.com/google/googletest.git
+[submodule "internal/ctests/cmakemodules/add_msvc_precompiled_header"]
+	path = internal/ctests/cmakemodules/add_msvc_precompiled_header
+	url = https://gist.github.com/3e55feb6e4615d3624af90c5eaf57c33.git
+[submodule "internal/ctests/cmakemodules/setup_source_groups"]
+	path = internal/ctests/cmakemodules/setup_source_groups
+	url = https://gist.github.com/d042b6d630d175cc4941eaf6fd2c3a3c.git
