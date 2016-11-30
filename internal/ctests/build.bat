@@ -5,7 +5,7 @@ exit /b %errorlevel%
 
 :main
 	echo go run internal\cmd\gen\gen.go
-	go run internal\cmd\gen\gen.go > generate.log
+	go run internal\cmd\gen\gen.go --all > generate.log
 	if not %errorlevel% == 0 (
 		exit /b 1
 	)
