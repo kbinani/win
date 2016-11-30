@@ -159,6 +159,7 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"MIXERLINEW":                  "MIXERLINE",
 		"WAVEINCAPSW":                 "WAVEINCAPS",
 		"WAVEOUTCAPSW":                "WAVEOUTCAPS",
+		"BROWSEINFOW":                 "BROWSEINFO",
 	}
 
 	goType, ok := table[t]
@@ -431,6 +432,15 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"LPWAVEINCAPSW":                      "LPWAVEINCAPS",
 		"LPWAVEFORMATEX":                     "LPWAVEFORMATEX",
 		"LPWAVEOUTCAPSW":                     "LPWAVEOUTCAPS",
+		"LPDATAOBJECT":                       "LPDATAOBJECT",
+		"LPITEMIDLIST":                       "LPITEMIDLIST",
+		"LPCABINETSTATE":                     "LPCABINETSTATE",
+		"PAPPBARDATA":                        "PAPPBARDATA",
+		"LPBROWSEINFOW":                      "LPBROWSEINFO",
+		"PCUITEMID_CHILD_ARRAY":              "PCUITEMID_CHILD_ARRAY",
+		"LPCSFV":                             "LPCSFV",
+		"PCIDLIST_ABSOLUTE_ARRAY":            "PCIDLIST_ABSOLUTE_ARRAY",
+		"LPDROPSOURCE":                       "LPDROPSOURCE",
 	}
 	goType, ok = tablePtr[t]
 	if ok {
@@ -460,6 +470,8 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"LPCMMIOINFO":                "*MMIOINFO",
 		"const char _huge*":          "HPSTR",
 		"LPCWAVEFORMATEX":            "*WAVEFORMATEX",
+		"LPCSHITEMID":                "*SHITEMID",
+		"PCIDLIST_ABSOLUTE":          "PCIDLIST_ABSOLUTE",
 	}
 	goType, ok = tableConst[t]
 	if ok {
@@ -526,6 +538,9 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"TIMECALLBACK":                       "TIMECALLBACK",
 		"LPTASKCALLBACK":                     "TASKCALLBACK",
 		"TASKCALLBACK":                       "TASKCALLBACK",
+		"LPFNADDPROPSHEETPAGE":               "LPFNADDPROPSHEETPAGE",
+		"LPFNDFMCALLBACK":                    "LPFNDFMCALLBACK",
+		"BFFCALLBACK":                        "BFFCALLBACK",
 	}
 	goType, ok = tableFunc[t]
 	if ok {

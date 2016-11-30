@@ -17,6 +17,12 @@ import (
 	"github.com/ogier/pflag"
 )
 
+/*
+^\s*([0-9A-Za-z_]*)\s*(\**)\s*([0-9A-Za-z_\[\] +]*)\s*;.*(//.*)?$
+
+$3 $2$1
+*/
+
 func main() {
 	flagMinGWVersion := pflag.String("mingw-version", DefaultMinGWVersion, "Version number of MinGW") // https://github.com/mirror/mingw-w64/releases
 	flagWineVersion := pflag.String("wine-version", DefaultWineVersion, "Version number of Wine")     // https://github.com/wine-mirror/wine/releases

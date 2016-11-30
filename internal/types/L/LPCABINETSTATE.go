@@ -1,0 +1,5 @@
+package win
+
+//ref CABINETSTATE
+
+type LPCABINETSTATE *CABINETSTATE

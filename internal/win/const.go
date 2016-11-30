@@ -966,3 +966,28 @@ const MAX_JOYSTICKOEMVXDNAME = 260
 
 const MIXER_SHORT_NAME_CHARS = 16
 const MIXER_LONG_NAME_CHARS = 64
+
+const NUM_POINTS = 3
+
+type ASSOC_FILTER int32
+
+const (
+	ASSOC_FILTER_NONE        ASSOC_FILTER = 0
+	ASSOC_FILTER_RECOMMENDED ASSOC_FILTER = 0x1
+)
+
+type FOLDERVIEWMODE int32
+
+const (
+	FVM_AUTO       FOLDERVIEWMODE = -1
+	FVM_FIRST                     = 1
+	FVM_ICON                      = 1
+	FVM_SMALLICON                 = 2
+	FVM_LIST                      = 3
+	FVM_DETAILS                   = 4
+	FVM_THUMBNAIL                 = 5
+	FVM_TILE                      = 6
+	FVM_THUMBSTRIP                = 7
+	FVM_CONTENT                   = 8
+	FVM_LAST                      = 8
+)

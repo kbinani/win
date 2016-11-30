@@ -26,6 +26,9 @@ var (
 		"REFGUID",
 		"WSAEVENT",
 		"REFIID",
+		"PCIDLIST_ABSOLUTE", // alias of LPCITEMIDLIST
+		"PCUITEMID_CHILD_ARRAY",
+		"PCIDLIST_ABSOLUTE_ARRAY",
 
 		"bool",
 		"string",

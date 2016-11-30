@@ -1,0 +1,5 @@
+package win
+
+//ref BROWSEINFO
+
+type LPBROWSEINFO *BROWSEINFO
