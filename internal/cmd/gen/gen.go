@@ -3,7 +3,6 @@ package main
 import (
 	"archive/zip"
 	"bufio"
-	"encoding/json"
 	"fmt"
 	"go/format"
 	"io"
@@ -123,40 +122,9 @@ func main() {
 	}
 }
 
-func loadCache(cacheFilePath string) (map[string][]Func, error) {
-	funcs := make(map[string][]Func)
-	if !IsFileExist(cacheFilePath) {
-		return funcs, fmt.Errorf("Cache file not found: %s", cacheFilePath)
-	}
-	fp, err := os.Open(cacheFilePath)
-	if err != nil {
-		return funcs, fmt.Errorf("Cannot open cache: %s", cacheFilePath)
-	}
-	defer fp.Close()
-	bytes, e := ioutil.ReadAll(fp)
-	if e != nil {
-		return funcs, e
-	}
-	e2 := json.Unmarshal(bytes, &funcs)
-	if e2 != nil {
-		return make(map[string][]Func), e2
-	}
-	return funcs, nil
-}
-
-func saveCache(cache map[string][]Func, cacheFilePath string) {
-	fp, err := os.Create(cacheFilePath)
-	if err != nil {
-		panic(err)
-	}
-	defer fp.Close()
-	enc := json.NewEncoder(fp)
-	enc.Encode(&cache)
-}
-
 func getFuncList(minGWVersion string, wineVersion string) map[string][]Func {
-	cacheFilePath := filepath.Join("internal", "cache.json")
-	cache, err := loadCache(cacheFilePath)
+	cacheFilePath := filepath.Join("internal", "cache.json.zip")
+	cache, err := LoadCache(cacheFilePath)
 	if err == nil {
 		return cache
 	}
@@ -244,7 +212,7 @@ func getFuncList(minGWVersion string, wineVersion string) map[string][]Func {
 		}
 	}
 
-	saveCache(tmp, cacheFilePath)
+	SaveCache(tmp, cacheFilePath)
 
 	return tmp
 }
