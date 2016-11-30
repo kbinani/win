@@ -21,6 +21,7 @@ import (
 func main() {
 	flagMinGWVersion := pflag.String("mingw-version", DefaultMinGWVersion, "Version number of MinGW") // https://github.com/mirror/mingw-w64/releases
 	flagWineVersion := pflag.String("wine-version", DefaultWineVersion, "Version number of Wine")     // https://github.com/wine-mirror/wine/releases
+	flagOutputDir := pflag.String("output", ".", "Directory to put generated files")
 	// flagFunctions := pflag.String("functions", "", "Comma separated list of Win32API (ex. --functions=CreateFile,FindWindowEx)")
 	// flagAll := pflag.Bool("all", false, "Set this true if you want all Win32API")
 	pflag.Parse()
@@ -31,7 +32,7 @@ func main() {
 	referencedTypes := NewStringSet()
 	allExportedFuncs := []Func{}
 	for dll, funcList := range funcs {
-		types, exportedFuncs, err := printFuncs(funcList, removeFileExt(dll))
+		types, exportedFuncs, err := printFuncs(funcList, removeFileExt(dll), *flagOutputDir)
 		if err != nil {
 			panic(err)
 		}
@@ -42,7 +43,7 @@ func main() {
 	}
 
 	// Copy referenced types from internal/types/{typename}.go
-	if err := createTypedefFile(referencedTypes); err != nil {
+	if err := createTypedefFile(referencedTypes, *flagOutputDir); err != nil {
 		panic(err)
 	}
 
@@ -58,7 +59,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		dest, err := os.Create(fileName)
+		dest, err := os.Create(filepath.Join(*flagOutputDir, fileName))
 		if err != nil {
 			panic(err)
 		}
@@ -234,7 +235,7 @@ func getFuncList(minGWVersion string, wineVersion string) map[string][]Func {
 	return tmp
 }
 
-func createTypedefFile(referencedTypes *StringSet) error {
+func createTypedefFile(referencedTypes *StringSet, dir string) error {
 	types := NewStringSet()
 	for _, t := range referencedTypes.Values() {
 		if strings.HasPrefix(t, "*") {
@@ -281,7 +282,7 @@ func createTypedefFile(referencedTypes *StringSet) error {
 		changed = before != types.Size()
 	}
 
-	typesFilePath := "types.go"
+	typesFilePath := filepath.Join(dir, "types.go")
 	typesFile, err := os.Create(typesFilePath)
 	if err != nil {
 		return err
@@ -377,7 +378,7 @@ func createTypedefFile(referencedTypes *StringSet) error {
 	typesFile.Close()
 
 	for _, arch := range []string{"386", "amd64"} {
-		fp, err := os.Create(fmt.Sprintf("types_%s.go", arch))
+		fp, err := os.Create(filepath.Join(dir, fmt.Sprintf("types_%s.go", arch)))
 		if err != nil {
 			return err
 		}
@@ -431,9 +432,9 @@ func createTypedefFile(referencedTypes *StringSet) error {
 	return nil
 }
 
-func printFuncs(funcs []Func, dllName string) (requiredTypes *StringSet, printedFuncs []Func, e error) {
+func printFuncs(funcs []Func, dllName, dir string) (requiredTypes *StringSet, printedFuncs []Func, e error) {
 	requiredTypes = NewStringSet()
-	goFilePath := fmt.Sprintf("%s.go", dllName)
+	goFilePath := filepath.Join(dir, fmt.Sprintf("%s.go", dllName))
 	f, err := os.Create(goFilePath)
 	if err != nil {
 		return NewStringSet(), []Func{}, err
