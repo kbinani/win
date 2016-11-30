@@ -1,0 +1,5 @@
+package win
+
+//ref IEnumFORMATETC
+
+type LPENUMFORMATETC *IEnumFORMATETC

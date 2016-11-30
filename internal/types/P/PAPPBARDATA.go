@@ -1,0 +1,5 @@
+package win
+
+//ref APPBARDATA
+
+type PAPPBARDATA *APPBARDATA

@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	. "github.com/kbinani/win/internal"
 	"os"
 	"os/exec"
+
+	. "github.com/kbinani/win/internal"
 )
 
 func main() {
 	typename := os.Args[1]
-	filename := TemplateFilePath(typename)
+	filename := TemplateFilePath(typename, "")
 	if !IsFileExist(filename) {
 		f, _ := os.Create(filename)
 		if f != nil {

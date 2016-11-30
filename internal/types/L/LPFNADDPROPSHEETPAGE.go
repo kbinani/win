@@ -1,0 +1,7 @@
+package win
+
+//ref HPROPSHEETPAGE
+//ref LPARAM
+//ref BOOL
+
+type LPFNADDPROPSHEETPAGE func(unnamed0 HPROPSHEETPAGE, unnamed1 LPARAM) BOOL
