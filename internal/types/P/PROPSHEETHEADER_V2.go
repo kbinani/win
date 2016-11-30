@@ -43,12 +43,12 @@ func (this *PROPSHEETHEADER_V2) PStartPage() string {
 	return stringFromUnicode16((*uint16)(unsafe.Pointer(this.union2)))
 }
 
-func (this *PROPSHEETHEADER_V2) Ppsp() /*const*/ *PROPSHEETPAGE {
-	return (*PROPSHEETPAGE)(unsafe.Pointer(this.union3))
+func (this *PROPSHEETHEADER_V2) Ppsp() /*const*/ **PROPSHEETPAGE {
+	return (**PROPSHEETPAGE)(unsafe.Pointer(&this.union3))
 }
 
-func (this *PROPSHEETHEADER_V2) Phpage() HPROPSHEETPAGE {
-	return HPROPSHEETPAGE(this.union3)
+func (this *PROPSHEETHEADER_V2) Phpage() *HPROPSHEETPAGE {
+	return (*HPROPSHEETPAGE)(unsafe.Pointer(&this.union3))
 }
 
 func (this *PROPSHEETHEADER_V2) HbmWatermark() HBITMAP {

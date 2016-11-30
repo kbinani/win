@@ -1,0 +1,5 @@
+package win
+
+//ref MIB_TCP6ROW2
+
+type PMIB_TCP6ROW2 *MIB_TCP6ROW2

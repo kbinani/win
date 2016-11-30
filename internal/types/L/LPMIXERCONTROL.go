@@ -1,0 +1,5 @@
+package win
+
+//ref MIXERCONTROL
+
+type LPMIXERCONTROL *MIXERCONTROL

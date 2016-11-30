@@ -1,0 +1,5 @@
+package win
+
+//ref SOCKADDR_IN6_PAIR
+
+type PSOCKADDR_IN6_PAIR *SOCKADDR_IN6_PAIR

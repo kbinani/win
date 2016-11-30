@@ -4,82 +4,72 @@ call :main
 exit /b %errorlevel%
 
 :main
-	echo go run internal\cmd\gen\gen.go
-	go run internal\cmd\gen\gen.go --all > generate.log
+	(call :exec go run internal\cmd\gen\gen.go) > generate.log
 	if not %errorlevel% == 0 (
 		exit /b 1
 	)
 
-	echo set GOARCH=amd64
-	set GOARCH=amd64
-	echo go run internal\cmd\test\test.go
-	go run internal\cmd\test\test.go
+	call :setv GOARCH amd64
+	call :exec go run internal\cmd\test\test.go
 	if not %errorlevel% == 0 (
+		call :setv GOARCH
 		exit /b 2
 	)
 
-	echo set GOARCH=386
-	set GOARCH=386
-	echo go run internal\cmd\test\test.go
-	go run internal\cmd\test\test.go
+	call :setv GOARCH 386
+	call :exec go run internal\cmd\test\test.go
 	if not %errorlevel% == 0 (
+		call :setv GOARCH
 		exit /b 3
 	)
+	call :setv GOARCH
 
-	echo pushd internal\ctests\build\amd64
-	pushd internal\ctests\build\amd64
+	call :exec pushd internal\ctests\build\amd64
 	call :test_with_generator "Visual Studio 14 2015 Win64" amd64
 	if not %errorlevel% == 0 (
-		echo popd
-		popd
+		call :exec popd
 		exit /b 4
 	)
-	echo popd
-	popd
+	call :exec popd
 
-	echo pushd internal\ctests\build\386
-	pushd internal\ctests\build\386
+	call :exec pushd internal\ctests\build\386
 	call :test_with_generator "Visual Studio 14 2015" 386
 	if not %errorlevel% == 0 (
-		echo popd
-		popd
+		call :exec popd
 		exit /b 5
 	)
-	echo popd
-	popd
+	call :exec popd
 	exit /b 0
 
 
 :test_with_generator
-	call :clean_cmake_cache 2>nul
-	echo cmake ..\.. -G "%~1"
-	cmake ..\.. -G "%~1" > "..\..\..\..\build_%2.log"
+	(call :exec cmake ..\.. -G "%~1") > ..\..\..\..\build_%2.log
 	if not %errorlevel% == 0 (
-		exit /b %errorlevel%
+		exit /b 1
 	)
-	echo cmake --build .
-	cmake --build . >> "..\..\..\..\build_%~2.log"
+
+	(call :exec cmake --build .) >> ..\..\..\..\build_%2.log
 	if not %errorlevel% == 0 (
-		exit /b %errorlevel%
+		exit /b 1
 	)
-	echo Debug\ctests.exe "--gtest_output=xml:..\..\..\..\test_%~2.xml"
-	Debug\ctests.exe "--gtest_output=xml:..\..\..\..\test_%~2.xml" > "..\..\..\..\test_%~2.log"
+	(call :exec Debug\ctests.exe --gtest_output=xml:..\..\..\..\test_%~2.xml) >> ..\..\..\..\test_%~2.log
 	if not %errorlevel% == 0 (
-		exit /b %errorlevel%
+		exit /b 1
 	)
 	exit /b 0
 
 
-:clean_cmake_cache
-	echo clean_cmake_cache
-	del CMakeCache.txt
-	del cmake_install.cmake
-	del ctests.VC.db
-	rmdir /S /Q .vs
-	rmdir /S /Q CMakeFiles
-	rmdir /S /Q ctests.dir
-	rmdir /S /Q ipch
-	rmdir /S /Q Win32
-	rmdir /S /Q x64
-	rmdir /S /Q Debug
+:exec
+	echo %* 1>&2
+	%* 2>&1
+	set ret=%errorlevel%
+	if not %ret% == 0 (
+		echo FAIL 1>&2
+		exit /b %ret%
+	)
 	exit /b 0
+
+:setv
+	echo set %1=%2
+	set %1=%2
+

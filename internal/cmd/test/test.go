@@ -9,7 +9,12 @@ import (
 	"sort"
 	"strings"
 
+	"bufio"
+
+	"sync"
+
 	win "github.com/kbinani/win"
+	. "github.com/kbinani/win/internal"
 )
 
 var (
@@ -17,6 +22,10 @@ var (
 		"MRUINFO",
 		"NDR_SCONTEXT_",
 		"INTERFACE_HANDLE",
+		"REFCLSID",
+		"REFGUID",
+		"WSAEVENT",
+		"REFIID",
 
 		"bool",
 		"string",
@@ -51,102 +60,129 @@ func main() {
 
 	for i := "A"[0]; i <= "Z"[0]; i++ {
 		dir := filepath.Join("internal", "ctests", runtime.GOARCH, string(i))
-		os.RemoveAll(dir)
 		os.Mkdir(dir, 0777)
 	}
 
+	printedFiles := NewStringSet()
+
+	var wg sync.WaitGroup
+	m := new(sync.Mutex)
 	for _, name := range names {
-		printTestCase(name)
+		wg.Add(1)
+		go func(n string) {
+			defer wg.Done()
+			filename, err := printTestCase(n)
+			if err == nil && filename != "" {
+				m.Lock()
+				defer m.Unlock()
+				printedFiles.Put(filename)
+			}
+		}(name)
+	}
+	wg.Wait()
+
+	for i := "A"[0]; i <= "Z"[0]; i++ {
+		dir := filepath.Join("internal", "ctests", runtime.GOARCH, string(i))
+		d, err := os.Open(dir)
+		if err != nil {
+			panic(err)
+		}
+		defer d.Close()
+		names, err := d.Readdirnames(-1)
+		if err != nil {
+			panic(err)
+		}
+		for _, name := range names {
+			n := filepath.Join(dir, name)
+			if !printedFiles.Has(n) {
+				os.Remove(n)
+			}
+		}
 	}
 }
 
-func printTestCase(typename string) error {
+func printTestCase(typename string) (string, error) {
 	t := win.Typeof(typename)
 	if t.Kind() == reflect.Func {
-		return nil
+		return "", nil
 	}
 	_, ok := blacklist[typename]
 	if ok {
-		return fmt.Errorf("%s is blacklisted", typename)
+		return "", fmt.Errorf("%s is blacklisted", typename)
 	}
 
 	switch typename {
-	case "PROPSHEETHEADER_V2":
-		typename = "PROPSHEETHEADER"
 	case "CRYPTOAPI_BLOB_":
 		typename = "_CRYPTOAPI_BLOB"
 	}
 
-	pre := typename[0:1]
-	filename := filepath.Join("internal", "ctests", runtime.GOARCH, pre, fmt.Sprintf("%s_%s_test.cpp", typename, runtime.GOARCH))
-	f, err := os.Create(filename)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	if runtime.GOARCH == "amd64" {
-		fmt.Fprintf(f, "#if defined(_WIN64)\n")
-	} else {
-		fmt.Fprintf(f, "#if !defined(_WIN64)\n")
-	}
-	fmt.Fprintf(f, "\n")
+	lines := []string{}
 
-	fmt.Fprintf(f, "#if !defined(%s)\n", typename)
-	fmt.Fprintf(f, "\n")
+	if runtime.GOARCH == "amd64" {
+		lines = append(lines, fmt.Sprintf("#if defined(_WIN64)"))
+	} else {
+		lines = append(lines, fmt.Sprintf("#if !defined(_WIN64)"))
+	}
+	lines = append(lines, fmt.Sprintf(""))
+
+	lines = append(lines, fmt.Sprintf("#if defined(%s)", typename))
+	lines = append(lines, fmt.Sprintf("\t#undef %s", typename))
+	lines = append(lines, fmt.Sprintf("#endif"))
+	lines = append(lines, fmt.Sprintf(""))
 
 	draftTypeNames := []string{}
 	draftTypeEnabler := []string{}
 
-	fmt.Fprintf(f, "namespace {\n")
-	fmt.Fprintf(f, "\n")
-	fmt.Fprintf(f, "namespace size {\n")
-	fmt.Fprintf(f, "\n")
-	fmt.Fprintf(f, "namespace of {\n")
-	fmt.Fprintf(f, "\n")
-	fmt.Fprintf(f, "class impl {\n")
+	lines = append(lines, fmt.Sprintf("namespace {"))
+	lines = append(lines, fmt.Sprintf(""))
+	lines = append(lines, fmt.Sprintf("namespace size {"))
+	lines = append(lines, fmt.Sprintf(""))
+	lines = append(lines, fmt.Sprintf("namespace of {"))
+	lines = append(lines, fmt.Sprintf(""))
+	lines = append(lines, fmt.Sprintf("class impl {"))
 
-	fmt.Fprintf(f, "\tstruct order6 {};\n")
-	fmt.Fprintf(f, "\tstruct order5 : public order6 {};\n")
-	fmt.Fprintf(f, "\tstruct order4 : public order5 {};\n")
-	fmt.Fprintf(f, "\tstruct order3 : public order4 {};\n")
-	fmt.Fprintf(f, "\tstruct order2 : public order3 {};\n")
-	fmt.Fprintf(f, "\tstruct order1 : public order2 {};\n")
-	fmt.Fprintf(f, "\n")
+	lines = append(lines, fmt.Sprintf("\tstruct order6 {};"))
+	lines = append(lines, fmt.Sprintf("\tstruct order5 : public order6 {};"))
+	lines = append(lines, fmt.Sprintf("\tstruct order4 : public order5 {};"))
+	lines = append(lines, fmt.Sprintf("\tstruct order3 : public order4 {};"))
+	lines = append(lines, fmt.Sprintf("\tstruct order2 : public order3 {};"))
+	lines = append(lines, fmt.Sprintf("\tstruct order1 : public order2 {};"))
+	lines = append(lines, fmt.Sprintf(""))
 
 	enabler := fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%sW)>::value && std::is_pointer<decltype(new ::%sA)>::value>::type", typename, typename)
-	fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-	fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order1 arg) { return sizeof(::%sW); }\n", typename, typename)
-	fmt.Fprintf(f, "\n")
+	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
+	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order1 arg) { return sizeof(::%sW); }", typename, typename))
+	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%sW", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", typename)
-	fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-	fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order2 arg) { return sizeof(::%s); }\n", typename, typename)
-	fmt.Fprintf(f, "\n")
+	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
+	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order2 arg) { return sizeof(::%s); }", typename, typename))
+	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, typename)
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%sW)>::value>::type", typename)
-	fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-	fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order3 arg) { return sizeof(::%sW); }\n", typename, typename)
-	fmt.Fprintf(f, "\n")
+	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
+	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order3 arg) { return sizeof(::%sW); }", typename, typename))
+	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%sW", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s_W)>::value>::type", typename)
-	fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-	fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order4 arg) { return sizeof(::%s_W); }\n", typename, typename)
-	fmt.Fprintf(f, "\n")
+	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
+	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order4 arg) { return sizeof(::%s_W); }", typename, typename))
+	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%s_W", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	lowerCamelTypename := strings.ToLower(typename[0:1]) + typename[1:]
 	if lowerCamelTypename != typename {
 		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", lowerCamelTypename)
-		fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-		fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order5 arg) { return sizeof(::%s); }\n", typename, lowerCamelTypename)
-		fmt.Fprintf(f, "\n")
+		lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
+		lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order5 arg) { return sizeof(::%s); }", typename, lowerCamelTypename))
+		lines = append(lines, fmt.Sprintf(""))
 		draftTypeNames = append(draftTypeNames, lowerCamelTypename)
 		draftTypeEnabler = append(draftTypeEnabler, enabler)
 	}
@@ -156,47 +192,47 @@ func printTestCase(typename string) error {
 		versionedTypename := fmt.Sprintf("%sW_%s", pre, tokens[len(tokens)-1])
 
 		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", versionedTypename)
-		fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-		fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order6 arg) { return sizeof(::%s); }\n", typename, versionedTypename)
-		fmt.Fprintf(f, "\n")
+		lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
+		lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order6 arg) { return sizeof(::%s); }", typename, versionedTypename))
+		lines = append(lines, fmt.Sprintf(""))
 		draftTypeNames = append(draftTypeNames, versionedTypename)
 		draftTypeEnabler = append(draftTypeEnabler, enabler)
 	}
-	fmt.Fprintf(f, "public:\n")
-	fmt.Fprintf(f, "\tstatic constexpr size_t %s() { return %s_impl(order1{}); }\n", typename, typename)
+	lines = append(lines, fmt.Sprintf("public:"))
+	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s() { return %s_impl(order1{}); }", typename, typename))
 
-	fmt.Fprintf(f, "};\n")
-	fmt.Fprintf(f, "\n")
-	fmt.Fprintf(f, "static constexpr size_t %s = impl::%s();\n", typename, typename)
-	fmt.Fprintf(f, "\n")
-	fmt.Fprintf(f, "} // namespace of\n")
-	fmt.Fprintf(f, "\n")
-	fmt.Fprintf(f, "} // namespace size\n")
-	fmt.Fprintf(f, "\n")
+	lines = append(lines, fmt.Sprintf("};"))
+	lines = append(lines, fmt.Sprintf(""))
+	lines = append(lines, fmt.Sprintf("static constexpr size_t %s = impl::%s();", typename, typename))
+	lines = append(lines, fmt.Sprintf(""))
+	lines = append(lines, fmt.Sprintf("} // namespace of"))
+	lines = append(lines, fmt.Sprintf(""))
+	lines = append(lines, fmt.Sprintf("} // namespace size"))
+	lines = append(lines, fmt.Sprintf(""))
 
 	if t.Kind() == reflect.Struct {
-		fmt.Fprintf(f, "namespace offset {\n")
-		fmt.Fprintf(f, "\n")
-		fmt.Fprintf(f, "namespace of {\n")
-		fmt.Fprintf(f, "\n")
-		fmt.Fprintf(f, "namespace %s {\n", typename)
-		fmt.Fprintf(f, "\n")
-		fmt.Fprintf(f, "class impl {\n")
-		fmt.Fprintf(f, "\ttemplate <typename>\n")
-		fmt.Fprintf(f, "\tstruct enabler{\n")
-		fmt.Fprintf(f, "\t\ttypedef bool type;\n")
-		fmt.Fprintf(f, "\t};\n")
+		lines = append(lines, fmt.Sprintf("namespace offset {"))
+		lines = append(lines, fmt.Sprintf(""))
+		lines = append(lines, fmt.Sprintf("namespace of {"))
+		lines = append(lines, fmt.Sprintf(""))
+		lines = append(lines, fmt.Sprintf("namespace %s {", typename))
+		lines = append(lines, fmt.Sprintf(""))
+		lines = append(lines, fmt.Sprintf("class impl {"))
+		lines = append(lines, fmt.Sprintf("\ttemplate <typename>"))
+		lines = append(lines, fmt.Sprintf("\tstruct enabler{"))
+		lines = append(lines, fmt.Sprintf("\t\ttypedef bool type;"))
+		lines = append(lines, fmt.Sprintf("\t};"))
 
-		fmt.Fprintf(f, "\n")
+		lines = append(lines, fmt.Sprintf(""))
 		maxOrder := 2 * len(draftTypeNames)
 		for order := maxOrder; order >= 1; order-- {
 			if order == maxOrder {
-				fmt.Fprintf(f, "\tstruct order%d {};\n", order)
+				lines = append(lines, fmt.Sprintf("\tstruct order%d {};", order))
 			} else {
-				fmt.Fprintf(f, "\tstruct order%d : public order%d {};\n", order, order+1)
+				lines = append(lines, fmt.Sprintf("\tstruct order%d : public order%d {};", order, order+1))
 			}
 		}
-		fmt.Fprintf(f, "\n")
+		lines = append(lines, fmt.Sprintf(""))
 
 		fields := getFields(t)
 		for i := 0; i < len(fields); i++ {
@@ -212,44 +248,44 @@ func printTestCase(typename string) error {
 				draftTypeName := draftTypeNames[j]
 				typeEnabler := draftTypeEnabler[j]
 				for _, draftFieldName := range draftFieldNames {
-					fmt.Fprintf(f, "\ttemplate <%s, typename = enabler<decltype(::%s::%s)>::type>\n", typeEnabler, draftTypeName, draftFieldName)
-					fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order%d arg0) { return offsetof(::%s, %s); }\n", sf.Name, order, draftTypeName, draftFieldName)
-					fmt.Fprintf(f, "\n")
+					lines = append(lines, fmt.Sprintf("\ttemplate <%s, typename = enabler<decltype(::%s::%s)>::type>", typeEnabler, draftTypeName, draftFieldName))
+					lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order%d arg0) { return offsetof(::%s, %s); }", sf.Name, order, draftTypeName, draftFieldName))
+					lines = append(lines, fmt.Sprintf(""))
 					order++
 				}
 			}
 		}
-		fmt.Fprintf(f, "public:\n")
+		lines = append(lines, fmt.Sprintf("public:"))
 		for i := 0; i < len(fields); i++ {
 			sf := fields[i]
 			if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 				continue
 			}
-			fmt.Fprintf(f, "\tstatic constexpr size_t %s() { return %s_impl(order1{}); }\n", sf.Name, sf.Name)
+			lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s() { return %s_impl(order1{}); }", sf.Name, sf.Name))
 		}
 
-		fmt.Fprintf(f, "};\n")
-		fmt.Fprintf(f, "\n")
+		lines = append(lines, fmt.Sprintf("};"))
+		lines = append(lines, fmt.Sprintf(""))
 		for i := 0; i < len(fields); i++ {
 			sf := fields[i]
-			fmt.Fprintf(f, "static constexpr size_t %s = impl::%s();\n", sf.Name, sf.Name)
+			lines = append(lines, fmt.Sprintf("static constexpr size_t %s = impl::%s();", sf.Name, sf.Name))
 		}
-		fmt.Fprintf(f, "\n")
-		fmt.Fprintf(f, "} // namespace %s\n", typename)
-		fmt.Fprintf(f, "\n")
-		fmt.Fprintf(f, "} // namespace of\n")
-		fmt.Fprintf(f, "\n")
-		fmt.Fprintf(f, "} // namespace offset\n")
-		fmt.Fprintf(f, "\n")
+		lines = append(lines, fmt.Sprintf(""))
+		lines = append(lines, fmt.Sprintf("} // namespace %s", typename))
+		lines = append(lines, fmt.Sprintf(""))
+		lines = append(lines, fmt.Sprintf("} // namespace of"))
+		lines = append(lines, fmt.Sprintf(""))
+		lines = append(lines, fmt.Sprintf("} // namespace offset"))
+		lines = append(lines, fmt.Sprintf(""))
 	}
 
-	fmt.Fprintf(f, "} // anonymouse namespace\n")
-	fmt.Fprintf(f, "\n")
+	lines = append(lines, fmt.Sprintf("} // anonymouse namespace"))
+	lines = append(lines, fmt.Sprintf(""))
 
-	fmt.Fprintf(f, "TEST(%s, size) {\n", typename)
-	fmt.Fprintf(f, "\tEXPECT_EQ(size::of::%s, %d);\n", typename, t.Size())
-	fmt.Fprintf(f, "}\n")
-	fmt.Fprintf(f, "\n")
+	lines = append(lines, fmt.Sprintf("TEST(%s, size) {", typename))
+	lines = append(lines, fmt.Sprintf("\tEXPECT_EQ(size::of::%s, %d);", typename, t.Size()))
+	lines = append(lines, fmt.Sprintf("}"))
+	lines = append(lines, fmt.Sprintf(""))
 
 	if t.Kind() == reflect.Struct {
 		fields := getFields(t)
@@ -258,20 +294,55 @@ func printTestCase(typename string) error {
 			if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 				continue
 			}
-			fmt.Fprintf(f, "TEST(%s, offsetof_%s) {\n", typename, sf.Name)
-			fmt.Fprintf(f, "\tEXPECT_EQ(offset::of::%s::%s, %d);\n", typename, sf.Name, sf.Offset)
-			fmt.Fprintf(f, "}\n")
-			fmt.Fprintf(f, "\n")
+			lines = append(lines, fmt.Sprintf("TEST(%s, offsetof_%s) {", typename, sf.Name))
+			lines = append(lines, fmt.Sprintf("\tEXPECT_EQ(offset::of::%s::%s, %d);", typename, sf.Name, sf.Offset))
+			lines = append(lines, fmt.Sprintf("}"))
+			lines = append(lines, fmt.Sprintf(""))
 		}
 	}
 
-	fmt.Fprintf(f, "#endif // !defined(%s)\n", typename)
+	// lines = append(lines, fmt.Sprintf("#endif // !defined(%s)", typename))
 	if runtime.GOARCH == "amd64" {
-		fmt.Fprintf(f, "#endif // defined(_WIN64)\n")
+		lines = append(lines, fmt.Sprintf("#endif // defined(_WIN64)"))
 	} else {
-		fmt.Fprintf(f, "#endif // !defined(_WIN64)\n")
+		lines = append(lines, fmt.Sprintf("#endif // !defined(_WIN64)"))
 	}
-	return nil
+
+	pre := typename[0:1]
+	filename := filepath.Join("internal", "ctests", runtime.GOARCH, pre, fmt.Sprintf("%s_%s_test.cpp", TemplateFileName(typename), runtime.GOARCH))
+	if isFileSame(lines, filename) {
+		return filename, nil
+	}
+
+	f, err := os.Create(filename)
+	if err != nil {
+		return "", err
+	}
+	defer f.Close()
+
+	for _, line := range lines {
+		fmt.Fprintf(f, "%s\n", line)
+	}
+
+	return filename, nil
+}
+
+func isFileSame(expectedLines []string, actualFileName string) bool {
+	f, err := os.Open(actualFileName)
+	if err != nil {
+		return false
+	}
+	defer f.Close()
+	s := bufio.NewScanner(f)
+	i := 0
+	for s.Scan() && i < len(expectedLines) {
+		line := s.Text()
+		if line != expectedLines[i] {
+			return false
+		}
+		i++
+	}
+	return i == len(expectedLines)
 }
 
 type tagField struct {
