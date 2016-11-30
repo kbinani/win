@@ -17,6 +17,9 @@ func Wget(url string, destFilePath string) error {
 		return err
 	}
 	defer fp.Close()
-	io.Copy(fp, res.Body)
+	_, e := io.Copy(fp, res.Body)
+	if e != nil {
+		return e
+	}
 	return nil
 }
