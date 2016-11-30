@@ -101,7 +101,9 @@ func printTestCase(typename string) error {
 	fmt.Fprintf(f, "\n")
 	fmt.Fprintf(f, "namespace size {\n")
 	fmt.Fprintf(f, "\n")
-	fmt.Fprintf(f, "class of {\n")
+	fmt.Fprintf(f, "namespace of {\n")
+	fmt.Fprintf(f, "\n")
+	fmt.Fprintf(f, "class impl {\n")
 
 	fmt.Fprintf(f, "\tstruct order6 {};\n")
 	fmt.Fprintf(f, "\tstruct order5 : public order6 {};\n")
@@ -113,28 +115,28 @@ func printTestCase(typename string) error {
 
 	enabler := fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%sW)>::value && std::is_pointer<decltype(new ::%sA)>::value>::type", typename, typename)
 	fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-	fmt.Fprintf(f, "\tstatic size_t %s_impl(order1 arg) { return sizeof(::%sW); }\n", typename, typename)
+	fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order1 arg) { return sizeof(::%sW); }\n", typename, typename)
 	fmt.Fprintf(f, "\n")
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%sW", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", typename)
 	fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-	fmt.Fprintf(f, "\tstatic size_t %s_impl(order2 arg) { return sizeof(::%s); }\n", typename, typename)
+	fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order2 arg) { return sizeof(::%s); }\n", typename, typename)
 	fmt.Fprintf(f, "\n")
 	draftTypeNames = append(draftTypeNames, typename)
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%sW)>::value>::type", typename)
 	fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-	fmt.Fprintf(f, "\tstatic size_t %s_impl(order3 arg) { return sizeof(::%sW); }\n", typename, typename)
+	fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order3 arg) { return sizeof(::%sW); }\n", typename, typename)
 	fmt.Fprintf(f, "\n")
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%sW", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s_W)>::value>::type", typename)
 	fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-	fmt.Fprintf(f, "\tstatic size_t %s_impl(order4 arg) { return sizeof(::%s_W); }\n", typename, typename)
+	fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order4 arg) { return sizeof(::%s_W); }\n", typename, typename)
 	fmt.Fprintf(f, "\n")
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%s_W", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
@@ -143,7 +145,7 @@ func printTestCase(typename string) error {
 	if lowerCamelTypename != typename {
 		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", lowerCamelTypename)
 		fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-		fmt.Fprintf(f, "\tstatic size_t %s_impl(order5 arg) { return sizeof(::%s); }\n", typename, lowerCamelTypename)
+		fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order5 arg) { return sizeof(::%s); }\n", typename, lowerCamelTypename)
 		fmt.Fprintf(f, "\n")
 		draftTypeNames = append(draftTypeNames, lowerCamelTypename)
 		draftTypeEnabler = append(draftTypeEnabler, enabler)
@@ -155,15 +157,19 @@ func printTestCase(typename string) error {
 
 		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", versionedTypename)
 		fmt.Fprintf(f, "\ttemplate <%s>\n", enabler)
-		fmt.Fprintf(f, "\tstatic size_t %s_impl(order6 arg) { return sizeof(::%s); }\n", typename, versionedTypename)
+		fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order6 arg) { return sizeof(::%s); }\n", typename, versionedTypename)
 		fmt.Fprintf(f, "\n")
 		draftTypeNames = append(draftTypeNames, versionedTypename)
 		draftTypeEnabler = append(draftTypeEnabler, enabler)
 	}
 	fmt.Fprintf(f, "public:\n")
-	fmt.Fprintf(f, "\tstatic size_t %s() { return %s_impl(order1{}); }\n", typename, typename)
+	fmt.Fprintf(f, "\tstatic constexpr size_t %s() { return %s_impl(order1{}); }\n", typename, typename)
 
 	fmt.Fprintf(f, "};\n")
+	fmt.Fprintf(f, "\n")
+	fmt.Fprintf(f, "static constexpr size_t %s = impl::%s();\n", typename, typename)
+	fmt.Fprintf(f, "\n")
+	fmt.Fprintf(f, "} // namespace of\n")
 	fmt.Fprintf(f, "\n")
 	fmt.Fprintf(f, "} // namespace size\n")
 	fmt.Fprintf(f, "\n")
@@ -171,7 +177,11 @@ func printTestCase(typename string) error {
 	if t.Kind() == reflect.Struct {
 		fmt.Fprintf(f, "namespace offset {\n")
 		fmt.Fprintf(f, "\n")
-		fmt.Fprintf(f, "class of {\n")
+		fmt.Fprintf(f, "namespace of {\n")
+		fmt.Fprintf(f, "\n")
+		fmt.Fprintf(f, "namespace %s {\n", typename)
+		fmt.Fprintf(f, "\n")
+		fmt.Fprintf(f, "class impl {\n")
 		fmt.Fprintf(f, "\ttemplate <typename>\n")
 		fmt.Fprintf(f, "\tstruct enabler{\n")
 		fmt.Fprintf(f, "\t\ttypedef bool type;\n")
@@ -202,8 +212,8 @@ func printTestCase(typename string) error {
 				draftTypeName := draftTypeNames[j]
 				typeEnabler := draftTypeEnabler[j]
 				for _, draftFieldName := range draftFieldNames {
-					fmt.Fprintf(f, "\ttemplate <%s, typename = enabler<decltype(%s::%s)>::type>\n", typeEnabler, draftTypeName, draftFieldName)
-					fmt.Fprintf(f, "\tstatic size_t %s_impl(order%d arg0) { return offsetof(%s, %s); }\n", sf.Name, order, draftTypeName, draftFieldName)
+					fmt.Fprintf(f, "\ttemplate <%s, typename = enabler<decltype(::%s::%s)>::type>\n", typeEnabler, draftTypeName, draftFieldName)
+					fmt.Fprintf(f, "\tstatic constexpr size_t %s_impl(order%d arg0) { return offsetof(::%s, %s); }\n", sf.Name, order, draftTypeName, draftFieldName)
 					fmt.Fprintf(f, "\n")
 					order++
 				}
@@ -215,10 +225,19 @@ func printTestCase(typename string) error {
 			if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 				continue
 			}
-			fmt.Fprintf(f, "\tstatic size_t %s() { return %s_impl(order1{}); }\n", sf.Name, sf.Name)
+			fmt.Fprintf(f, "\tstatic constexpr size_t %s() { return %s_impl(order1{}); }\n", sf.Name, sf.Name)
 		}
 
 		fmt.Fprintf(f, "};\n")
+		fmt.Fprintf(f, "\n")
+		for i := 0; i < len(fields); i++ {
+			sf := fields[i]
+			fmt.Fprintf(f, "static constexpr size_t %s = impl::%s();\n", sf.Name, sf.Name)
+		}
+		fmt.Fprintf(f, "\n")
+		fmt.Fprintf(f, "} // namespace %s\n", typename)
+		fmt.Fprintf(f, "\n")
+		fmt.Fprintf(f, "} // namespace of\n")
 		fmt.Fprintf(f, "\n")
 		fmt.Fprintf(f, "} // namespace offset\n")
 		fmt.Fprintf(f, "\n")
@@ -228,7 +247,7 @@ func printTestCase(typename string) error {
 	fmt.Fprintf(f, "\n")
 
 	fmt.Fprintf(f, "TEST(%s, size) {\n", typename)
-	fmt.Fprintf(f, "\tEXPECT_EQ(size::of::%s(), %d);\n", typename, t.Size())
+	fmt.Fprintf(f, "\tEXPECT_EQ(size::of::%s, %d);\n", typename, t.Size())
 	fmt.Fprintf(f, "}\n")
 	fmt.Fprintf(f, "\n")
 
@@ -240,7 +259,7 @@ func printTestCase(typename string) error {
 				continue
 			}
 			fmt.Fprintf(f, "TEST(%s, offsetof_%s) {\n", typename, sf.Name)
-			fmt.Fprintf(f, "\tEXPECT_EQ(offset::of::%s(), %d);\n", sf.Name, sf.Offset)
+			fmt.Fprintf(f, "\tEXPECT_EQ(offset::of::%s::%s, %d);\n", typename, sf.Name, sf.Offset)
 			fmt.Fprintf(f, "}\n")
 			fmt.Fprintf(f, "\n")
 		}
