@@ -22,9 +22,25 @@ func main() {
 	flagMinGWVersion := pflag.String("mingw-version", DefaultMinGWVersion, "Version number of MinGW") // https://github.com/mirror/mingw-w64/releases
 	flagWineVersion := pflag.String("wine-version", DefaultWineVersion, "Version number of Wine")     // https://github.com/wine-mirror/wine/releases
 	flagOutputDir := pflag.String("output", ".", "Directory to put generated files")
-	// flagFunctions := pflag.String("functions", "", "Comma separated list of Win32API (ex. --functions=CreateFile,FindWindowEx)")
-	// flagAll := pflag.Bool("all", false, "Set this true if you want all Win32API")
+	flagFunctions := pflag.String("functions", "", "Comma separated list of Win32API (ex. --functions=CreateFile,FindWindowEx)")
+	flagAll := pflag.Bool("all", false, "Set this true if you want all Win32API")
 	pflag.Parse()
+
+	if *flagAll && *flagFunctions != "" {
+		fmt.Fprintf(os.Stderr, "--all and --functions should not coexist\n")
+		return
+	}
+	if !*flagAll && *flagFunctions == "" {
+		fmt.Fprintf(os.Stderr, "--functions argument is empty\n")
+		return
+	}
+	functions := NewStringSet()
+	if *flagFunctions != "" {
+		for _, fun := range strings.Split(*flagFunctions, ",") {
+			fun = strings.Trim(fun, " ")
+			functions.Put(fun)
+		}
+	}
 
 	funcs := getFuncList(*flagMinGWVersion, *flagWineVersion)
 
@@ -32,7 +48,7 @@ func main() {
 	referencedTypes := NewStringSet()
 	allExportedFuncs := []Func{}
 	for dll, funcList := range funcs {
-		types, exportedFuncs, err := printFuncs(funcList, removeFileExt(dll), *flagOutputDir)
+		types, exportedFuncs, err := printFuncs(funcList, removeFileExt(dll), *flagOutputDir, *flagAll, functions)
 		if err != nil {
 			panic(err)
 		}
@@ -68,44 +84,46 @@ func main() {
 		src.Close()
 	}
 
-	// Report API coverage
-	coverage := make(map[string]*Rat)
-	for _, funcList := range funcs {
-		for _, fun := range funcList {
-			exported := false
-			for _, f := range allExportedFuncs {
-				if fun.Name == f.Name {
-					exported = true
-					break
+	if *flagAll {
+		// Report API coverage
+		coverage := make(map[string]*Rat)
+		for _, funcList := range funcs {
+			for _, fun := range funcList {
+				exported := false
+				for _, f := range allExportedFuncs {
+					if fun.Name == f.Name {
+						exported = true
+						break
+					}
 				}
-			}
-			r, ok := coverage[fun.Dll]
-			if ok {
-				num := r.Num
-				if exported {
-					num += 1
-				}
+				r, ok := coverage[fun.Dll]
+				if ok {
+					num := r.Num
+					if exported {
+						num += 1
+					}
 
-				denom := r.Denom + 1
-				coverage[fun.Dll] = NewRat(num, denom)
-			} else {
-				if exported {
-					coverage[fun.Dll] = NewRat(1, 1)
+					denom := r.Denom + 1
+					coverage[fun.Dll] = NewRat(num, denom)
 				} else {
-					coverage[fun.Dll] = NewRat(0, 1)
+					if exported {
+						coverage[fun.Dll] = NewRat(1, 1)
+					} else {
+						coverage[fun.Dll] = NewRat(0, 1)
+					}
 				}
 			}
 		}
-	}
-	fmt.Printf("API coverage:\n")
-	var coverages APICoverages
-	for dll, cov := range coverage {
-		coverages = append(coverages, APICoverage{dll, cov})
-	}
-	sort.Sort(coverages)
-	for _, cov := range coverages {
-		rate := cov.Coverage.Float64() * 100.0
-		fmt.Printf("  %-16s: %4d/%4d (%6.2f)\n", cov.Dll, cov.Coverage.Num, cov.Coverage.Denom, rate)
+		fmt.Printf("API coverage:\n")
+		var coverages APICoverages
+		for dll, cov := range coverage {
+			coverages = append(coverages, APICoverage{dll, cov})
+		}
+		sort.Sort(coverages)
+		for _, cov := range coverages {
+			rate := cov.Coverage.Float64() * 100.0
+			fmt.Printf("  %-16s: %4d/%4d (%6.2f)\n", cov.Dll, cov.Coverage.Num, cov.Coverage.Denom, rate)
+		}
 	}
 }
 
@@ -432,25 +450,8 @@ func createTypedefFile(referencedTypes *StringSet, dir string) error {
 	return nil
 }
 
-func printFuncs(funcs []Func, dllName, dir string) (requiredTypes *StringSet, printedFuncs []Func, e error) {
+func printFuncs(funcs []Func, dllName, dir string, all bool, functions *StringSet) (requiredTypes *StringSet, printedFuncs []Func, e error) {
 	requiredTypes = NewStringSet()
-	goFilePath := filepath.Join(dir, fmt.Sprintf("%s.go", dllName))
-	f, err := os.Create(goFilePath)
-	if err != nil {
-		return NewStringSet(), []Func{}, err
-	}
-	defer f.Close()
-
-	// Headers
-	header := []string{
-		"// +build windows",
-		"",
-		"package win",
-		"",
-	}
-	for _, h := range header {
-		fmt.Fprintf(f, "%s\n", h)
-	}
 
 	libvarName := fmt.Sprintf("lib%s", strings.ToLower(dllName))
 
@@ -461,6 +462,11 @@ func printFuncs(funcs []Func, dllName, dir string) (requiredTypes *StringSet, pr
 	// Function definitions
 	addEmptyLine := true
 	for _, fun := range funcs {
+		if !all {
+			if !functions.Has(fun.GoName()) {
+				continue
+			}
+		}
 		lines, types, imported, e := fun.ToString(fun.FuncPtrVarName(), 1)
 		if len(lines) == 0 {
 			if addEmptyLine {
@@ -484,6 +490,28 @@ func printFuncs(funcs []Func, dllName, dir string) (requiredTypes *StringSet, pr
 		for _, line := range lines {
 			funcExportLines = append(funcExportLines, line)
 		}
+	}
+
+	if len(funcExportLines) == 0 {
+		return NewStringSet(), []Func{}, nil
+	}
+
+	goFilePath := filepath.Join(dir, fmt.Sprintf("%s.go", dllName))
+	f, err := os.Create(goFilePath)
+	if err != nil {
+		return NewStringSet(), []Func{}, err
+	}
+	defer f.Close()
+
+	// Headers
+	header := []string{
+		"// +build windows",
+		"",
+		"package win",
+		"",
+	}
+	for _, h := range header {
+		fmt.Fprintf(f, "%s\n", h)
 	}
 
 	// import

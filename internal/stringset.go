@@ -36,3 +36,8 @@ func (o *StringSet) Merge(other *StringSet) {
 func (o *StringSet) Size() int {
 	return len(o.values)
 }
+
+func (o *StringSet) Has(s string) bool {
+	_, ok := o.values[s]
+	return ok
+}
