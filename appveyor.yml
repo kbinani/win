@@ -1,5 +1,7 @@
 environment:
   GOPATH: c:\gopath
+  access_token:
+    secure: BbnQtZbDO6JNuN32NvqknOo5XD5r5NrqIKlP273eergo5bpuOyFUQuzk9K4GcxwP
 
 branches:
   only:
@@ -30,3 +32,16 @@ after_build:
   - ps: $wc = New-Object 'System.Net.WebClient'
   - ps: $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test_amd64.xml))
   - ps: $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test_386.xml))
+
+on_success:
+  - ps: |
+      $deploy = ($env:APPVEYOR_REPO_TAG -eq $true)
+      if ($deploy)
+      {
+        git config --global credential.helper store
+        Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n" -NoNewline
+        git config --global user.email "kbinani.bt@gmail.com"
+        git config --global user.name "kbinani"
+        git remote set-url origin "https://github.com/kbinani/win.git"
+        cmd.exe /c internal\merge-into-master.bat c:\tmp\win $env:APPVEYOR_REPO_COMMIT
+      }
