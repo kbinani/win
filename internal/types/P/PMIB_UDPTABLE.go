@@ -1,0 +1,5 @@
+package win
+
+//ref MIB_UDPTABLE
+
+type PMIB_UDPTABLE *MIB_UDPTABLE

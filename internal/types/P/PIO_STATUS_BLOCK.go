@@ -1,0 +1,5 @@
+package win
+
+//ref IO_STATUS_BLOCK
+
+type PIO_STATUS_BLOCK *IO_STATUS_BLOCK

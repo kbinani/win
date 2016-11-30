@@ -1,0 +1,5 @@
+package win
+
+//ref MIDIOUTCAPS
+
+type LPMIDIOUTCAPS *MIDIOUTCAPS

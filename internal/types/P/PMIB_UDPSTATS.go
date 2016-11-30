@@ -1,0 +1,5 @@
+package win
+
+//ref MIB_UDPSTATS
+
+type PMIB_UDPSTATS *MIB_UDPSTATS

@@ -1,0 +1,5 @@
+package win
+
+//ref MIB_TCPTABLE2
+
+type PMIB_TCPTABLE2 *MIB_TCPTABLE2

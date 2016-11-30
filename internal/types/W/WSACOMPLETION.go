@@ -8,7 +8,18 @@ package win
 //ref LPWSAOVERLAPPED_COMPLETION_ROUTINE
 //ref HANDLE
 //ref ULONG_PTR
+
 import "unsafe"
+
+type WSACOMPLETION struct {
+	Type       WSACOMPLETIONTYPE
+	padding1   [pad4for64_0for32]byte
+	Parameters WSACOMPLETION_Parameters
+}
+
+type WSACOMPLETION_Parameters struct {
+	storage [4 * pad6for64_3for32]byte
+}
 
 type WSACOMPLETION_Parameters_WindowMessage struct {
 	HWnd    HWND

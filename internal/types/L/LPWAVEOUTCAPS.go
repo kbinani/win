@@ -1,0 +1,5 @@
+package win
+
+//ref WAVEOUTCAPS
+
+type LPWAVEOUTCAPS *WAVEOUTCAPS

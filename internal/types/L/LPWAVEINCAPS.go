@@ -1,0 +1,5 @@
+package win
+
+//ref WAVEINCAPS
+
+type LPWAVEINCAPS *WAVEINCAPS

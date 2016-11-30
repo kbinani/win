@@ -1,0 +1,5 @@
+package win
+
+//ref NET_ADDRESS_INFO
+
+type PNET_ADDRESS_INFO *NET_ADDRESS_INFO

@@ -1,0 +1,5 @@
+package win
+
+//ref MIB_UDP6TABLE
+
+type PMIB_UDP6TABLE *MIB_UDP6TABLE

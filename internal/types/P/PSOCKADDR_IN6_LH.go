@@ -1,0 +1,5 @@
+package win
+
+//ref SOCKADDR_IN6_LH
+
+type PSOCKADDR_IN6_LH *SOCKADDR_IN6_LH
