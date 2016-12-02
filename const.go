@@ -12,6 +12,8 @@ const (
 	CCHFORMNAME   = 32
 )
 
+type SECURITY_IMPERSONATION_LEVEL int32
+
 const (
 	SecurityAnonymous SECURITY_IMPERSONATION_LEVEL = iota
 	SecurityIdentification
@@ -785,3 +787,207 @@ const (
 )
 
 const TCPIP_OWNING_MODULE_SIZE = 16
+const MAX_DEFAULTCHAR = 2
+const MAX_LEADBYTES = 12
+
+const (
+	FOREGROUND_BLUE            = 0x0001
+	FOREGROUND_GREEN           = 0x0002
+	FOREGROUND_RED             = 0x0004
+	FOREGROUND_INTENSITY       = 0x0008
+	BACKGROUND_BLUE            = 0x0010
+	BACKGROUND_GREEN           = 0x0020
+	BACKGROUND_RED             = 0x0040
+	BACKGROUND_INTENSITY       = 0x0080
+	COMMON_LVB_LEADING_BYTE    = 0x0100
+	COMMON_LVB_TRAILING_BYTE   = 0x0200
+	COMMON_LVB_GRID_HORIZONTAL = 0x0400
+	COMMON_LVB_GRID_LVERTICAL  = 0x0800
+	COMMON_LVB_GRID_RVERTICAL  = 0x1000
+	COMMON_LVB_REVERSE_VIDEO   = 0x4000
+	COMMON_LVB_UNDERSCORE      = 0x8000
+)
+
+type TCP_ESTATS_TYPE int32
+
+const (
+	TcpConnectionEstatsSynOpts TCP_ESTATS_TYPE = iota
+	TcpConnectionEstatsData
+	TcpConnectionEstatsSndCong
+	TcpConnectionEstatsPath
+	TcpConnectionEstatsSendBuff
+	TcpConnectionEstatsRec
+	TcpConnectionEstatsObsRec
+	TcpConnectionEstatsBandwidth
+	TcpConnectionEstatsFineRtt
+	TcpConnectionEstatsMaximum
+)
+
+type TCP_CONNECTION_OFFLOAD_STATE int32
+
+const (
+	TcpConnectionOffloadStateInHost TCP_CONNECTION_OFFLOAD_STATE = iota
+	TcpConnectionOffloadStateOffloading
+	TcpConnectionOffloadStateOffloaded
+	TcpConnectionOffloadStateUploading
+	TcpConnectionOffloadStateMax
+)
+
+type TCP_RTO_ALGORITHM int32
+
+const (
+	TcpRtoAlgorithmOther TCP_RTO_ALGORITHM = iota
+	TcpRtoAlgorithmConstant
+	TcpRtoAlgorithmRsre
+	TcpRtoAlgorithmVanj
+
+	MIB_TCP_RTO_OTHER    = 1
+	MIB_TCP_RTO_CONSTANT = 2
+	MIB_TCP_RTO_RSRE     = 3
+	MIB_TCP_RTO_VANJ     = 4
+)
+
+type NET_ADDRESS_FORMAT int32
+
+const (
+	NET_ADDRESS_FORMAT_UNSPECIFIED NET_ADDRESS_FORMAT = iota
+	NET_ADDRESS_DNS_NAME
+	NET_ADDRESS_IPV4
+	NET_ADDRESS_IPV6
+)
+
+const DNS_MAX_NAME_BUFFER_LENGTH = 256
+
+type NDIS_MEDIUM int32
+
+const (
+	NdisMedium802_3 NDIS_MEDIUM = iota
+	NdisMedium802_5
+	NdisMediumFddi
+	NdisMediumWan
+	NdisMediumLocalTalk
+	NdisMediumDix
+	NdisMediumArcnetRaw
+	NdisMediumArcnet878_2
+	NdisMediumAtm
+	NdisMediumWirelessWan
+	NdisMediumIrda
+	NdisMediumBpc
+	NdisMediumCoWan
+	NdisMedium1394
+	NdisMediumInfiniBand
+	NdisMediumTunnel
+	NdisMediumNative802_11
+	NdisMediumLoopback
+	NdisMediumWiMAX
+	NdisMediumIP
+	NdisMediumMax
+)
+
+type NDIS_PHYSICAL_MEDIUM int32
+
+const (
+	NdisPhysicalMediumUnspecified NDIS_PHYSICAL_MEDIUM = iota
+	NdisPhysicalMediumWirelessLan
+	NdisPhysicalMediumCableModem
+	NdisPhysicalMediumPhoneLine
+	NdisPhysicalMediumPowerLine
+	NdisPhysicalMediumDSL
+	NdisPhysicalMediumFibreChannel
+	NdisPhysicalMedium1394
+	NdisPhysicalMediumWirelessWan
+	NdisPhysicalMediumNative802_11
+	NdisPhysicalMediumBluetooth
+	NdisPhysicalMediumInfiniband
+	NdisPhysicalMediumWiMax
+	NdisPhysicalMediumUWB
+	NdisPhysicalMedium802_3
+	NdisPhysicalMedium802_5
+	NdisPhysicalMediumIrda
+	NdisPhysicalMediumWiredWAN
+	NdisPhysicalMediumWiredCoWan
+	NdisPhysicalMediumOther
+	NdisPhysicalMediumMax
+)
+
+type NET_IF_ACCESS_TYPE int32
+
+const (
+	NET_IF_ACCESS_LOOPBACK             NET_IF_ACCESS_TYPE = 1
+	NET_IF_ACCESS_BROADCAST                               = 2
+	NET_IF_ACCESS_POINT_TO_POINT                          = 3
+	NET_IF_ACCESS_POINT_TO_MULTI_POINT                    = 4
+	NET_IF_ACCESS_MAXIMUM                                 = 5
+)
+
+type NET_IF_ADMIN_STATUS int32
+
+const (
+	NET_IF_ADMIN_STATUS_UP      NET_IF_ADMIN_STATUS = 1
+	NET_IF_ADMIN_STATUS_DOWN                        = 2
+	NET_IF_ADMIN_STATUS_TESTING                     = 3
+)
+
+type NET_IF_DIRECTION_TYPE int32
+
+const (
+	NET_IF_DIRECTION_SENDRECEIVE NET_IF_DIRECTION_TYPE = iota
+	NET_IF_DIRECTION_SENDONLY
+	NET_IF_DIRECTION_RECEIVEONLY
+	NET_IF_DIRECTION_MAXIMUM
+)
+
+type NET_IF_MEDIA_CONNECT_STATE int32
+
+const (
+	MediaConnectStateUnknown NET_IF_MEDIA_CONNECT_STATE = iota
+	MediaConnectStateConnected
+	MediaConnectStateDisconnected
+)
+
+const IF_MAX_STRING_SIZE = 256
+const IF_MAX_PHYS_ADDRESS_LENGTH = 32
+
+type PFADDRESSTYPE int32
+
+const (
+	PF_IPV4 PFADDRESSTYPE = iota
+	PF_IPV6
+)
+
+type PFFORWARD_ACTION int32
+
+const (
+	PF_ACTION_FORWARD PFFORWARD_ACTION = iota
+	PF_ACTION_DROP
+)
+
+const MAX_JOYSTICKOEMVXDNAME = 260
+
+const MIXER_SHORT_NAME_CHARS = 16
+const MIXER_LONG_NAME_CHARS = 64
+
+const NUM_POINTS = 3
+
+type ASSOC_FILTER int32
+
+const (
+	ASSOC_FILTER_NONE        ASSOC_FILTER = 0
+	ASSOC_FILTER_RECOMMENDED ASSOC_FILTER = 0x1
+)
+
+type FOLDERVIEWMODE int32
+
+const (
+	FVM_AUTO       FOLDERVIEWMODE = -1
+	FVM_FIRST                     = 1
+	FVM_ICON                      = 1
+	FVM_SMALLICON                 = 2
+	FVM_LIST                      = 3
+	FVM_DETAILS                   = 4
+	FVM_THUMBNAIL                 = 5
+	FVM_TILE                      = 6
+	FVM_THUMBSTRIP                = 7
+	FVM_CONTENT                   = 8
+	FVM_LAST                      = 8
+)
