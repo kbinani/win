@@ -106,6 +106,7 @@ var (
 	sHDoDragDrop                            uintptr
 	sHEmptyRecycleBin                       uintptr
 	sHEnumerateUnreadMailAccountsW          uintptr
+	sHFileOperation                         uintptr
 	sHFindFiles                             uintptr
 	sHFind_InitMenuPopup                    uintptr
 	sHFlushClipboard                        uintptr
@@ -113,20 +114,35 @@ var (
 	sHFormatDrive                           uintptr
 	sHFree                                  uintptr
 	sHFreeNameMappings                      uintptr
+	sHGetDataFromIDList                     uintptr
 	sHGetDesktopFolder                      uintptr
+	sHGetFileInfo                           uintptr
 	sHGetFolderLocation                     uintptr
 	sHGetFolderPathAndSubDir                uintptr
+	sHGetFolderPathEx                       uintptr
 	sHGetFolderPath                         uintptr
+	sHGetIDListFromObject                   uintptr
 	sHGetIconOverlayIndex                   uintptr
 	sHGetImageList                          uintptr
 	sHGetInstanceExplorer                   uintptr
+	sHGetItemFromDataObject                 uintptr
 	sHGetItemFromObject                     uintptr
+	sHGetKnownFolderIDList                  uintptr
+	sHGetKnownFolderItem                    uintptr
+	sHGetKnownFolderPath                    uintptr
 	sHGetLocalizedName                      uintptr
+	sHGetMalloc                             uintptr
+	sHGetNameFromIDList                     uintptr
 	sHGetNewLinkInfo                        uintptr
 	sHGetPathFromIDList                     uintptr
 	sHGetPropertyStoreForWindow             uintptr
+	sHGetPropertyStoreFromParsingName       uintptr
+	sHGetRealIDL                            uintptr
+	sHGetSetSettings                        uintptr
+	sHGetSettings                           uintptr
 	sHGetSpecialFolderLocation              uintptr
 	sHGetSpecialFolderPath                  uintptr
+	sHGetStockIconInfo                      uintptr
 	sHHandleUpdateImage                     uintptr
 	sHHelpShortcuts_RunDLL                  uintptr
 	sHIsFileAvailableOffline                uintptr
@@ -137,7 +153,11 @@ var (
 	sHMapPIDLToSystemImageListIndex         uintptr
 	sHObjectProperties                      uintptr
 	sHOpenFolderAndSelectItems              uintptr
+	sHParseDisplayName                      uintptr
 	sHPathPrepareForWrite                   uintptr
+	sHPropStgCreate                         uintptr
+	sHPropStgReadMultiple                   uintptr
+	sHPropStgWriteMultiple                  uintptr
 	sHRemoveLocalizedName                   uintptr
 	sHRunControlPanel                       uintptr
 	sHSetInstanceExplorer                   uintptr
@@ -255,6 +275,7 @@ func init() {
 	sHDoDragDrop = doGetProcAddress(libshell32, "SHDoDragDrop")
 	sHEmptyRecycleBin = doGetProcAddress(libshell32, "SHEmptyRecycleBinW")
 	sHEnumerateUnreadMailAccountsW = doGetProcAddress(libshell32, "SHEnumerateUnreadMailAccountsW")
+	sHFileOperation = doGetProcAddress(libshell32, "SHFileOperationW")
 	sHFindFiles = doGetProcAddress(libshell32, "SHFindFiles")
 	sHFind_InitMenuPopup = doGetProcAddress(libshell32, "SHFind_InitMenuPopup")
 	sHFlushClipboard = doGetProcAddress(libshell32, "SHFlushClipboard")
@@ -262,20 +283,35 @@ func init() {
 	sHFormatDrive = doGetProcAddress(libshell32, "SHFormatDrive")
 	sHFree = doGetProcAddress(libshell32, "SHFree")
 	sHFreeNameMappings = doGetProcAddress(libshell32, "SHFreeNameMappings")
+	sHGetDataFromIDList = doGetProcAddress(libshell32, "SHGetDataFromIDListW")
 	sHGetDesktopFolder = doGetProcAddress(libshell32, "SHGetDesktopFolder")
+	sHGetFileInfo = doGetProcAddress(libshell32, "SHGetFileInfoW")
 	sHGetFolderLocation = doGetProcAddress(libshell32, "SHGetFolderLocation")
 	sHGetFolderPathAndSubDir = doGetProcAddress(libshell32, "SHGetFolderPathAndSubDirW")
+	sHGetFolderPathEx = doGetProcAddress(libshell32, "SHGetFolderPathEx")
 	sHGetFolderPath = doGetProcAddress(libshell32, "SHGetFolderPathW")
+	sHGetIDListFromObject = doGetProcAddress(libshell32, "SHGetIDListFromObject")
 	sHGetIconOverlayIndex = doGetProcAddress(libshell32, "SHGetIconOverlayIndexW")
 	sHGetImageList = doGetProcAddress(libshell32, "SHGetImageList")
 	sHGetInstanceExplorer = doGetProcAddress(libshell32, "SHGetInstanceExplorer")
+	sHGetItemFromDataObject = doGetProcAddress(libshell32, "SHGetItemFromDataObject")
 	sHGetItemFromObject = doGetProcAddress(libshell32, "SHGetItemFromObject")
+	sHGetKnownFolderIDList = doGetProcAddress(libshell32, "SHGetKnownFolderIDList")
+	sHGetKnownFolderItem = doGetProcAddress(libshell32, "SHGetKnownFolderItem")
+	sHGetKnownFolderPath = doGetProcAddress(libshell32, "SHGetKnownFolderPath")
 	sHGetLocalizedName = doGetProcAddress(libshell32, "SHGetLocalizedName")
+	sHGetMalloc = doGetProcAddress(libshell32, "SHGetMalloc")
+	sHGetNameFromIDList = doGetProcAddress(libshell32, "SHGetNameFromIDList")
 	sHGetNewLinkInfo = doGetProcAddress(libshell32, "SHGetNewLinkInfoW")
 	sHGetPathFromIDList = doGetProcAddress(libshell32, "SHGetPathFromIDListW")
 	sHGetPropertyStoreForWindow = doGetProcAddress(libshell32, "SHGetPropertyStoreForWindow")
+	sHGetPropertyStoreFromParsingName = doGetProcAddress(libshell32, "SHGetPropertyStoreFromParsingName")
+	sHGetRealIDL = doGetProcAddress(libshell32, "SHGetRealIDL")
+	sHGetSetSettings = doGetProcAddress(libshell32, "SHGetSetSettings")
+	sHGetSettings = doGetProcAddress(libshell32, "SHGetSettings")
 	sHGetSpecialFolderLocation = doGetProcAddress(libshell32, "SHGetSpecialFolderLocation")
 	sHGetSpecialFolderPath = doGetProcAddress(libshell32, "SHGetSpecialFolderPathW")
+	sHGetStockIconInfo = doGetProcAddress(libshell32, "SHGetStockIconInfo")
 	sHHandleUpdateImage = doGetProcAddress(libshell32, "SHHandleUpdateImage")
 	sHHelpShortcuts_RunDLL = doGetProcAddress(libshell32, "SHHelpShortcuts_RunDLLW")
 	sHIsFileAvailableOffline = doGetProcAddress(libshell32, "SHIsFileAvailableOffline")
@@ -286,7 +322,11 @@ func init() {
 	sHMapPIDLToSystemImageListIndex = doGetProcAddress(libshell32, "SHMapPIDLToSystemImageListIndex")
 	sHObjectProperties = doGetProcAddress(libshell32, "SHObjectProperties")
 	sHOpenFolderAndSelectItems = doGetProcAddress(libshell32, "SHOpenFolderAndSelectItems")
+	sHParseDisplayName = doGetProcAddress(libshell32, "SHParseDisplayName")
 	sHPathPrepareForWrite = doGetProcAddress(libshell32, "SHPathPrepareForWriteW")
+	sHPropStgCreate = doGetProcAddress(libshell32, "SHPropStgCreate")
+	sHPropStgReadMultiple = doGetProcAddress(libshell32, "SHPropStgReadMultiple")
+	sHPropStgWriteMultiple = doGetProcAddress(libshell32, "SHPropStgWriteMultiple")
 	sHRemoveLocalizedName = doGetProcAddress(libshell32, "SHRemoveLocalizedName")
 	sHRunControlPanel = doGetProcAddress(libshell32, "SHRunControlPanel")
 	sHSetInstanceExplorer = doGetProcAddress(libshell32, "SHSetInstanceExplorer")
@@ -1142,8 +1182,13 @@ func SHEnumerateUnreadMailAccountsW(user HKEY, idx DWORD, mailaddress LPWSTR, ma
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPSHFILEOPSTRUCTW
-// func SHFileOperation(lpFileOp LPSHFILEOPSTRUCTW) int32
+func SHFileOperation(lpFileOp LPSHFILEOPSTRUCT) int32 {
+	ret1 := syscall3(sHFileOperation, 1,
+		uintptr(unsafe.Pointer(lpFileOp)),
+		0,
+		0)
+	return int32(ret1)
+}
 
 func SHFindFiles(pidlFolder /*const*/ LPCITEMIDLIST, pidlSaveFile /*const*/ LPCITEMIDLIST) bool {
 	ret1 := syscall3(sHFindFiles, 2,
@@ -1204,8 +1249,16 @@ func SHFreeNameMappings(hNameMapping HANDLE) {
 		0)
 }
 
-// TODO: Unknown type(s): LPSHELLFOLDER
-// func SHGetDataFromIDList(psf LPSHELLFOLDER, pidl /*const*/ LPCITEMIDLIST, nFormat int32, dest LPVOID, aLen int32) HRESULT
+func SHGetDataFromIDList(psf LPSHELLFOLDER, pidl /*const*/ LPCITEMIDLIST, nFormat int32, dest LPVOID, aLen int32) HRESULT {
+	ret1 := syscall6(sHGetDataFromIDList, 5,
+		uintptr(unsafe.Pointer(psf)),
+		uintptr(unsafe.Pointer(pidl)),
+		uintptr(nFormat),
+		uintptr(unsafe.Pointer(dest)),
+		uintptr(aLen),
+		0)
+	return HRESULT(ret1)
+}
 
 func SHGetDesktopFolder(psf **IShellFolder) HRESULT {
 	ret1 := syscall3(sHGetDesktopFolder, 1,
@@ -1215,8 +1268,17 @@ func SHGetDesktopFolder(psf **IShellFolder) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): SHFILEINFOW *
-// func SHGetFileInfo(path string, dwFileAttributes DWORD, psfi SHFILEINFOW *, sizeofpsfi UINT, flags UINT) *uint32
+func SHGetFileInfo(path string, dwFileAttributes DWORD, psfi *SHFILEINFO, sizeofpsfi UINT, flags UINT) *uint32 {
+	pathStr := unicode16FromString(path)
+	ret1 := syscall6(sHGetFileInfo, 5,
+		uintptr(unsafe.Pointer(&pathStr[0])),
+		uintptr(dwFileAttributes),
+		uintptr(unsafe.Pointer(psfi)),
+		uintptr(sizeofpsfi),
+		uintptr(flags),
+		0)
+	return (*uint32)(unsafe.Pointer(ret1))
+}
 
 func SHGetFolderLocation(hwndOwner HWND, nFolder int32, hToken HANDLE, dwReserved DWORD, ppidl *LPITEMIDLIST) HRESULT {
 	ret1 := syscall6(sHGetFolderLocation, 5,
@@ -1241,8 +1303,16 @@ func SHGetFolderPathAndSubDir(hwndOwner HWND, nFolder int32, hToken HANDLE, dwFl
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): REFKNOWNFOLDERID
-// func SHGetFolderPathEx(rfid REFKNOWNFOLDERID, flags DWORD, token HANDLE, path LPWSTR, aLen DWORD) HRESULT
+func SHGetFolderPathEx(rfid REFKNOWNFOLDERID, flags DWORD, token HANDLE, path LPWSTR, aLen DWORD) HRESULT {
+	ret1 := syscall6(sHGetFolderPathEx, 5,
+		uintptr(unsafe.Pointer(rfid)),
+		uintptr(flags),
+		uintptr(token),
+		uintptr(unsafe.Pointer(path)),
+		uintptr(aLen),
+		0)
+	return HRESULT(ret1)
+}
 
 func SHGetFolderPath(hwndOwner HWND, nFolder int32, hToken HANDLE, dwFlags DWORD, pszPath LPWSTR) HRESULT {
 	ret1 := syscall6(sHGetFolderPath, 5,
@@ -1255,8 +1325,13 @@ func SHGetFolderPath(hwndOwner HWND, nFolder int32, hToken HANDLE, dwFlags DWORD
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): PIDLIST_ABSOLUTE *
-// func SHGetIDListFromObject(punk *IUnknown, ppidl PIDLIST_ABSOLUTE *) HRESULT
+func SHGetIDListFromObject(punk *IUnknown, ppidl *PIDLIST_ABSOLUTE) HRESULT {
+	ret1 := syscall3(sHGetIDListFromObject, 2,
+		uintptr(unsafe.Pointer(punk)),
+		uintptr(unsafe.Pointer(ppidl)),
+		0)
+	return HRESULT(ret1)
+}
 
 func SHGetIconOverlayIndex(pszIconPath string, iIconIndex INT) INT {
 	pszIconPathStr := unicode16FromString(pszIconPath)
@@ -1283,8 +1358,16 @@ func SHGetInstanceExplorer(lpUnknown **IUnknown) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): DATAOBJ_GET_ITEM_FLAGS
-// func SHGetItemFromDataObject(pdtobj *IDataObject, dwFlags DATAOBJ_GET_ITEM_FLAGS, riid REFIID, ppv uintptr) HRESULT
+func SHGetItemFromDataObject(pdtobj *IDataObject, dwFlags DATAOBJ_GET_ITEM_FLAGS, riid REFIID, ppv uintptr) HRESULT {
+	ret1 := syscall6(sHGetItemFromDataObject, 4,
+		uintptr(unsafe.Pointer(pdtobj)),
+		uintptr(dwFlags),
+		uintptr(unsafe.Pointer(riid)),
+		ppv,
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func SHGetItemFromObject(punk *IUnknown, riid REFIID, ppv uintptr) HRESULT {
 	ret1 := syscall3(sHGetItemFromObject, 3,
@@ -1294,14 +1377,38 @@ func SHGetItemFromObject(punk *IUnknown, riid REFIID, ppv uintptr) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): PIDLIST_ABSOLUTE *, REFKNOWNFOLDERID
-// func SHGetKnownFolderIDList(rfid REFKNOWNFOLDERID, flags DWORD, token HANDLE, pidl PIDLIST_ABSOLUTE *) HRESULT
+func SHGetKnownFolderIDList(rfid REFKNOWNFOLDERID, flags DWORD, token HANDLE, pidl *PIDLIST_ABSOLUTE) HRESULT {
+	ret1 := syscall6(sHGetKnownFolderIDList, 4,
+		uintptr(unsafe.Pointer(rfid)),
+		uintptr(flags),
+		uintptr(token),
+		uintptr(unsafe.Pointer(pidl)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): KNOWN_FOLDER_FLAG, REFKNOWNFOLDERID
-// func SHGetKnownFolderItem(rfid REFKNOWNFOLDERID, flags KNOWN_FOLDER_FLAG, hToken HANDLE, riid REFIID, ppv uintptr) HRESULT
+func SHGetKnownFolderItem(rfid REFKNOWNFOLDERID, flags KNOWN_FOLDER_FLAG, hToken HANDLE, riid REFIID, ppv uintptr) HRESULT {
+	ret1 := syscall6(sHGetKnownFolderItem, 5,
+		uintptr(unsafe.Pointer(rfid)),
+		uintptr(flags),
+		uintptr(hToken),
+		uintptr(unsafe.Pointer(riid)),
+		ppv,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): REFKNOWNFOLDERID
-// func SHGetKnownFolderPath(rfid REFKNOWNFOLDERID, flags DWORD, token HANDLE, path *PWSTR) HRESULT
+func SHGetKnownFolderPath(rfid REFKNOWNFOLDERID, flags DWORD, token HANDLE, path *PWSTR) HRESULT {
+	ret1 := syscall6(sHGetKnownFolderPath, 4,
+		uintptr(unsafe.Pointer(rfid)),
+		uintptr(flags),
+		uintptr(token),
+		uintptr(unsafe.Pointer(path)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func SHGetLocalizedName(path string, module LPWSTR, size UINT, res *int32) HRESULT {
 	pathStr := unicode16FromString(path)
@@ -1315,11 +1422,21 @@ func SHGetLocalizedName(path string, module LPWSTR, size UINT, res *int32) HRESU
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPMALLOC *
-// func SHGetMalloc(lpmal LPMALLOC *) HRESULT
+func SHGetMalloc(lpmal *LPMALLOC) HRESULT {
+	ret1 := syscall3(sHGetMalloc, 1,
+		uintptr(unsafe.Pointer(lpmal)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): SIGDN
-// func SHGetNameFromIDList(pidl /*const*/ PCIDLIST_ABSOLUTE, sigdnName SIGDN, ppszName *PWSTR) HRESULT
+func SHGetNameFromIDList(pidl /*const*/ PCIDLIST_ABSOLUTE, sigdnName SIGDN, ppszName *PWSTR) HRESULT {
+	ret1 := syscall3(sHGetNameFromIDList, 3,
+		uintptr(unsafe.Pointer(pidl)),
+		uintptr(sigdnName),
+		uintptr(unsafe.Pointer(ppszName)))
+	return HRESULT(ret1)
+}
 
 func SHGetNewLinkInfo(pszLinkTo string, pszDir string, pszName LPWSTR, pfMustCopy *BOOL, uFlags UINT) bool {
 	pszLinkToStr := unicode16FromString(pszLinkTo)
@@ -1350,17 +1467,39 @@ func SHGetPropertyStoreForWindow(hwnd HWND, riid REFIID, ppv uintptr) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): GETPROPERTYSTOREFLAGS
-// func SHGetPropertyStoreFromParsingName(pszPath string, pbc *IBindCtx, flags GETPROPERTYSTOREFLAGS, riid REFIID, ppv uintptr) HRESULT
+func SHGetPropertyStoreFromParsingName(pszPath string, pbc *IBindCtx, flags GETPROPERTYSTOREFLAGS, riid REFIID, ppv uintptr) HRESULT {
+	pszPathStr := unicode16FromString(pszPath)
+	ret1 := syscall6(sHGetPropertyStoreFromParsingName, 5,
+		uintptr(unsafe.Pointer(&pszPathStr[0])),
+		uintptr(unsafe.Pointer(pbc)),
+		uintptr(flags),
+		uintptr(unsafe.Pointer(riid)),
+		ppv,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPSHELLFOLDER
-// func SHGetRealIDL(lpsf LPSHELLFOLDER, pidlSimple /*const*/ LPCITEMIDLIST, pidlReal *LPITEMIDLIST) HRESULT
+func SHGetRealIDL(lpsf LPSHELLFOLDER, pidlSimple /*const*/ LPCITEMIDLIST, pidlReal *LPITEMIDLIST) HRESULT {
+	ret1 := syscall3(sHGetRealIDL, 3,
+		uintptr(unsafe.Pointer(lpsf)),
+		uintptr(unsafe.Pointer(pidlSimple)),
+		uintptr(unsafe.Pointer(pidlReal)))
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPSHELLSTATE
-// func SHGetSetSettings(lpss LPSHELLSTATE, dwMask DWORD, bSet bool)
+func SHGetSetSettings(lpss LPSHELLSTATE, dwMask DWORD, bSet bool) {
+	syscall3(sHGetSetSettings, 3,
+		uintptr(unsafe.Pointer(lpss)),
+		uintptr(dwMask),
+		getUintptrFromBool(bSet))
+}
 
-// TODO: Unknown type(s): LPSHELLFLAGSTATE
-// func SHGetSettings(lpsfs LPSHELLFLAGSTATE, dwMask DWORD)
+func SHGetSettings(lpsfs LPSHELLFLAGSTATE, dwMask DWORD) {
+	syscall3(sHGetSettings, 2,
+		uintptr(unsafe.Pointer(lpsfs)),
+		uintptr(dwMask),
+		0)
+}
 
 func SHGetSpecialFolderLocation(hwndOwner HWND, nFolder INT, ppidl *LPITEMIDLIST) HRESULT {
 	ret1 := syscall3(sHGetSpecialFolderLocation, 3,
@@ -1381,8 +1520,13 @@ func SHGetSpecialFolderPath(hwndOwner HWND, szPath LPWSTR, nFolder int32, bCreat
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): SHSTOCKICONID, SHSTOCKICONINFO *
-// func SHGetStockIconInfo(id SHSTOCKICONID, flags UINT, sii SHSTOCKICONINFO *) HRESULT
+func SHGetStockIconInfo(id SHSTOCKICONID, flags UINT, sii *SHSTOCKICONINFO) HRESULT {
+	ret1 := syscall3(sHGetStockIconInfo, 3,
+		uintptr(id),
+		uintptr(flags),
+		uintptr(unsafe.Pointer(sii)))
+	return HRESULT(ret1)
+}
 
 func SHHandleUpdateImage(pidlExtra /*const*/ LPCITEMIDLIST) INT {
 	ret1 := syscall3(sHHandleUpdateImage, 1,
@@ -1482,8 +1626,17 @@ func SHOpenFolderAndSelectItems(pidlFolder /*const*/ PCIDLIST_ABSOLUTE, cidl UIN
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): SFGAOF, SFGAOF *
-// func SHParseDisplayName(name string, bindctx *IBindCtx, pidlist *LPITEMIDLIST, attr_in SFGAOF, attr_out SFGAOF *) HRESULT
+func SHParseDisplayName(name string, bindctx *IBindCtx, pidlist *LPITEMIDLIST, attr_in SFGAOF, attr_out *SFGAOF) HRESULT {
+	nameStr := unicode16FromString(name)
+	ret1 := syscall6(sHParseDisplayName, 5,
+		uintptr(unsafe.Pointer(&nameStr[0])),
+		uintptr(unsafe.Pointer(bindctx)),
+		uintptr(unsafe.Pointer(pidlist)),
+		uintptr(attr_in),
+		uintptr(unsafe.Pointer(attr_out)),
+		0)
+	return HRESULT(ret1)
+}
 
 func SHPathPrepareForWrite(hwnd HWND, modless *IUnknown, path string, flags DWORD) HRESULT {
 	pathStr := unicode16FromString(path)
@@ -1497,14 +1650,41 @@ func SHPathPrepareForWrite(hwnd HWND, modless *IUnknown, path string, flags DWOR
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IPropertySetStorage *, IPropertyStorage * *, REFFMTID
-// func SHPropStgCreate(psstg IPropertySetStorage *, fmtid REFFMTID, pclsid /*const*/ *CLSID, grfFlags DWORD, grfMode DWORD, dwDisposition DWORD, ppstg IPropertyStorage * *, puCodePage *UINT) HRESULT
+func SHPropStgCreate(psstg *IPropertySetStorage, fmtid REFFMTID, pclsid /*const*/ *CLSID, grfFlags DWORD, grfMode DWORD, dwDisposition DWORD, ppstg **IPropertyStorage, puCodePage *UINT) HRESULT {
+	ret1 := syscall9(sHPropStgCreate, 8,
+		uintptr(unsafe.Pointer(psstg)),
+		uintptr(unsafe.Pointer(fmtid)),
+		uintptr(unsafe.Pointer(pclsid)),
+		uintptr(grfFlags),
+		uintptr(grfMode),
+		uintptr(dwDisposition),
+		uintptr(unsafe.Pointer(ppstg)),
+		uintptr(unsafe.Pointer(puCodePage)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IPropertyStorage *, PROPVARIANT *, const PROPSPEC *
-// func SHPropStgReadMultiple(pps IPropertyStorage *, uCodePage UINT, cpspec ULONG, rgpspec /*const*/ const PROPSPEC *, rgvar PROPVARIANT *) HRESULT
+func SHPropStgReadMultiple(pps *IPropertyStorage, uCodePage UINT, cpspec ULONG, rgpspec /*const*/ *PROPSPEC, rgvar *PROPVARIANT) HRESULT {
+	ret1 := syscall6(sHPropStgReadMultiple, 5,
+		uintptr(unsafe.Pointer(pps)),
+		uintptr(uCodePage),
+		uintptr(cpspec),
+		uintptr(unsafe.Pointer(rgpspec)),
+		uintptr(unsafe.Pointer(rgvar)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IPropertyStorage *, PROPID, PROPVARIANT *, const PROPSPEC *
-// func SHPropStgWriteMultiple(pps IPropertyStorage *, uCodePage *UINT, cpspec ULONG, rgpspec /*const*/ const PROPSPEC *, rgvar PROPVARIANT *, propidNameFirst PROPID) HRESULT
+func SHPropStgWriteMultiple(pps *IPropertyStorage, uCodePage *UINT, cpspec ULONG, rgpspec /*const*/ *PROPSPEC, rgvar *PROPVARIANT, propidNameFirst PROPID) HRESULT {
+	ret1 := syscall6(sHPropStgWriteMultiple, 6,
+		uintptr(unsafe.Pointer(pps)),
+		uintptr(unsafe.Pointer(uCodePage)),
+		uintptr(cpspec),
+		uintptr(unsafe.Pointer(rgpspec)),
+		uintptr(unsafe.Pointer(rgvar)),
+		uintptr(propidNameFirst))
+	return HRESULT(ret1)
+}
 
 // TODO: Unknown type(s): LPSHQUERYRBINFO
 // func SHQueryRecycleBin(pszRootPath string, pSHQueryRBInfo LPSHQUERYRBINFO) HRESULT

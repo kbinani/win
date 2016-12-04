@@ -37,6 +37,7 @@ var (
 	coGetCurrentLogicalThreadId           uintptr
 	coGetCurrentProcess                   uintptr
 	coGetInterfaceAndReleaseStream        uintptr
+	coGetMalloc                           uintptr
 	coGetMarshalSizeMax                   uintptr
 	coGetObjectContext                    uintptr
 	coGetPSClsid                          uintptr
@@ -82,7 +83,9 @@ var (
 	createStreamOnHGlobal                 uintptr
 	dllDebugObjectRPCHook                 uintptr
 	doDragDrop                            uintptr
+	freePropVariantArray                  uintptr
 	getClassFile                          uintptr
+	getConvertStg                         uintptr
 	getHGlobalFromStream                  uintptr
 	iIDFromString                         uintptr
 	isAccelerator                         uintptr
@@ -110,13 +113,22 @@ var (
 	oleSetContainedObject                 uintptr
 	propSysAllocString                    uintptr
 	propSysFreeString                     uintptr
+	propVariantClear                      uintptr
+	propVariantCopy                       uintptr
+	readClassStg                          uintptr
 	readClassStm                          uintptr
 	revokeDragDrop                        uintptr
+	setConvertStg                         uintptr
+	stgCreateDocfile                      uintptr
+	stgCreatePropSetStg                   uintptr
+	stgCreatePropStg                      uintptr
 	stgIsStorageFile                      uintptr
+	stgOpenPropStg                        uintptr
 	stgSetTimes                           uintptr
 	stringFromCLSID                       uintptr
 	stringFromGUID2                       uintptr
 	wdtpInterfacePointer_UserFree         uintptr
+	writeClassStg                         uintptr
 	writeClassStm                         uintptr
 )
 
@@ -148,6 +160,7 @@ func init() {
 	coGetCurrentLogicalThreadId = doGetProcAddress(libole32, "CoGetCurrentLogicalThreadId")
 	coGetCurrentProcess = doGetProcAddress(libole32, "CoGetCurrentProcess")
 	coGetInterfaceAndReleaseStream = doGetProcAddress(libole32, "CoGetInterfaceAndReleaseStream")
+	coGetMalloc = doGetProcAddress(libole32, "CoGetMalloc")
 	coGetMarshalSizeMax = doGetProcAddress(libole32, "CoGetMarshalSizeMax")
 	coGetObjectContext = doGetProcAddress(libole32, "CoGetObjectContext")
 	coGetPSClsid = doGetProcAddress(libole32, "CoGetPSClsid")
@@ -193,7 +206,9 @@ func init() {
 	createStreamOnHGlobal = doGetProcAddress(libole32, "CreateStreamOnHGlobal")
 	dllDebugObjectRPCHook = doGetProcAddress(libole32, "DllDebugObjectRPCHook")
 	doDragDrop = doGetProcAddress(libole32, "DoDragDrop")
+	freePropVariantArray = doGetProcAddress(libole32, "FreePropVariantArray")
 	getClassFile = doGetProcAddress(libole32, "GetClassFile")
+	getConvertStg = doGetProcAddress(libole32, "GetConvertStg")
 	getHGlobalFromStream = doGetProcAddress(libole32, "GetHGlobalFromStream")
 	iIDFromString = doGetProcAddress(libole32, "IIDFromString")
 	isAccelerator = doGetProcAddress(libole32, "IsAccelerator")
@@ -221,13 +236,22 @@ func init() {
 	oleSetContainedObject = doGetProcAddress(libole32, "OleSetContainedObject")
 	propSysAllocString = doGetProcAddress(libole32, "PropSysAllocString")
 	propSysFreeString = doGetProcAddress(libole32, "PropSysFreeString")
+	propVariantClear = doGetProcAddress(libole32, "PropVariantClear")
+	propVariantCopy = doGetProcAddress(libole32, "PropVariantCopy")
+	readClassStg = doGetProcAddress(libole32, "ReadClassStg")
 	readClassStm = doGetProcAddress(libole32, "ReadClassStm")
 	revokeDragDrop = doGetProcAddress(libole32, "RevokeDragDrop")
+	setConvertStg = doGetProcAddress(libole32, "SetConvertStg")
+	stgCreateDocfile = doGetProcAddress(libole32, "StgCreateDocfile")
+	stgCreatePropSetStg = doGetProcAddress(libole32, "StgCreatePropSetStg")
+	stgCreatePropStg = doGetProcAddress(libole32, "StgCreatePropStg")
 	stgIsStorageFile = doGetProcAddress(libole32, "StgIsStorageFile")
+	stgOpenPropStg = doGetProcAddress(libole32, "StgOpenPropStg")
 	stgSetTimes = doGetProcAddress(libole32, "StgSetTimes")
 	stringFromCLSID = doGetProcAddress(libole32, "StringFromCLSID")
 	stringFromGUID2 = doGetProcAddress(libole32, "StringFromGUID2")
 	wdtpInterfacePointer_UserFree = doGetProcAddress(libole32, "WdtpInterfacePointer_UserFree")
+	writeClassStg = doGetProcAddress(libole32, "WriteClassStg")
 	writeClassStm = doGetProcAddress(libole32, "WriteClassStm")
 }
 
@@ -268,8 +292,8 @@ func CoGetInterceptorFromTypeInfo(iidIntercepted REFIID, punkOuter *IUnknown, ty
 // TODO: Unknown type(s): LPOLEOBJECT, LPOLESTREAM, OLESTATUS
 // func OleSaveToStream(unnamed0 LPOLEOBJECT, unnamed1 LPOLESTREAM) OLESTATUS
 
-// TODO: Unknown type(s): PROPVARIANT *, PROPVAR_CHANGE_FLAGS, REFPROPVARIANT
-// func PropVariantChangeType(ppropvarDest PROPVARIANT *, propvarSrc REFPROPVARIANT, flags PROPVAR_CHANGE_FLAGS, vt VARTYPE) HRESULT
+// TODO: Unknown type(s): PROPVAR_CHANGE_FLAGS, REFPROPVARIANT
+// func PropVariantChangeType(ppropvarDest *PROPVARIANT, propvarSrc REFPROPVARIANT, flags PROPVAR_CHANGE_FLAGS, vt VARTYPE) HRESULT
 
 func BindMoniker(pmk LPMONIKER, grfOpt DWORD, riid REFIID, ppvResult *LPVOID) HRESULT {
 	ret1 := syscall6(bindMoniker, 4,
@@ -441,8 +465,8 @@ func CoGetCurrentProcess() DWORD {
 // TODO: Unknown type(s): APTTYPE
 // func CoGetDefaultContext(aType APTTYPE, riid REFIID, ppv *LPVOID) HRESULT
 
-// TODO: Unknown type(s): COSERVERINFO *, IStorage *, MULTI_QI *
-// func CoGetInstanceFromIStorage(server_info COSERVERINFO *, rclsid *CLSID, outer *IUnknown, cls_context DWORD, storage IStorage *, count DWORD, results MULTI_QI *) HRESULT
+// TODO: Unknown type(s): COSERVERINFO *, MULTI_QI *
+// func CoGetInstanceFromIStorage(server_info COSERVERINFO *, rclsid *CLSID, outer *IUnknown, cls_context DWORD, storage *IStorage, count DWORD, results MULTI_QI *) HRESULT
 
 func CoGetInterfaceAndReleaseStream(pStm LPSTREAM, riid REFIID, ppv *LPVOID) HRESULT {
 	ret1 := syscall3(coGetInterfaceAndReleaseStream, 3,
@@ -452,8 +476,13 @@ func CoGetInterfaceAndReleaseStream(pStm LPSTREAM, riid REFIID, ppv *LPVOID) HRE
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IMalloc * *
-// func CoGetMalloc(context DWORD, imalloc IMalloc * *) HRESULT
+func CoGetMalloc(context DWORD, imalloc **IMalloc) HRESULT {
+	ret1 := syscall3(coGetMalloc, 2,
+		uintptr(context),
+		uintptr(unsafe.Pointer(imalloc)),
+		0)
+	return HRESULT(ret1)
+}
 
 func CoGetMarshalSizeMax(pulSize *ULONG, riid REFIID, pUnk *IUnknown, dwDestContext DWORD, pvDestContext uintptr, mshlFlags DWORD) HRESULT {
 	ret1 := syscall6(coGetMarshalSizeMax, 6,
@@ -883,8 +912,13 @@ func DoDragDrop(pDataObject *IDataObject, pDropSource *IDropSource, dwOKEffect D
 // TODO: Unknown type(s): const FMTID *
 // func FmtIdToPropStgName(rfmtid /*const*/ const FMTID *, str LPOLESTR) HRESULT
 
-// TODO: Unknown type(s): PROPVARIANT *
-// func FreePropVariantArray(cVariants ULONG, rgvars PROPVARIANT *) HRESULT
+func FreePropVariantArray(cVariants ULONG, rgvars *PROPVARIANT) HRESULT {
+	ret1 := syscall3(freePropVariantArray, 2,
+		uintptr(cVariants),
+		uintptr(unsafe.Pointer(rgvars)),
+		0)
+	return HRESULT(ret1)
+}
 
 func GetClassFile(filePathName /*const*/ LPCOLESTR, pclsid *CLSID) HRESULT {
 	ret1 := syscall3(getClassFile, 2,
@@ -894,8 +928,13 @@ func GetClassFile(filePathName /*const*/ LPCOLESTR, pclsid *CLSID) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IStorage *
-// func GetConvertStg(stg IStorage *) HRESULT
+func GetConvertStg(stg *IStorage) HRESULT {
+	ret1 := syscall3(getConvertStg, 1,
+		uintptr(unsafe.Pointer(stg)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 // TODO: Unknown type(s): ILockBytes *
 // func GetHGlobalFromILockBytes(iface ILockBytes *, phglobal *HGLOBAL) HRESULT
@@ -988,17 +1027,17 @@ func OleCreateDefaultHandler(clsid /*const*/ REFCLSID, pUnkOuter LPUNKNOWN, riid
 // TODO: Unknown type(s): LPOLECLIENTSITE, LPSTORAGE
 // func OleCreateFromData(data LPDATAOBJECT, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site LPOLECLIENTSITE, stg LPSTORAGE, obj *LPVOID) HRESULT
 
-// TODO: Unknown type(s): IAdviseSink *, IOleClientSite *, IStorage *
-// func OleCreateFromDataEx(data *IDataObject, iid REFIID, flags DWORD, renderopt DWORD, num_cache_fmts ULONG, adv_flags *uint32, cache_fmts *FORMATETC, sink IAdviseSink *, conns *uint32, client_site IOleClientSite *, stg IStorage *, obj uintptr) HRESULT
+// TODO: Unknown type(s): IAdviseSink *, IOleClientSite *
+// func OleCreateFromDataEx(data *IDataObject, iid REFIID, flags DWORD, renderopt DWORD, num_cache_fmts ULONG, adv_flags *uint32, cache_fmts *FORMATETC, sink IAdviseSink *, conns *uint32, client_site IOleClientSite *, stg *IStorage, obj uintptr) HRESULT
 
-// TODO: Unknown type(s): IAdviseSink *, IOleClientSite *, IStorage *
-// func OleCreateFromFileEx(clsid /*const*/ REFCLSID, filename /*const*/ *OLECHAR, iid REFIID, flags DWORD, renderopt DWORD, num_fmts ULONG, adv_flags *uint32, fmts *FORMATETC, sink IAdviseSink *, conns *uint32, client_site IOleClientSite *, stg IStorage *, obj uintptr) HRESULT
+// TODO: Unknown type(s): IAdviseSink *, IOleClientSite *
+// func OleCreateFromFileEx(clsid /*const*/ REFCLSID, filename /*const*/ *OLECHAR, iid REFIID, flags DWORD, renderopt DWORD, num_fmts ULONG, adv_flags *uint32, fmts *FORMATETC, sink IAdviseSink *, conns *uint32, client_site IOleClientSite *, stg *IStorage, obj uintptr) HRESULT
 
 // TODO: Unknown type(s): LPOLECLIENTSITE, LPSTORAGE
 // func OleCreateLink(pmkLinkSrc LPMONIKER, riid REFIID, renderopt DWORD, lpFormatEtc *FORMATETC, pClientSite LPOLECLIENTSITE, pStg LPSTORAGE, ppvObj *LPVOID) HRESULT
 
-// TODO: Unknown type(s): IOleClientSite *, IStorage *
-// func OleCreateLinkFromData(data *IDataObject, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site IOleClientSite *, stg IStorage *, obj uintptr) HRESULT
+// TODO: Unknown type(s): IOleClientSite *
+// func OleCreateLinkFromData(data *IDataObject, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site IOleClientSite *, stg *IStorage, obj uintptr) HRESULT
 
 // TODO: Unknown type(s): LPOLECLIENTSITE, LPSTORAGE
 // func OleCreateLinkToFile(lpszFileName /*const*/ LPCOLESTR, riid REFIID, renderopt DWORD, lpFormatEtc *FORMATETC, pClientSite LPOLECLIENTSITE, pStg LPSTORAGE, ppvObj *LPVOID) HRESULT
@@ -1006,8 +1045,8 @@ func OleCreateDefaultHandler(clsid /*const*/ REFCLSID, pUnkOuter LPUNKNOWN, riid
 // TODO: Unknown type(s): HOLEMENU, LPOLEMENUGROUPWIDTHS
 // func OleCreateMenuDescriptor(hmenuCombined HMENU, lpMenuWidths LPOLEMENUGROUPWIDTHS) HOLEMENU
 
-// TODO: Unknown type(s): IOleClientSite *, IStorage *
-// func OleCreateStaticFromData(data *IDataObject, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site IOleClientSite *, stg IStorage *, obj uintptr) HRESULT
+// TODO: Unknown type(s): IOleClientSite *
+// func OleCreateStaticFromData(data *IDataObject, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site IOleClientSite *, stg *IStorage, obj uintptr) HRESULT
 
 // TODO: Unknown type(s): HOLEMENU
 // func OleDestroyMenuDescriptor(hmenuDescriptor HOLEMENU) HRESULT
@@ -1190,14 +1229,29 @@ func PropSysFreeString(str LPOLESTR) {
 		0)
 }
 
-// TODO: Unknown type(s): PROPVARIANT *
-// func PropVariantClear(pvar PROPVARIANT *) HRESULT
+func PropVariantClear(pvar *PROPVARIANT) HRESULT {
+	ret1 := syscall3(propVariantClear, 1,
+		uintptr(unsafe.Pointer(pvar)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): PROPVARIANT *, const PROPVARIANT *
-// func PropVariantCopy(pvarDest PROPVARIANT *, pvarSrc /*const*/ const PROPVARIANT *) HRESULT
+func PropVariantCopy(pvarDest *PROPVARIANT, pvarSrc /*const*/ *PROPVARIANT) HRESULT {
+	ret1 := syscall3(propVariantCopy, 2,
+		uintptr(unsafe.Pointer(pvarDest)),
+		uintptr(unsafe.Pointer(pvarSrc)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IStorage *
-// func ReadClassStg(pstg IStorage *, pclsid *CLSID) HRESULT
+func ReadClassStg(pstg *IStorage, pclsid *CLSID) HRESULT {
+	ret1 := syscall3(readClassStg, 2,
+		uintptr(unsafe.Pointer(pstg)),
+		uintptr(unsafe.Pointer(pclsid)),
+		0)
+	return HRESULT(ret1)
+}
 
 func ReadClassStm(pStm *IStream, pclsid *CLSID) HRESULT {
 	ret1 := syscall3(readClassStm, 2,
@@ -1224,23 +1278,49 @@ func RevokeDragDrop(hwnd HWND) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IStorage *
-// func SetConvertStg(storage IStorage *, convert bool) HRESULT
+func SetConvertStg(storage *IStorage, convert bool) HRESULT {
+	ret1 := syscall3(setConvertStg, 2,
+		uintptr(unsafe.Pointer(storage)),
+		getUintptrFromBool(convert),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): PROPVARIANT *, const SERIALIZEDPROPERTYVALUE *
-// func StgConvertPropertyToVariant(prop /*const*/ const SERIALIZEDPROPERTYVALUE *, codePage USHORT, pvar PROPVARIANT *, pma uintptr) BOOLEAN
+// TODO: Unknown type(s): const SERIALIZEDPROPERTYVALUE *
+// func StgConvertPropertyToVariant(prop /*const*/ const SERIALIZEDPROPERTYVALUE *, codePage USHORT, pvar *PROPVARIANT, pma uintptr) BOOLEAN
 
-// TODO: Unknown type(s): IStorage * *
-// func StgCreateDocfile(pwcsName /*const*/ LPCOLESTR, grfMode DWORD, reserved DWORD, ppstgOpen IStorage * *) HRESULT
+func StgCreateDocfile(pwcsName /*const*/ LPCOLESTR, grfMode DWORD, reserved DWORD, ppstgOpen **IStorage) HRESULT {
+	ret1 := syscall6(stgCreateDocfile, 4,
+		uintptr(unsafe.Pointer(pwcsName)),
+		uintptr(grfMode),
+		uintptr(reserved),
+		uintptr(unsafe.Pointer(ppstgOpen)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): ILockBytes *, IStorage * *
-// func StgCreateDocfileOnILockBytes(plkbyt ILockBytes *, grfMode DWORD, reserved DWORD, ppstgOpen IStorage * *) HRESULT
+// TODO: Unknown type(s): ILockBytes *
+// func StgCreateDocfileOnILockBytes(plkbyt ILockBytes *, grfMode DWORD, reserved DWORD, ppstgOpen **IStorage) HRESULT
 
-// TODO: Unknown type(s): IPropertySetStorage * *, IStorage *
-// func StgCreatePropSetStg(pstg IStorage *, reserved DWORD, propset IPropertySetStorage * *) HRESULT
+func StgCreatePropSetStg(pstg *IStorage, reserved DWORD, propset **IPropertySetStorage) HRESULT {
+	ret1 := syscall3(stgCreatePropSetStg, 3,
+		uintptr(unsafe.Pointer(pstg)),
+		uintptr(reserved),
+		uintptr(unsafe.Pointer(propset)))
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IPropertyStorage * *, REFFMTID
-// func StgCreatePropStg(unk *IUnknown, fmt REFFMTID, clsid /*const*/ *CLSID, flags DWORD, reserved DWORD, prop_stg IPropertyStorage * *) HRESULT
+func StgCreatePropStg(unk *IUnknown, fmt REFFMTID, clsid /*const*/ *CLSID, flags DWORD, reserved DWORD, prop_stg **IPropertyStorage) HRESULT {
+	ret1 := syscall6(stgCreatePropStg, 6,
+		uintptr(unsafe.Pointer(unk)),
+		uintptr(unsafe.Pointer(fmt)),
+		uintptr(unsafe.Pointer(clsid)),
+		uintptr(flags),
+		uintptr(reserved),
+		uintptr(unsafe.Pointer(prop_stg)))
+	return HRESULT(ret1)
+}
 
 // TODO: Unknown type(s): STGOPTIONS *
 // func StgCreateStorageEx(pwcsName /*const*/ *WCHAR, grfMode DWORD, stgfmt DWORD, grfAttrs DWORD, pStgOptions STGOPTIONS *, reserved uintptr, riid REFIID, ppObjectOpen uintptr) HRESULT
@@ -1256,17 +1336,25 @@ func StgIsStorageFile(fn /*const*/ LPCOLESTR) HRESULT {
 // TODO: Unknown type(s): ILockBytes *
 // func StgIsStorageILockBytes(plkbyt ILockBytes *) HRESULT
 
-// TODO: Unknown type(s): IPropertyStorage * *, REFFMTID
-// func StgOpenPropStg(unk *IUnknown, fmt REFFMTID, flags DWORD, reserved DWORD, prop_stg IPropertyStorage * *) HRESULT
+func StgOpenPropStg(unk *IUnknown, fmt REFFMTID, flags DWORD, reserved DWORD, prop_stg **IPropertyStorage) HRESULT {
+	ret1 := syscall6(stgOpenPropStg, 5,
+		uintptr(unsafe.Pointer(unk)),
+		uintptr(unsafe.Pointer(fmt)),
+		uintptr(flags),
+		uintptr(reserved),
+		uintptr(unsafe.Pointer(prop_stg)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IStorage *, IStorage * *, SNB
-// func StgOpenStorage(pwcsName /*const*/ *OLECHAR, pstgPriority IStorage *, grfMode DWORD, snbExclude SNB, reserved DWORD, ppstgOpen IStorage * *) HRESULT
+// TODO: Unknown type(s): SNB
+// func StgOpenStorage(pwcsName /*const*/ *OLECHAR, pstgPriority *IStorage, grfMode DWORD, snbExclude SNB, reserved DWORD, ppstgOpen **IStorage) HRESULT
 
 // TODO: Unknown type(s): STGOPTIONS *
 // func StgOpenStorageEx(pwcsName /*const*/ *WCHAR, grfMode DWORD, stgfmt DWORD, grfAttrs DWORD, pStgOptions STGOPTIONS *, reserved uintptr, riid REFIID, ppObjectOpen uintptr) HRESULT
 
-// TODO: Unknown type(s): ILockBytes *, IStorage *, IStorage * *, SNB
-// func StgOpenStorageOnILockBytes(plkbyt ILockBytes *, pstgPriority IStorage *, grfMode DWORD, snbExclude SNB, reserved DWORD, ppstgOpen IStorage * *) HRESULT
+// TODO: Unknown type(s): ILockBytes *, SNB
+// func StgOpenStorageOnILockBytes(plkbyt ILockBytes *, pstgPriority *IStorage, grfMode DWORD, snbExclude SNB, reserved DWORD, ppstgOpen **IStorage) HRESULT
 
 func StgSetTimes(str /*const*/ *OLECHAR, pctime /*const*/ *FILETIME, patime /*const*/ *FILETIME, pmtime /*const*/ *FILETIME) HRESULT {
 	ret1 := syscall6(stgSetTimes, 4,
@@ -1302,8 +1390,13 @@ func WdtpInterfacePointer_UserFree(punk *IUnknown) {
 		0)
 }
 
-// TODO: Unknown type(s): IStorage *
-// func WriteClassStg(pStg IStorage *, rclsid /*const*/ REFCLSID) HRESULT
+func WriteClassStg(pStg *IStorage, rclsid /*const*/ REFCLSID) HRESULT {
+	ret1 := syscall3(writeClassStg, 2,
+		uintptr(unsafe.Pointer(pStg)),
+		uintptr(unsafe.Pointer(rclsid)),
+		0)
+	return HRESULT(ret1)
+}
 
 func WriteClassStm(pStm *IStream, rclsid /*const*/ REFCLSID) HRESULT {
 	ret1 := syscall3(writeClassStm, 2,

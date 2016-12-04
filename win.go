@@ -5,13 +5,6 @@ import (
 	"unsafe"
 )
 
-var is64 bool
-
-func init() {
-	var ptr uintptr
-	is64 = unsafe.Sizeof(ptr) == 8
-}
-
 func unicode16FromString(s string) []uint16 {
 	r := make([]rune, 0)
 	for _, c := range s {

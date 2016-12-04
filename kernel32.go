@@ -518,6 +518,7 @@ var (
 	setProcessAffinityMask                uintptr
 	setProcessAffinityUpdateMode          uintptr
 	setProcessDEPPolicy                   uintptr
+	setProcessPreferredUILanguages        uintptr
 	setProcessPriorityBoost               uintptr
 	setProcessShutdownParameters          uintptr
 	setProcessWorkingSetSize              uintptr
@@ -535,6 +536,7 @@ var (
 	setThreadErrorMode                    uintptr
 	setThreadIdealProcessor               uintptr
 	setThreadLocale                       uintptr
+	setThreadPreferredUILanguages         uintptr
 	setThreadPriority                     uintptr
 	setThreadPriorityBoost                uintptr
 	setThreadStackGuarantee               uintptr
@@ -1179,6 +1181,7 @@ func init() {
 	setProcessAffinityMask = doGetProcAddress(libkernel32, "SetProcessAffinityMask")
 	setProcessAffinityUpdateMode = doGetProcAddress(libkernel32, "SetProcessAffinityUpdateMode")
 	setProcessDEPPolicy = doGetProcAddress(libkernel32, "SetProcessDEPPolicy")
+	setProcessPreferredUILanguages = doGetProcAddress(libkernel32, "SetProcessPreferredUILanguages")
 	setProcessPriorityBoost = doGetProcAddress(libkernel32, "SetProcessPriorityBoost")
 	setProcessShutdownParameters = doGetProcAddress(libkernel32, "SetProcessShutdownParameters")
 	setProcessWorkingSetSize = doGetProcAddress(libkernel32, "SetProcessWorkingSetSize")
@@ -1196,6 +1199,7 @@ func init() {
 	setThreadErrorMode = doGetProcAddress(libkernel32, "SetThreadErrorMode")
 	setThreadIdealProcessor = doGetProcAddress(libkernel32, "SetThreadIdealProcessor")
 	setThreadLocale = doGetProcAddress(libkernel32, "SetThreadLocale")
+	setThreadPreferredUILanguages = doGetProcAddress(libkernel32, "SetThreadPreferredUILanguages")
 	setThreadPriority = doGetProcAddress(libkernel32, "SetThreadPriority")
 	setThreadPriorityBoost = doGetProcAddress(libkernel32, "SetThreadPriorityBoost")
 	setThreadStackGuarantee = doGetProcAddress(libkernel32, "SetThreadStackGuarantee")
@@ -4583,8 +4587,8 @@ func GetTimeFormat(locale LCID, dwFlags DWORD, lpTime /*const*/ *SYSTEMTIME, lpF
 // TODO: Unknown type(s): LPTIME_ZONE_INFORMATION, PDYNAMIC_TIME_ZONE_INFORMATION
 // func GetTimeZoneInformationForYear(wYear USHORT, pdtzi PDYNAMIC_TIME_ZONE_INFORMATION, ptzi LPTIME_ZONE_INFORMATION) bool
 
-// TODO: Unknown type(s): PCZZWSTR, PZZWSTR
-// func GetUILanguageInfo(dwFlags DWORD, pwmszLanguage PCZZWSTR, pwszFallbackLanguages PZZWSTR, pcchFallbackLanguages *DWORD, pAttributes *DWORD) bool
+// TODO: Unknown type(s): PZZWSTR
+// func GetUILanguageInfo(dwFlags DWORD, pwmszLanguage /*const*/ PCZZWSTR, pwszFallbackLanguages PZZWSTR, pcchFallbackLanguages *DWORD, pAttributes *DWORD) bool
 
 func GetUserDefaultLCID() LCID {
 	ret1 := syscall3(getUserDefaultLCID, 0,
@@ -6611,8 +6615,13 @@ func SetProcessDEPPolicy(dwFlags DWORD) bool {
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCZZWSTR
-// func SetProcessPreferredUILanguages(dwFlags DWORD, pwszLanguagesBuffer PCZZWSTR, pulNumLanguages *uint32) bool
+func SetProcessPreferredUILanguages(dwFlags DWORD, pwszLanguagesBuffer /*const*/ PCZZWSTR, pulNumLanguages *uint32) bool {
+	ret1 := syscall3(setProcessPreferredUILanguages, 3,
+		uintptr(dwFlags),
+		uintptr(unsafe.Pointer(pwszLanguagesBuffer)),
+		uintptr(unsafe.Pointer(pulNumLanguages)))
+	return ret1 != 0
+}
 
 func SetProcessPriorityBoost(hProcess HANDLE, bDisablePriorityBoost bool) bool {
 	ret1 := syscall3(setProcessPriorityBoost, 2,
@@ -6768,8 +6777,13 @@ func SetThreadLocale(locale LCID) bool {
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCZZWSTR
-// func SetThreadPreferredUILanguages(dwFlags DWORD, pwszLanguagesBuffer PCZZWSTR, pulNumLanguages *uint32) bool
+func SetThreadPreferredUILanguages(dwFlags DWORD, pwszLanguagesBuffer /*const*/ PCZZWSTR, pulNumLanguages *uint32) bool {
+	ret1 := syscall3(setThreadPreferredUILanguages, 3,
+		uintptr(dwFlags),
+		uintptr(unsafe.Pointer(pwszLanguagesBuffer)),
+		uintptr(unsafe.Pointer(pulNumLanguages)))
+	return ret1 != 0
+}
 
 func SetThreadPriority(hThread HANDLE, nPriority int32) bool {
 	ret1 := syscall3(setThreadPriority, 2,

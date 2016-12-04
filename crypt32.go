@@ -14,82 +14,137 @@ var (
 	libcrypt32 uintptr
 
 	// Functions
-	certAddCRLContextToStore                          uintptr
-	certAddCRLLinkToStore                             uintptr
-	certAddEncodedCRLToStore                          uintptr
-	certAddEncodedCertificateToSystemStore            uintptr
-	certAddSerializedElementToStore                   uintptr
-	certAddStoreToCollection                          uintptr
-	certAlgIdToOID                                    uintptr
-	certCloseStore                                    uintptr
-	certCompareCertificateName                        uintptr
-	certCompareIntegerBlob                            uintptr
-	certControlStore                                  uintptr
-	certCreateCRLContext                              uintptr
-	certDeleteCRLFromStore                            uintptr
-	certDuplicateCRLContext                           uintptr
-	certDuplicateStore                                uintptr
-	certEnumCRLContextProperties                      uintptr
-	certEnumCRLsInStore                               uintptr
-	certFindCRLInStore                                uintptr
-	certFindExtension                                 uintptr
-	certFreeCRLContext                                uintptr
-	certGetCRLContextProperty                         uintptr
-	certGetStoreProperty                              uintptr
-	certNameToStr                                     uintptr
-	certOIDToAlgId                                    uintptr
-	certRDNValueToStr                                 uintptr
-	certRemoveStoreFromCollection                     uintptr
-	certSaveStore                                     uintptr
-	certSerializeCRLStoreElement                      uintptr
-	certSetCRLContextProperty                         uintptr
-	certSetStoreProperty                              uintptr
-	certStrToName                                     uintptr
-	certUnregisterPhysicalStore                       uintptr
-	certUnregisterSystemStore                         uintptr
-	certVerifyCRLTimeValidity                         uintptr
-	cryptBinaryToString                               uintptr
-	cryptDecodeObject                                 uintptr
-	cryptEncodeObject                                 uintptr
-	cryptExportPKCS8                                  uintptr
-	cryptFindLocalizedName                            uintptr
-	cryptFormatObject                                 uintptr
-	cryptGetKeyIdentifierProperty                     uintptr
-	cryptGetMessageSignerCount                        uintptr
-	cryptGetOIDFunctionValue                          uintptr
-	cryptMemAlloc                                     uintptr
-	cryptMemFree                                      uintptr
-	cryptMemRealloc                                   uintptr
-	cryptMsgCalculateEncodedLength                    uintptr
-	cryptProtectMemory                                uintptr
-	cryptRegisterDefaultOIDFunction                   uintptr
-	cryptRegisterOIDFunction                          uintptr
-	cryptSIPRemoveProvider                            uintptr
-	cryptSIPRetrieveSubjectGuid                       uintptr
-	cryptSIPRetrieveSubjectGuidForCatalogFile         uintptr
-	cryptSetKeyIdentifierProperty                     uintptr
-	cryptSetOIDFunctionValue                          uintptr
-	cryptStringToBinary                               uintptr
-	cryptUnprotectMemory                              uintptr
-	cryptUnregisterDefaultOIDFunction                 uintptr
-	cryptUnregisterOIDFunction                        uintptr
-	pFXExportCertStore                                uintptr
-	pFXExportCertStoreEx                              uintptr
-	pFXImportCertStore                                uintptr
-	pFXIsPFXBlob                                      uintptr
-	pFXVerifyPassword                                 uintptr
-	i_CertUpdateStore                                 uintptr
-	i_CryptAllocTls                                   uintptr
-	i_CryptDetachTls                                  uintptr
-	i_CryptFindLruEntry                               uintptr
-	i_CryptFindLruEntryData                           uintptr
-	i_CryptFreeTls                                    uintptr
-	i_CryptGetDefaultCryptProv                        uintptr
-	i_CryptGetOssGlobal                               uintptr
-	i_CryptGetTls                                     uintptr
-	i_CryptInstallOssGlobal                           uintptr
-	i_CryptReadTrustedPublisherDWORDValueFromRegistry uintptr
-	i_CryptSetTls                                     uintptr
+	certAddCRLContextToStore                           uintptr
+	certAddCRLLinkToStore                              uintptr
+	certAddCTLContextToStore                           uintptr
+	certAddCTLLinkToStore                              uintptr
+	certAddCertificateContextToStore                   uintptr
+	certAddCertificateLinkToStore                      uintptr
+	certAddEncodedCRLToStore                           uintptr
+	certAddEncodedCTLToStore                           uintptr
+	certAddEncodedCertificateToStore                   uintptr
+	certAddEncodedCertificateToSystemStore             uintptr
+	certAddEnhancedKeyUsageIdentifier                  uintptr
+	certAddSerializedElementToStore                    uintptr
+	certAddStoreToCollection                           uintptr
+	certAlgIdToOID                                     uintptr
+	certCloseStore                                     uintptr
+	certCompareCertificate                             uintptr
+	certCompareCertificateName                         uintptr
+	certCompareIntegerBlob                             uintptr
+	certControlStore                                   uintptr
+	certCreateCRLContext                               uintptr
+	certCreateCTLContext                               uintptr
+	certCreateCTLEntryFromCertificateContextProperties uintptr
+	certCreateCertificateContext                       uintptr
+	certDeleteCRLFromStore                             uintptr
+	certDeleteCTLFromStore                             uintptr
+	certDeleteCertificateFromStore                     uintptr
+	certDuplicateCRLContext                            uintptr
+	certDuplicateCTLContext                            uintptr
+	certDuplicateCertificateContext                    uintptr
+	certDuplicateStore                                 uintptr
+	certEnumCRLContextProperties                       uintptr
+	certEnumCRLsInStore                                uintptr
+	certEnumCTLContextProperties                       uintptr
+	certEnumCTLsInStore                                uintptr
+	certEnumCertificateContextProperties               uintptr
+	certEnumCertificatesInStore                        uintptr
+	certEnumSubjectInSortedCTL                         uintptr
+	certFindAttribute                                  uintptr
+	certFindCRLInStore                                 uintptr
+	certFindCTLInStore                                 uintptr
+	certFindCertificateInCRL                           uintptr
+	certFindCertificateInStore                         uintptr
+	certFindExtension                                  uintptr
+	certFindSubjectInCTL                               uintptr
+	certFindSubjectInSortedCTL                         uintptr
+	certFreeCRLContext                                 uintptr
+	certFreeCTLContext                                 uintptr
+	certFreeCertificateContext                         uintptr
+	certGetCRLContextProperty                          uintptr
+	certGetCRLFromStore                                uintptr
+	certGetCTLContextProperty                          uintptr
+	certGetCertificateContextProperty                  uintptr
+	certGetIntendedKeyUsage                            uintptr
+	certGetIssuerCertificateFromStore                  uintptr
+	certGetNameString                                  uintptr
+	certGetStoreProperty                               uintptr
+	certGetSubjectCertificateFromStore                 uintptr
+	certGetValidUsages                                 uintptr
+	certIsValidCRLForCertificate                       uintptr
+	certNameToStr                                      uintptr
+	certOIDToAlgId                                     uintptr
+	certRDNValueToStr                                  uintptr
+	certRemoveEnhancedKeyUsageIdentifier               uintptr
+	certRemoveStoreFromCollection                      uintptr
+	certSaveStore                                      uintptr
+	certSerializeCRLStoreElement                       uintptr
+	certSerializeCTLStoreElement                       uintptr
+	certSerializeCertificateStoreElement               uintptr
+	certSetCRLContextProperty                          uintptr
+	certSetCTLContextProperty                          uintptr
+	certSetCertificateContextPropertiesFromCTLEntry    uintptr
+	certSetCertificateContextProperty                  uintptr
+	certSetStoreProperty                               uintptr
+	certStrToName                                      uintptr
+	certUnregisterPhysicalStore                        uintptr
+	certUnregisterSystemStore                          uintptr
+	certVerifyCRLRevocation                            uintptr
+	certVerifyCRLTimeValidity                          uintptr
+	certVerifySubjectCertificateContext                uintptr
+	certVerifyTimeValidity                             uintptr
+	certVerifyValidityNesting                          uintptr
+	cryptBinaryToString                                uintptr
+	cryptDecodeObject                                  uintptr
+	cryptEncodeObject                                  uintptr
+	cryptExportPKCS8                                   uintptr
+	cryptFindCertificateKeyProvInfo                    uintptr
+	cryptFindLocalizedName                             uintptr
+	cryptFormatObject                                  uintptr
+	cryptGetKeyIdentifierProperty                      uintptr
+	cryptGetMessageSignerCount                         uintptr
+	cryptGetOIDFunctionValue                           uintptr
+	cryptMemAlloc                                      uintptr
+	cryptMemFree                                       uintptr
+	cryptMemRealloc                                    uintptr
+	cryptMsgCalculateEncodedLength                     uintptr
+	cryptMsgClose                                      uintptr
+	cryptMsgControl                                    uintptr
+	cryptMsgDuplicate                                  uintptr
+	cryptMsgGetAndVerifySigner                         uintptr
+	cryptMsgGetParam                                   uintptr
+	cryptMsgUpdate                                     uintptr
+	cryptProtectMemory                                 uintptr
+	cryptQueryObject                                   uintptr
+	cryptRegisterDefaultOIDFunction                    uintptr
+	cryptRegisterOIDFunction                           uintptr
+	cryptSIPRemoveProvider                             uintptr
+	cryptSIPRetrieveSubjectGuid                        uintptr
+	cryptSIPRetrieveSubjectGuidForCatalogFile          uintptr
+	cryptSetKeyIdentifierProperty                      uintptr
+	cryptSetOIDFunctionValue                           uintptr
+	cryptStringToBinary                                uintptr
+	cryptUnprotectMemory                               uintptr
+	cryptUnregisterDefaultOIDFunction                  uintptr
+	cryptUnregisterOIDFunction                         uintptr
+	pFXExportCertStore                                 uintptr
+	pFXExportCertStoreEx                               uintptr
+	pFXImportCertStore                                 uintptr
+	pFXIsPFXBlob                                       uintptr
+	pFXVerifyPassword                                  uintptr
+	i_CertUpdateStore                                  uintptr
+	i_CryptAllocTls                                    uintptr
+	i_CryptDetachTls                                   uintptr
+	i_CryptFindLruEntry                                uintptr
+	i_CryptFindLruEntryData                            uintptr
+	i_CryptFreeTls                                     uintptr
+	i_CryptGetDefaultCryptProv                         uintptr
+	i_CryptGetOssGlobal                                uintptr
+	i_CryptGetTls                                      uintptr
+	i_CryptInstallOssGlobal                            uintptr
+	i_CryptReadTrustedPublisherDWORDValueFromRegistry  uintptr
+	i_CryptSetTls                                      uintptr
 )
 
 func init() {
@@ -99,42 +154,90 @@ func init() {
 	// Functions
 	certAddCRLContextToStore = doGetProcAddress(libcrypt32, "CertAddCRLContextToStore")
 	certAddCRLLinkToStore = doGetProcAddress(libcrypt32, "CertAddCRLLinkToStore")
+	certAddCTLContextToStore = doGetProcAddress(libcrypt32, "CertAddCTLContextToStore")
+	certAddCTLLinkToStore = doGetProcAddress(libcrypt32, "CertAddCTLLinkToStore")
+	certAddCertificateContextToStore = doGetProcAddress(libcrypt32, "CertAddCertificateContextToStore")
+	certAddCertificateLinkToStore = doGetProcAddress(libcrypt32, "CertAddCertificateLinkToStore")
 	certAddEncodedCRLToStore = doGetProcAddress(libcrypt32, "CertAddEncodedCRLToStore")
+	certAddEncodedCTLToStore = doGetProcAddress(libcrypt32, "CertAddEncodedCTLToStore")
+	certAddEncodedCertificateToStore = doGetProcAddress(libcrypt32, "CertAddEncodedCertificateToStore")
 	certAddEncodedCertificateToSystemStore = doGetProcAddress(libcrypt32, "CertAddEncodedCertificateToSystemStoreW")
+	certAddEnhancedKeyUsageIdentifier = doGetProcAddress(libcrypt32, "CertAddEnhancedKeyUsageIdentifier")
 	certAddSerializedElementToStore = doGetProcAddress(libcrypt32, "CertAddSerializedElementToStore")
 	certAddStoreToCollection = doGetProcAddress(libcrypt32, "CertAddStoreToCollection")
 	certAlgIdToOID = doGetProcAddress(libcrypt32, "CertAlgIdToOID")
 	certCloseStore = doGetProcAddress(libcrypt32, "CertCloseStore")
+	certCompareCertificate = doGetProcAddress(libcrypt32, "CertCompareCertificate")
 	certCompareCertificateName = doGetProcAddress(libcrypt32, "CertCompareCertificateName")
 	certCompareIntegerBlob = doGetProcAddress(libcrypt32, "CertCompareIntegerBlob")
 	certControlStore = doGetProcAddress(libcrypt32, "CertControlStore")
 	certCreateCRLContext = doGetProcAddress(libcrypt32, "CertCreateCRLContext")
+	certCreateCTLContext = doGetProcAddress(libcrypt32, "CertCreateCTLContext")
+	certCreateCTLEntryFromCertificateContextProperties = doGetProcAddress(libcrypt32, "CertCreateCTLEntryFromCertificateContextProperties")
+	certCreateCertificateContext = doGetProcAddress(libcrypt32, "CertCreateCertificateContext")
 	certDeleteCRLFromStore = doGetProcAddress(libcrypt32, "CertDeleteCRLFromStore")
+	certDeleteCTLFromStore = doGetProcAddress(libcrypt32, "CertDeleteCTLFromStore")
+	certDeleteCertificateFromStore = doGetProcAddress(libcrypt32, "CertDeleteCertificateFromStore")
 	certDuplicateCRLContext = doGetProcAddress(libcrypt32, "CertDuplicateCRLContext")
+	certDuplicateCTLContext = doGetProcAddress(libcrypt32, "CertDuplicateCTLContext")
+	certDuplicateCertificateContext = doGetProcAddress(libcrypt32, "CertDuplicateCertificateContext")
 	certDuplicateStore = doGetProcAddress(libcrypt32, "CertDuplicateStore")
 	certEnumCRLContextProperties = doGetProcAddress(libcrypt32, "CertEnumCRLContextProperties")
 	certEnumCRLsInStore = doGetProcAddress(libcrypt32, "CertEnumCRLsInStore")
+	certEnumCTLContextProperties = doGetProcAddress(libcrypt32, "CertEnumCTLContextProperties")
+	certEnumCTLsInStore = doGetProcAddress(libcrypt32, "CertEnumCTLsInStore")
+	certEnumCertificateContextProperties = doGetProcAddress(libcrypt32, "CertEnumCertificateContextProperties")
+	certEnumCertificatesInStore = doGetProcAddress(libcrypt32, "CertEnumCertificatesInStore")
+	certEnumSubjectInSortedCTL = doGetProcAddress(libcrypt32, "CertEnumSubjectInSortedCTL")
+	certFindAttribute = doGetProcAddress(libcrypt32, "CertFindAttribute")
 	certFindCRLInStore = doGetProcAddress(libcrypt32, "CertFindCRLInStore")
+	certFindCTLInStore = doGetProcAddress(libcrypt32, "CertFindCTLInStore")
+	certFindCertificateInCRL = doGetProcAddress(libcrypt32, "CertFindCertificateInCRL")
+	certFindCertificateInStore = doGetProcAddress(libcrypt32, "CertFindCertificateInStore")
 	certFindExtension = doGetProcAddress(libcrypt32, "CertFindExtension")
+	certFindSubjectInCTL = doGetProcAddress(libcrypt32, "CertFindSubjectInCTL")
+	certFindSubjectInSortedCTL = doGetProcAddress(libcrypt32, "CertFindSubjectInSortedCTL")
 	certFreeCRLContext = doGetProcAddress(libcrypt32, "CertFreeCRLContext")
+	certFreeCTLContext = doGetProcAddress(libcrypt32, "CertFreeCTLContext")
+	certFreeCertificateContext = doGetProcAddress(libcrypt32, "CertFreeCertificateContext")
 	certGetCRLContextProperty = doGetProcAddress(libcrypt32, "CertGetCRLContextProperty")
+	certGetCRLFromStore = doGetProcAddress(libcrypt32, "CertGetCRLFromStore")
+	certGetCTLContextProperty = doGetProcAddress(libcrypt32, "CertGetCTLContextProperty")
+	certGetCertificateContextProperty = doGetProcAddress(libcrypt32, "CertGetCertificateContextProperty")
+	certGetIntendedKeyUsage = doGetProcAddress(libcrypt32, "CertGetIntendedKeyUsage")
+	certGetIssuerCertificateFromStore = doGetProcAddress(libcrypt32, "CertGetIssuerCertificateFromStore")
+	certGetNameString = doGetProcAddress(libcrypt32, "CertGetNameStringW")
 	certGetStoreProperty = doGetProcAddress(libcrypt32, "CertGetStoreProperty")
+	certGetSubjectCertificateFromStore = doGetProcAddress(libcrypt32, "CertGetSubjectCertificateFromStore")
+	certGetValidUsages = doGetProcAddress(libcrypt32, "CertGetValidUsages")
+	certIsValidCRLForCertificate = doGetProcAddress(libcrypt32, "CertIsValidCRLForCertificate")
 	certNameToStr = doGetProcAddress(libcrypt32, "CertNameToStrW")
 	certOIDToAlgId = doGetProcAddress(libcrypt32, "CertOIDToAlgId")
 	certRDNValueToStr = doGetProcAddress(libcrypt32, "CertRDNValueToStrW")
+	certRemoveEnhancedKeyUsageIdentifier = doGetProcAddress(libcrypt32, "CertRemoveEnhancedKeyUsageIdentifier")
 	certRemoveStoreFromCollection = doGetProcAddress(libcrypt32, "CertRemoveStoreFromCollection")
 	certSaveStore = doGetProcAddress(libcrypt32, "CertSaveStore")
 	certSerializeCRLStoreElement = doGetProcAddress(libcrypt32, "CertSerializeCRLStoreElement")
+	certSerializeCTLStoreElement = doGetProcAddress(libcrypt32, "CertSerializeCTLStoreElement")
+	certSerializeCertificateStoreElement = doGetProcAddress(libcrypt32, "CertSerializeCertificateStoreElement")
 	certSetCRLContextProperty = doGetProcAddress(libcrypt32, "CertSetCRLContextProperty")
+	certSetCTLContextProperty = doGetProcAddress(libcrypt32, "CertSetCTLContextProperty")
+	certSetCertificateContextPropertiesFromCTLEntry = doGetProcAddress(libcrypt32, "CertSetCertificateContextPropertiesFromCTLEntry")
+	certSetCertificateContextProperty = doGetProcAddress(libcrypt32, "CertSetCertificateContextProperty")
 	certSetStoreProperty = doGetProcAddress(libcrypt32, "CertSetStoreProperty")
 	certStrToName = doGetProcAddress(libcrypt32, "CertStrToNameW")
 	certUnregisterPhysicalStore = doGetProcAddress(libcrypt32, "CertUnregisterPhysicalStore")
 	certUnregisterSystemStore = doGetProcAddress(libcrypt32, "CertUnregisterSystemStore")
+	certVerifyCRLRevocation = doGetProcAddress(libcrypt32, "CertVerifyCRLRevocation")
 	certVerifyCRLTimeValidity = doGetProcAddress(libcrypt32, "CertVerifyCRLTimeValidity")
+	certVerifySubjectCertificateContext = doGetProcAddress(libcrypt32, "CertVerifySubjectCertificateContext")
+	certVerifyTimeValidity = doGetProcAddress(libcrypt32, "CertVerifyTimeValidity")
+	certVerifyValidityNesting = doGetProcAddress(libcrypt32, "CertVerifyValidityNesting")
 	cryptBinaryToString = doGetProcAddress(libcrypt32, "CryptBinaryToStringW")
 	cryptDecodeObject = doGetProcAddress(libcrypt32, "CryptDecodeObject")
 	cryptEncodeObject = doGetProcAddress(libcrypt32, "CryptEncodeObject")
 	cryptExportPKCS8 = doGetProcAddress(libcrypt32, "CryptExportPKCS8")
+	cryptFindCertificateKeyProvInfo = doGetProcAddress(libcrypt32, "CryptFindCertificateKeyProvInfo")
 	cryptFindLocalizedName = doGetProcAddress(libcrypt32, "CryptFindLocalizedName")
 	cryptFormatObject = doGetProcAddress(libcrypt32, "CryptFormatObject")
 	cryptGetKeyIdentifierProperty = doGetProcAddress(libcrypt32, "CryptGetKeyIdentifierProperty")
@@ -144,7 +247,14 @@ func init() {
 	cryptMemFree = doGetProcAddress(libcrypt32, "CryptMemFree")
 	cryptMemRealloc = doGetProcAddress(libcrypt32, "CryptMemRealloc")
 	cryptMsgCalculateEncodedLength = doGetProcAddress(libcrypt32, "CryptMsgCalculateEncodedLength")
+	cryptMsgClose = doGetProcAddress(libcrypt32, "CryptMsgClose")
+	cryptMsgControl = doGetProcAddress(libcrypt32, "CryptMsgControl")
+	cryptMsgDuplicate = doGetProcAddress(libcrypt32, "CryptMsgDuplicate")
+	cryptMsgGetAndVerifySigner = doGetProcAddress(libcrypt32, "CryptMsgGetAndVerifySigner")
+	cryptMsgGetParam = doGetProcAddress(libcrypt32, "CryptMsgGetParam")
+	cryptMsgUpdate = doGetProcAddress(libcrypt32, "CryptMsgUpdate")
 	cryptProtectMemory = doGetProcAddress(libcrypt32, "CryptProtectMemory")
+	cryptQueryObject = doGetProcAddress(libcrypt32, "CryptQueryObject")
 	cryptRegisterDefaultOIDFunction = doGetProcAddress(libcrypt32, "CryptRegisterDefaultOIDFunction")
 	cryptRegisterOIDFunction = doGetProcAddress(libcrypt32, "CryptRegisterOIDFunction")
 	cryptSIPRemoveProvider = doGetProcAddress(libcrypt32, "CryptSIPRemoveProvider")
@@ -197,17 +307,49 @@ func CertAddCRLLinkToStore(hCertStore HCERTSTORE, pCrlContext PCCRL_CONTEXT, dwA
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT, PCCTL_CONTEXT *
-// func CertAddCTLContextToStore(hCertStore HCERTSTORE, pCtlContext PCCTL_CONTEXT, dwAddDisposition DWORD, ppStoreContext PCCTL_CONTEXT *) bool
+func CertAddCTLContextToStore(hCertStore HCERTSTORE, pCtlContext /*const*/ PCCTL_CONTEXT, dwAddDisposition DWORD, ppStoreContext *PCCTL_CONTEXT) bool {
+	ret1 := syscall6(certAddCTLContextToStore, 4,
+		uintptr(hCertStore),
+		uintptr(unsafe.Pointer(pCtlContext)),
+		uintptr(dwAddDisposition),
+		uintptr(unsafe.Pointer(ppStoreContext)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCTL_CONTEXT, PCCTL_CONTEXT *
-// func CertAddCTLLinkToStore(hCertStore HCERTSTORE, pCtlContext PCCTL_CONTEXT, dwAddDisposition DWORD, ppStoreContext PCCTL_CONTEXT *) bool
+func CertAddCTLLinkToStore(hCertStore HCERTSTORE, pCtlContext /*const*/ PCCTL_CONTEXT, dwAddDisposition DWORD, ppStoreContext *PCCTL_CONTEXT) bool {
+	ret1 := syscall6(certAddCTLLinkToStore, 4,
+		uintptr(hCertStore),
+		uintptr(unsafe.Pointer(pCtlContext)),
+		uintptr(dwAddDisposition),
+		uintptr(unsafe.Pointer(ppStoreContext)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT, PCCERT_CONTEXT *
-// func CertAddCertificateContextToStore(hCertStore HCERTSTORE, pCertContext PCCERT_CONTEXT, dwAddDisposition DWORD, ppStoreContext PCCERT_CONTEXT *) bool
+func CertAddCertificateContextToStore(hCertStore HCERTSTORE, pCertContext /*const*/ PCCERT_CONTEXT, dwAddDisposition DWORD, ppStoreContext *PCCERT_CONTEXT) bool {
+	ret1 := syscall6(certAddCertificateContextToStore, 4,
+		uintptr(hCertStore),
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(dwAddDisposition),
+		uintptr(unsafe.Pointer(ppStoreContext)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT, PCCERT_CONTEXT *
-// func CertAddCertificateLinkToStore(hCertStore HCERTSTORE, pCertContext PCCERT_CONTEXT, dwAddDisposition DWORD, ppStoreContext PCCERT_CONTEXT *) bool
+func CertAddCertificateLinkToStore(hCertStore HCERTSTORE, pCertContext /*const*/ PCCERT_CONTEXT, dwAddDisposition DWORD, ppStoreContext *PCCERT_CONTEXT) bool {
+	ret1 := syscall6(certAddCertificateLinkToStore, 4,
+		uintptr(hCertStore),
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(dwAddDisposition),
+		uintptr(unsafe.Pointer(ppStoreContext)),
+		0,
+		0)
+	return ret1 != 0
+}
 
 func CertAddEncodedCRLToStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, pbCrlEncoded /*const*/ *byte, cbCrlEncoded DWORD, dwAddDisposition DWORD, ppCrlContext *PCCRL_CONTEXT) bool {
 	ret1 := syscall6(certAddEncodedCRLToStore, 6,
@@ -220,11 +362,27 @@ func CertAddEncodedCRLToStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, p
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT *
-// func CertAddEncodedCTLToStore(hCertStore HCERTSTORE, dwMsgAndCertEncodingType DWORD, pbCtlEncoded /*const*/ *byte, cbCtlEncoded DWORD, dwAddDisposition DWORD, ppCtlContext PCCTL_CONTEXT *) bool
+func CertAddEncodedCTLToStore(hCertStore HCERTSTORE, dwMsgAndCertEncodingType DWORD, pbCtlEncoded /*const*/ *byte, cbCtlEncoded DWORD, dwAddDisposition DWORD, ppCtlContext *PCCTL_CONTEXT) bool {
+	ret1 := syscall6(certAddEncodedCTLToStore, 6,
+		uintptr(hCertStore),
+		uintptr(dwMsgAndCertEncodingType),
+		uintptr(unsafe.Pointer(pbCtlEncoded)),
+		uintptr(cbCtlEncoded),
+		uintptr(dwAddDisposition),
+		uintptr(unsafe.Pointer(ppCtlContext)))
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT *
-// func CertAddEncodedCertificateToStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, pbCertEncoded /*const*/ *byte, cbCertEncoded DWORD, dwAddDisposition DWORD, ppCertContext PCCERT_CONTEXT *) bool
+func CertAddEncodedCertificateToStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, pbCertEncoded /*const*/ *byte, cbCertEncoded DWORD, dwAddDisposition DWORD, ppCertContext *PCCERT_CONTEXT) bool {
+	ret1 := syscall6(certAddEncodedCertificateToStore, 6,
+		uintptr(hCertStore),
+		uintptr(dwCertEncodingType),
+		uintptr(unsafe.Pointer(pbCertEncoded)),
+		uintptr(cbCertEncoded),
+		uintptr(dwAddDisposition),
+		uintptr(unsafe.Pointer(ppCertContext)))
+	return ret1 != 0
+}
 
 func CertAddEncodedCertificateToSystemStore(szCertStoreName string, pbCertEncoded /*const*/ *byte, cbCertEncoded DWORD) bool {
 	szCertStoreNameStr := unicode16FromString(szCertStoreName)
@@ -235,8 +393,13 @@ func CertAddEncodedCertificateToSystemStore(szCertStoreName string, pbCertEncode
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertAddEnhancedKeyUsageIdentifier(pCertContext PCCERT_CONTEXT, pszUsageIdentifier /*const*/ LPCSTR) bool
+func CertAddEnhancedKeyUsageIdentifier(pCertContext /*const*/ PCCERT_CONTEXT, pszUsageIdentifier /*const*/ LPCSTR) bool {
+	ret1 := syscall3(certAddEnhancedKeyUsageIdentifier, 2,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(unsafe.Pointer(pszUsageIdentifier)),
+		0)
+	return ret1 != 0
+}
 
 func CertAddSerializedElementToStore(hCertStore HCERTSTORE, pbElement /*const*/ *byte, cbElement DWORD, dwAddDisposition DWORD, dwFlags DWORD, dwContextTypeFlags DWORD, pdwContextType *uint32, ppvContext /*const*/ uintptr) bool {
 	ret1 := syscall9(certAddSerializedElementToStore, 8,
@@ -279,8 +442,13 @@ func CertCloseStore(hCertStore HCERTSTORE, dwFlags DWORD) bool {
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCERT_INFO
-// func CertCompareCertificate(dwCertEncodingType DWORD, pCertId1 PCERT_INFO, pCertId2 PCERT_INFO) bool
+func CertCompareCertificate(dwCertEncodingType DWORD, pCertId1 PCERT_INFO, pCertId2 PCERT_INFO) bool {
+	ret1 := syscall3(certCompareCertificate, 3,
+		uintptr(dwCertEncodingType),
+		uintptr(unsafe.Pointer(pCertId1)),
+		uintptr(unsafe.Pointer(pCertId2)))
+	return ret1 != 0
+}
 
 func CertCompareCertificateName(dwCertEncodingType DWORD, pCertName1 PCERT_NAME_BLOB, pCertName2 PCERT_NAME_BLOB) bool {
 	ret1 := syscall3(certCompareCertificateName, 3,
@@ -320,19 +488,40 @@ func CertCreateCRLContext(dwCertEncodingType DWORD, pbCrlEncoded /*const*/ *byte
 	return (PCCRL_CONTEXT)(unsafe.Pointer(ret1))
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertCreateCTLContext(dwMsgAndCertEncodingType DWORD, pbCtlEncoded /*const*/ *byte, cbCtlEncoded DWORD) PCCTL_CONTEXT
+func CertCreateCTLContext(dwMsgAndCertEncodingType DWORD, pbCtlEncoded /*const*/ *byte, cbCtlEncoded DWORD) PCCTL_CONTEXT {
+	ret1 := syscall3(certCreateCTLContext, 3,
+		uintptr(dwMsgAndCertEncodingType),
+		uintptr(unsafe.Pointer(pbCtlEncoded)),
+		uintptr(cbCtlEncoded))
+	return (PCCTL_CONTEXT)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT, PCRYPT_ATTRIBUTE, PCTL_ENTRY
-// func CertCreateCTLEntryFromCertificateContextProperties(pCertContext PCCERT_CONTEXT, cOptAttr DWORD, rgOptAttr PCRYPT_ATTRIBUTE, dwFlags DWORD, pvReserved uintptr, pCtlEntry PCTL_ENTRY, pcbCtlEntry *uint32) bool
+func CertCreateCTLEntryFromCertificateContextProperties(pCertContext /*const*/ PCCERT_CONTEXT, cOptAttr DWORD, rgOptAttr PCRYPT_ATTRIBUTE, dwFlags DWORD, pvReserved uintptr, pCtlEntry PCTL_ENTRY, pcbCtlEntry *uint32) bool {
+	ret1 := syscall9(certCreateCTLEntryFromCertificateContextProperties, 7,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(cOptAttr),
+		uintptr(unsafe.Pointer(rgOptAttr)),
+		uintptr(dwFlags),
+		pvReserved,
+		uintptr(unsafe.Pointer(pCtlEntry)),
+		uintptr(unsafe.Pointer(pcbCtlEntry)),
+		0,
+		0)
+	return ret1 != 0
+}
 
 // TODO: Unknown type(s): HCERTCHAINENGINE *, PCERT_CHAIN_ENGINE_CONFIG
 // func CertCreateCertificateChainEngine(pConfig PCERT_CHAIN_ENGINE_CONFIG, phChainEngine HCERTCHAINENGINE *) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertCreateCertificateContext(dwCertEncodingType DWORD, pbCertEncoded /*const*/ *byte, cbCertEncoded DWORD) PCCERT_CONTEXT
+func CertCreateCertificateContext(dwCertEncodingType DWORD, pbCertEncoded /*const*/ *byte, cbCertEncoded DWORD) PCCERT_CONTEXT {
+	ret1 := syscall3(certCreateCertificateContext, 3,
+		uintptr(dwCertEncodingType),
+		uintptr(unsafe.Pointer(pbCertEncoded)),
+		uintptr(cbCertEncoded))
+	return (PCCERT_CONTEXT)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, PCCERT_CONTEXT, PCERT_EXTENSIONS, PCRYPT_ALGORITHM_IDENTIFIER, PCRYPT_KEY_PROV_INFO, PSYSTEMTIME
+// TODO: Unknown type(s): HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, PCERT_EXTENSIONS, PCRYPT_ALGORITHM_IDENTIFIER, PCRYPT_KEY_PROV_INFO, PSYSTEMTIME
 // func CertCreateSelfSignCertificate(hCryptProvOrNCryptKey HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, pSubjectIssuerBlob PCERT_NAME_BLOB, dwFlags DWORD, pKeyProvInfo PCRYPT_KEY_PROV_INFO, pSignatureAlgorithm PCRYPT_ALGORITHM_IDENTIFIER, pStartTime PSYSTEMTIME, pEndTime PSYSTEMTIME, pExtensions PCERT_EXTENSIONS) PCCERT_CONTEXT
 
 func CertDeleteCRLFromStore(pCrlContext PCCRL_CONTEXT) bool {
@@ -343,11 +532,21 @@ func CertDeleteCRLFromStore(pCrlContext PCCRL_CONTEXT) bool {
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertDeleteCTLFromStore(pCtlContext PCCTL_CONTEXT) bool
+func CertDeleteCTLFromStore(pCtlContext /*const*/ PCCTL_CONTEXT) bool {
+	ret1 := syscall3(certDeleteCTLFromStore, 1,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertDeleteCertificateFromStore(pCertContext PCCERT_CONTEXT) bool
+func CertDeleteCertificateFromStore(pCertContext /*const*/ PCCERT_CONTEXT) bool {
+	ret1 := syscall3(certDeleteCertificateFromStore, 1,
+		uintptr(unsafe.Pointer(pCertContext)),
+		0,
+		0)
+	return ret1 != 0
+}
 
 func CertDuplicateCRLContext(pCrlContext PCCRL_CONTEXT) PCCRL_CONTEXT {
 	ret1 := syscall3(certDuplicateCRLContext, 1,
@@ -357,14 +556,24 @@ func CertDuplicateCRLContext(pCrlContext PCCRL_CONTEXT) PCCRL_CONTEXT {
 	return (PCCRL_CONTEXT)(unsafe.Pointer(ret1))
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertDuplicateCTLContext(pCtlContext PCCTL_CONTEXT) PCCTL_CONTEXT
+func CertDuplicateCTLContext(pCtlContext /*const*/ PCCTL_CONTEXT) PCCTL_CONTEXT {
+	ret1 := syscall3(certDuplicateCTLContext, 1,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		0,
+		0)
+	return (PCCTL_CONTEXT)(unsafe.Pointer(ret1))
+}
 
 // TODO: Unknown type(s): PCCERT_CHAIN_CONTEXT
 // func CertDuplicateCertificateChain(pChainContext PCCERT_CHAIN_CONTEXT) PCCERT_CHAIN_CONTEXT
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertDuplicateCertificateContext(pCertContext PCCERT_CONTEXT) PCCERT_CONTEXT
+func CertDuplicateCertificateContext(pCertContext /*const*/ PCCERT_CONTEXT) PCCERT_CONTEXT {
+	ret1 := syscall3(certDuplicateCertificateContext, 1,
+		uintptr(unsafe.Pointer(pCertContext)),
+		0,
+		0)
+	return (PCCERT_CONTEXT)(unsafe.Pointer(ret1))
+}
 
 func CertDuplicateStore(hCertStore HCERTSTORE) HCERTSTORE {
 	ret1 := syscall3(certDuplicateStore, 1,
@@ -390,23 +599,51 @@ func CertEnumCRLsInStore(hCertStore HCERTSTORE, pPrevCrlContext PCCRL_CONTEXT) P
 	return (PCCRL_CONTEXT)(unsafe.Pointer(ret1))
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertEnumCTLContextProperties(pCtlContext PCCTL_CONTEXT, dwPropId DWORD) DWORD
+func CertEnumCTLContextProperties(pCtlContext /*const*/ PCCTL_CONTEXT, dwPropId DWORD) DWORD {
+	ret1 := syscall3(certEnumCTLContextProperties, 2,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		uintptr(dwPropId),
+		0)
+	return DWORD(ret1)
+}
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertEnumCTLsInStore(hCertStore HCERTSTORE, pPrevCtlContext PCCTL_CONTEXT) PCCTL_CONTEXT
+func CertEnumCTLsInStore(hCertStore HCERTSTORE, pPrevCtlContext /*const*/ PCCTL_CONTEXT) PCCTL_CONTEXT {
+	ret1 := syscall3(certEnumCTLsInStore, 2,
+		uintptr(hCertStore),
+		uintptr(unsafe.Pointer(pPrevCtlContext)),
+		0)
+	return (PCCTL_CONTEXT)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertEnumCertificateContextProperties(pCertContext PCCERT_CONTEXT, dwPropId DWORD) DWORD
+func CertEnumCertificateContextProperties(pCertContext /*const*/ PCCERT_CONTEXT, dwPropId DWORD) DWORD {
+	ret1 := syscall3(certEnumCertificateContextProperties, 2,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(dwPropId),
+		0)
+	return DWORD(ret1)
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertEnumCertificatesInStore(hCertStore HCERTSTORE, pPrevCertContext PCCERT_CONTEXT) PCCERT_CONTEXT
+func CertEnumCertificatesInStore(hCertStore HCERTSTORE, pPrevCertContext /*const*/ PCCERT_CONTEXT) PCCERT_CONTEXT {
+	ret1 := syscall3(certEnumCertificatesInStore, 2,
+		uintptr(hCertStore),
+		uintptr(unsafe.Pointer(pPrevCertContext)),
+		0)
+	return (PCCERT_CONTEXT)(unsafe.Pointer(ret1))
+}
 
 // TODO: Unknown type(s): PFN_CERT_ENUM_PHYSICAL_STORE
 // func CertEnumPhysicalStore(pvSystemStore /*const*/ uintptr, dwFlags DWORD, pvArg uintptr, pfnEnum PFN_CERT_ENUM_PHYSICAL_STORE) bool
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertEnumSubjectInSortedCTL(pCtlContext PCCTL_CONTEXT, ppvNextSubject uintptr, pSubjectIdentifier PCRYPT_DER_BLOB, pEncodedAttributes PCRYPT_DER_BLOB) bool
+func CertEnumSubjectInSortedCTL(pCtlContext /*const*/ PCCTL_CONTEXT, ppvNextSubject uintptr, pSubjectIdentifier PCRYPT_DER_BLOB, pEncodedAttributes PCRYPT_DER_BLOB) bool {
+	ret1 := syscall6(certEnumSubjectInSortedCTL, 4,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		ppvNextSubject,
+		uintptr(unsafe.Pointer(pSubjectIdentifier)),
+		uintptr(unsafe.Pointer(pEncodedAttributes)),
+		0,
+		0)
+	return ret1 != 0
+}
 
 // TODO: Unknown type(s): PFN_CERT_ENUM_SYSTEM_STORE
 // func CertEnumSystemStore(dwFlags DWORD, pvSystemStoreLocationPara uintptr, pvArg uintptr, pfnEnum PFN_CERT_ENUM_SYSTEM_STORE) bool
@@ -414,8 +651,13 @@ func CertEnumCRLsInStore(hCertStore HCERTSTORE, pPrevCrlContext PCCRL_CONTEXT) P
 // TODO: Unknown type(s): PFN_CERT_ENUM_SYSTEM_STORE_LOCATION
 // func CertEnumSystemStoreLocation(dwFlags DWORD, pvArg uintptr, pfnEnum PFN_CERT_ENUM_SYSTEM_STORE_LOCATION) bool
 
-// TODO: Unknown type(s): CRYPT_ATTRIBUTE*, PCRYPT_ATTRIBUTE
-// func CertFindAttribute(pszObjId /*const*/ LPCSTR, cAttr DWORD, rgAttr CRYPT_ATTRIBUTE*) PCRYPT_ATTRIBUTE
+func CertFindAttribute(pszObjId /*const*/ LPCSTR, cAttr DWORD, rgAttr *CRYPT_ATTRIBUTE) PCRYPT_ATTRIBUTE {
+	ret1 := syscall3(certFindAttribute, 3,
+		uintptr(unsafe.Pointer(pszObjId)),
+		uintptr(cAttr),
+		uintptr(unsafe.Pointer(rgAttr)))
+	return (PCRYPT_ATTRIBUTE)(unsafe.Pointer(ret1))
+}
 
 func CertFindCRLInStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, dwFindFlags DWORD, dwFindType DWORD, pvFindPara /*const*/ uintptr, pPrevCrlContext PCCRL_CONTEXT) PCCRL_CONTEXT {
 	ret1 := syscall6(certFindCRLInStore, 6,
@@ -428,14 +670,38 @@ func CertFindCRLInStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, dwFindF
 	return (PCCRL_CONTEXT)(unsafe.Pointer(ret1))
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertFindCTLInStore(hCertStore HCERTSTORE, dwMsgAndCertEncodingType DWORD, dwFindFlags DWORD, dwFindType DWORD, pvFindPara /*const*/ uintptr, pPrevCtlContext PCCTL_CONTEXT) PCCTL_CONTEXT
+func CertFindCTLInStore(hCertStore HCERTSTORE, dwMsgAndCertEncodingType DWORD, dwFindFlags DWORD, dwFindType DWORD, pvFindPara /*const*/ uintptr, pPrevCtlContext /*const*/ PCCTL_CONTEXT) PCCTL_CONTEXT {
+	ret1 := syscall6(certFindCTLInStore, 6,
+		uintptr(hCertStore),
+		uintptr(dwMsgAndCertEncodingType),
+		uintptr(dwFindFlags),
+		uintptr(dwFindType),
+		pvFindPara,
+		uintptr(unsafe.Pointer(pPrevCtlContext)))
+	return (PCCTL_CONTEXT)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertFindCertificateInCRL(pCert PCCERT_CONTEXT, pCrlContext PCCRL_CONTEXT, dwFlags DWORD, pvReserved uintptr, ppCrlEntry *PCRL_ENTRY) bool
+func CertFindCertificateInCRL(pCert /*const*/ PCCERT_CONTEXT, pCrlContext PCCRL_CONTEXT, dwFlags DWORD, pvReserved uintptr, ppCrlEntry *PCRL_ENTRY) bool {
+	ret1 := syscall6(certFindCertificateInCRL, 5,
+		uintptr(unsafe.Pointer(pCert)),
+		uintptr(unsafe.Pointer(pCrlContext)),
+		uintptr(dwFlags),
+		pvReserved,
+		uintptr(unsafe.Pointer(ppCrlEntry)),
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertFindCertificateInStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, dwFindFlags DWORD, dwFindType DWORD, pvFindPara /*const*/ uintptr, pPrevCertContext PCCERT_CONTEXT) PCCERT_CONTEXT
+func CertFindCertificateInStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, dwFindFlags DWORD, dwFindType DWORD, pvFindPara /*const*/ uintptr, pPrevCertContext /*const*/ PCCERT_CONTEXT) PCCERT_CONTEXT {
+	ret1 := syscall6(certFindCertificateInStore, 6,
+		uintptr(hCertStore),
+		uintptr(dwCertEncodingType),
+		uintptr(dwFindFlags),
+		uintptr(dwFindType),
+		pvFindPara,
+		uintptr(unsafe.Pointer(pPrevCertContext)))
+	return (PCCERT_CONTEXT)(unsafe.Pointer(ret1))
+}
 
 // TODO: Unknown type(s): PCCERT_CHAIN_CONTEXT
 // func CertFindChainInStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, dwFindFlags DWORD, dwFindType DWORD, pvFindPara /*const*/ uintptr, pPrevChainContext PCCERT_CHAIN_CONTEXT) PCCERT_CHAIN_CONTEXT
@@ -451,11 +717,27 @@ func CertFindExtension(pszObjId /*const*/ LPCSTR, cExtensions DWORD, rgExtension
 // TODO: Unknown type(s): PCERT_NAME_INFO, PCERT_RDN_ATTR
 // func CertFindRDNAttr(pszObjId /*const*/ LPCSTR, pName PCERT_NAME_INFO) PCERT_RDN_ATTR
 
-// TODO: Unknown type(s): PCCTL_CONTEXT, PCTL_ENTRY
-// func CertFindSubjectInCTL(dwEncodingType DWORD, dwSubjectType DWORD, pvSubject uintptr, pCtlContext PCCTL_CONTEXT, dwFlags DWORD) PCTL_ENTRY
+func CertFindSubjectInCTL(dwEncodingType DWORD, dwSubjectType DWORD, pvSubject uintptr, pCtlContext /*const*/ PCCTL_CONTEXT, dwFlags DWORD) PCTL_ENTRY {
+	ret1 := syscall6(certFindSubjectInCTL, 5,
+		uintptr(dwEncodingType),
+		uintptr(dwSubjectType),
+		pvSubject,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		uintptr(dwFlags),
+		0)
+	return (PCTL_ENTRY)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertFindSubjectInSortedCTL(pSubjectIdentifier PCRYPT_DATA_BLOB, pCtlContext PCCTL_CONTEXT, dwFlags DWORD, pvReserved uintptr, pEncodedAttributes PCRYPT_DER_BLOB) bool
+func CertFindSubjectInSortedCTL(pSubjectIdentifier PCRYPT_DATA_BLOB, pCtlContext /*const*/ PCCTL_CONTEXT, dwFlags DWORD, pvReserved uintptr, pEncodedAttributes PCRYPT_DER_BLOB) bool {
+	ret1 := syscall6(certFindSubjectInSortedCTL, 5,
+		uintptr(unsafe.Pointer(pSubjectIdentifier)),
+		uintptr(unsafe.Pointer(pCtlContext)),
+		uintptr(dwFlags),
+		pvReserved,
+		uintptr(unsafe.Pointer(pEncodedAttributes)),
+		0)
+	return ret1 != 0
+}
 
 func CertFreeCRLContext(pCrlContext PCCRL_CONTEXT) bool {
 	ret1 := syscall3(certFreeCRLContext, 1,
@@ -465,8 +747,13 @@ func CertFreeCRLContext(pCrlContext PCCRL_CONTEXT) bool {
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertFreeCTLContext(pCtlContext PCCTL_CONTEXT) bool
+func CertFreeCTLContext(pCtlContext /*const*/ PCCTL_CONTEXT) bool {
+	ret1 := syscall3(certFreeCTLContext, 1,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		0,
+		0)
+	return ret1 != 0
+}
 
 // TODO: Unknown type(s): PCCERT_CHAIN_CONTEXT
 // func CertFreeCertificateChain(pChainContext PCCERT_CHAIN_CONTEXT)
@@ -474,8 +761,13 @@ func CertFreeCRLContext(pCrlContext PCCRL_CONTEXT) bool {
 // TODO: Unknown type(s): HCERTCHAINENGINE
 // func CertFreeCertificateChainEngine(hChainEngine HCERTCHAINENGINE)
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertFreeCertificateContext(pCertContext PCCERT_CONTEXT) bool
+func CertFreeCertificateContext(pCertContext /*const*/ PCCERT_CONTEXT) bool {
+	ret1 := syscall3(certFreeCertificateContext, 1,
+		uintptr(unsafe.Pointer(pCertContext)),
+		0,
+		0)
+	return ret1 != 0
+}
 
 func CertGetCRLContextProperty(pCrlContext PCCRL_CONTEXT, dwPropId DWORD, pvData uintptr, pcbData *uint32) bool {
 	ret1 := syscall6(certGetCRLContextProperty, 4,
@@ -488,29 +780,77 @@ func CertGetCRLContextProperty(pCrlContext PCCRL_CONTEXT, dwPropId DWORD, pvData
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertGetCRLFromStore(hCertStore HCERTSTORE, pIssuerContext PCCERT_CONTEXT, pPrevCrlContext PCCRL_CONTEXT, pdwFlags *uint32) PCCRL_CONTEXT
+func CertGetCRLFromStore(hCertStore HCERTSTORE, pIssuerContext /*const*/ PCCERT_CONTEXT, pPrevCrlContext PCCRL_CONTEXT, pdwFlags *uint32) PCCRL_CONTEXT {
+	ret1 := syscall6(certGetCRLFromStore, 4,
+		uintptr(hCertStore),
+		uintptr(unsafe.Pointer(pIssuerContext)),
+		uintptr(unsafe.Pointer(pPrevCrlContext)),
+		uintptr(unsafe.Pointer(pdwFlags)),
+		0,
+		0)
+	return (PCCRL_CONTEXT)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertGetCTLContextProperty(pCtlContext PCCTL_CONTEXT, dwPropId DWORD, pvData uintptr, pcbData *uint32) bool
+func CertGetCTLContextProperty(pCtlContext /*const*/ PCCTL_CONTEXT, dwPropId DWORD, pvData uintptr, pcbData *uint32) bool {
+	ret1 := syscall6(certGetCTLContextProperty, 4,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		uintptr(dwPropId),
+		pvData,
+		uintptr(unsafe.Pointer(pcbData)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): HCERTCHAINENGINE, PCCERT_CHAIN_CONTEXT *, PCCERT_CONTEXT, PCERT_CHAIN_PARA
-// func CertGetCertificateChain(hChainEngine HCERTCHAINENGINE, pCertContext PCCERT_CONTEXT, pTime *FILETIME, hAdditionalStore HCERTSTORE, pChainPara PCERT_CHAIN_PARA, dwFlags DWORD, pvReserved LPVOID, ppChainContext PCCERT_CHAIN_CONTEXT *) bool
+// TODO: Unknown type(s): HCERTCHAINENGINE, PCCERT_CHAIN_CONTEXT *, PCERT_CHAIN_PARA
+// func CertGetCertificateChain(hChainEngine HCERTCHAINENGINE, pCertContext /*const*/ PCCERT_CONTEXT, pTime *FILETIME, hAdditionalStore HCERTSTORE, pChainPara PCERT_CHAIN_PARA, dwFlags DWORD, pvReserved LPVOID, ppChainContext PCCERT_CHAIN_CONTEXT *) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertGetCertificateContextProperty(pCertContext PCCERT_CONTEXT, dwPropId DWORD, pvData uintptr, pcbData *uint32) bool
+func CertGetCertificateContextProperty(pCertContext /*const*/ PCCERT_CONTEXT, dwPropId DWORD, pvData uintptr, pcbData *uint32) bool {
+	ret1 := syscall6(certGetCertificateContextProperty, 4,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(dwPropId),
+		pvData,
+		uintptr(unsafe.Pointer(pcbData)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT, PCERT_ENHKEY_USAGE
-// func CertGetEnhancedKeyUsage(pCertContext PCCERT_CONTEXT, dwFlags DWORD, pUsage PCERT_ENHKEY_USAGE, pcbUsage *uint32) bool
+// TODO: Unknown type(s): PCERT_ENHKEY_USAGE
+// func CertGetEnhancedKeyUsage(pCertContext /*const*/ PCCERT_CONTEXT, dwFlags DWORD, pUsage PCERT_ENHKEY_USAGE, pcbUsage *uint32) bool
 
-// TODO: Unknown type(s): PCERT_INFO
-// func CertGetIntendedKeyUsage(dwCertEncodingType DWORD, pCertInfo PCERT_INFO, pbKeyUsage *byte, cbKeyUsage DWORD) bool
+func CertGetIntendedKeyUsage(dwCertEncodingType DWORD, pCertInfo PCERT_INFO, pbKeyUsage *byte, cbKeyUsage DWORD) bool {
+	ret1 := syscall6(certGetIntendedKeyUsage, 4,
+		uintptr(dwCertEncodingType),
+		uintptr(unsafe.Pointer(pCertInfo)),
+		uintptr(unsafe.Pointer(pbKeyUsage)),
+		uintptr(cbKeyUsage),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertGetIssuerCertificateFromStore(hCertStore HCERTSTORE, pSubjectContext PCCERT_CONTEXT, pPrevIssuerContext PCCERT_CONTEXT, pdwFlags *uint32) PCCERT_CONTEXT
+func CertGetIssuerCertificateFromStore(hCertStore HCERTSTORE, pSubjectContext /*const*/ PCCERT_CONTEXT, pPrevIssuerContext /*const*/ PCCERT_CONTEXT, pdwFlags *uint32) PCCERT_CONTEXT {
+	ret1 := syscall6(certGetIssuerCertificateFromStore, 4,
+		uintptr(hCertStore),
+		uintptr(unsafe.Pointer(pSubjectContext)),
+		uintptr(unsafe.Pointer(pPrevIssuerContext)),
+		uintptr(unsafe.Pointer(pdwFlags)),
+		0,
+		0)
+	return (PCCERT_CONTEXT)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertGetNameString(pCertContext PCCERT_CONTEXT, dwType DWORD, dwFlags DWORD, pvTypePara uintptr, pszNameString LPWSTR, cchNameString DWORD) DWORD
+func CertGetNameString(pCertContext /*const*/ PCCERT_CONTEXT, dwType DWORD, dwFlags DWORD, pvTypePara uintptr, pszNameString LPWSTR, cchNameString DWORD) DWORD {
+	ret1 := syscall6(certGetNameString, 6,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(dwType),
+		uintptr(dwFlags),
+		pvTypePara,
+		uintptr(unsafe.Pointer(pszNameString)),
+		uintptr(cchNameString))
+	return DWORD(ret1)
+}
 
 // TODO: Unknown type(s): PCERT_PUBLIC_KEY_INFO
 // func CertGetPublicKeyLength(dwCertEncodingType DWORD, pPublicKey PCERT_PUBLIC_KEY_INFO) DWORD
@@ -526,17 +866,38 @@ func CertGetStoreProperty(hCertStore HCERTSTORE, dwPropId DWORD, pvData uintptr,
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCERT_CONTEXT, PCERT_INFO
-// func CertGetSubjectCertificateFromStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, pCertId PCERT_INFO) PCCERT_CONTEXT
+func CertGetSubjectCertificateFromStore(hCertStore HCERTSTORE, dwCertEncodingType DWORD, pCertId PCERT_INFO) PCCERT_CONTEXT {
+	ret1 := syscall3(certGetSubjectCertificateFromStore, 3,
+		uintptr(hCertStore),
+		uintptr(dwCertEncodingType),
+		uintptr(unsafe.Pointer(pCertId)))
+	return (PCCERT_CONTEXT)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT *
-// func CertGetValidUsages(cCerts DWORD, rghCerts PCCERT_CONTEXT *, cNumOIDs *int, rghOIDs *LPSTR, pcbOIDs *uint32) bool
+func CertGetValidUsages(cCerts DWORD, rghCerts *PCCERT_CONTEXT, cNumOIDs *int, rghOIDs *LPSTR, pcbOIDs *uint32) bool {
+	ret1 := syscall6(certGetValidUsages, 5,
+		uintptr(cCerts),
+		uintptr(unsafe.Pointer(rghCerts)),
+		uintptr(unsafe.Pointer(cNumOIDs)),
+		uintptr(unsafe.Pointer(rghOIDs)),
+		uintptr(unsafe.Pointer(pcbOIDs)),
+		0)
+	return ret1 != 0
+}
 
 // TODO: Unknown type(s): PCERT_RDN
 // func CertIsRDNAttrsInCertificateName(dwCertEncodingType DWORD, dwFlags DWORD, pCertName PCERT_NAME_BLOB, pRDN PCERT_RDN) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertIsValidCRLForCertificate(pCert PCCERT_CONTEXT, pCrl PCCRL_CONTEXT, dwFlags DWORD, pvReserved uintptr) bool
+func CertIsValidCRLForCertificate(pCert /*const*/ PCCERT_CONTEXT, pCrl PCCRL_CONTEXT, dwFlags DWORD, pvReserved uintptr) bool {
+	ret1 := syscall6(certIsValidCRLForCertificate, 4,
+		uintptr(unsafe.Pointer(pCert)),
+		uintptr(unsafe.Pointer(pCrl)),
+		uintptr(dwFlags),
+		pvReserved,
+		0,
+		0)
+	return ret1 != 0
+}
 
 func CertNameToStr(dwCertEncodingType DWORD, pName PCERT_NAME_BLOB, dwStrType DWORD, psz LPWSTR, csz DWORD) DWORD {
 	ret1 := syscall6(certNameToStr, 5,
@@ -580,8 +941,13 @@ func CertRDNValueToStr(dwValueType DWORD, pValue PCERT_RDN_VALUE_BLOB, psz LPWST
 // TODO: Unknown type(s): PCERT_SYSTEM_STORE_INFO
 // func CertRegisterSystemStore(pvSystemStore /*const*/ uintptr, dwFlags DWORD, pStoreInfo PCERT_SYSTEM_STORE_INFO, pvReserved uintptr) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertRemoveEnhancedKeyUsageIdentifier(pCertContext PCCERT_CONTEXT, pszUsageIdentifier /*const*/ LPCSTR) bool
+func CertRemoveEnhancedKeyUsageIdentifier(pCertContext /*const*/ PCCERT_CONTEXT, pszUsageIdentifier /*const*/ LPCSTR) bool {
+	ret1 := syscall3(certRemoveEnhancedKeyUsageIdentifier, 2,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(unsafe.Pointer(pszUsageIdentifier)),
+		0)
+	return ret1 != 0
+}
 
 func CertRemoveStoreFromCollection(hCollectionStore HCERTSTORE, hSiblingStore HCERTSTORE) {
 	syscall3(certRemoveStoreFromCollection, 2,
@@ -615,11 +981,27 @@ func CertSerializeCRLStoreElement(pCrlContext PCCRL_CONTEXT, dwFlags DWORD, pbEl
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertSerializeCTLStoreElement(pCtlContext PCCTL_CONTEXT, dwFlags DWORD, pbElement *byte, pcbElement *uint32) bool
+func CertSerializeCTLStoreElement(pCtlContext /*const*/ PCCTL_CONTEXT, dwFlags DWORD, pbElement *byte, pcbElement *uint32) bool {
+	ret1 := syscall6(certSerializeCTLStoreElement, 4,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		uintptr(dwFlags),
+		uintptr(unsafe.Pointer(pbElement)),
+		uintptr(unsafe.Pointer(pcbElement)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertSerializeCertificateStoreElement(pCertContext PCCERT_CONTEXT, dwFlags DWORD, pbElement *byte, pcbElement *uint32) bool
+func CertSerializeCertificateStoreElement(pCertContext /*const*/ PCCERT_CONTEXT, dwFlags DWORD, pbElement *byte, pcbElement *uint32) bool {
+	ret1 := syscall6(certSerializeCertificateStoreElement, 4,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(dwFlags),
+		uintptr(unsafe.Pointer(pbElement)),
+		uintptr(unsafe.Pointer(pcbElement)),
+		0,
+		0)
+	return ret1 != 0
+}
 
 func CertSetCRLContextProperty(pCrlContext PCCRL_CONTEXT, dwPropId DWORD, dwFlags DWORD, pvData /*const*/ uintptr) bool {
 	ret1 := syscall6(certSetCRLContextProperty, 4,
@@ -632,17 +1014,38 @@ func CertSetCRLContextProperty(pCrlContext PCCRL_CONTEXT, dwPropId DWORD, dwFlag
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCCTL_CONTEXT
-// func CertSetCTLContextProperty(pCtlContext PCCTL_CONTEXT, dwPropId DWORD, dwFlags DWORD, pvData /*const*/ uintptr) bool
+func CertSetCTLContextProperty(pCtlContext /*const*/ PCCTL_CONTEXT, dwPropId DWORD, dwFlags DWORD, pvData /*const*/ uintptr) bool {
+	ret1 := syscall6(certSetCTLContextProperty, 4,
+		uintptr(unsafe.Pointer(pCtlContext)),
+		uintptr(dwPropId),
+		uintptr(dwFlags),
+		pvData,
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT, PCTL_ENTRY
-// func CertSetCertificateContextPropertiesFromCTLEntry(pCertContext PCCERT_CONTEXT, pCtlEntry PCTL_ENTRY, dwFlags DWORD) bool
+func CertSetCertificateContextPropertiesFromCTLEntry(pCertContext /*const*/ PCCERT_CONTEXT, pCtlEntry PCTL_ENTRY, dwFlags DWORD) bool {
+	ret1 := syscall3(certSetCertificateContextPropertiesFromCTLEntry, 3,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(unsafe.Pointer(pCtlEntry)),
+		uintptr(dwFlags))
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertSetCertificateContextProperty(pCertContext PCCERT_CONTEXT, dwPropId DWORD, dwFlags DWORD, pvData /*const*/ uintptr) bool
+func CertSetCertificateContextProperty(pCertContext /*const*/ PCCERT_CONTEXT, dwPropId DWORD, dwFlags DWORD, pvData /*const*/ uintptr) bool {
+	ret1 := syscall6(certSetCertificateContextProperty, 4,
+		uintptr(unsafe.Pointer(pCertContext)),
+		uintptr(dwPropId),
+		uintptr(dwFlags),
+		pvData,
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCCERT_CONTEXT, PCERT_ENHKEY_USAGE
-// func CertSetEnhancedKeyUsage(pCertContext PCCERT_CONTEXT, pUsage PCERT_ENHKEY_USAGE) bool
+// TODO: Unknown type(s): PCERT_ENHKEY_USAGE
+// func CertSetEnhancedKeyUsage(pCertContext /*const*/ PCCERT_CONTEXT, pUsage PCERT_ENHKEY_USAGE) bool
 
 func CertSetStoreProperty(hCertStore HCERTSTORE, dwPropId DWORD, dwFlags DWORD, pvData /*const*/ uintptr) bool {
 	ret1 := syscall6(certSetStoreProperty, 4,
@@ -687,8 +1090,16 @@ func CertUnregisterSystemStore(pvSystemStore /*const*/ uintptr, dwFlags DWORD) b
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): PCERT_INFO
-// func CertVerifyCRLRevocation(dwCertEncodingType DWORD, pCertId PCERT_INFO, cCrlInfo DWORD, rgpCrlInfo *PCRL_INFO) bool
+func CertVerifyCRLRevocation(dwCertEncodingType DWORD, pCertId PCERT_INFO, cCrlInfo DWORD, rgpCrlInfo *PCRL_INFO) bool {
+	ret1 := syscall6(certVerifyCRLRevocation, 4,
+		uintptr(dwCertEncodingType),
+		uintptr(unsafe.Pointer(pCertId)),
+		uintptr(cCrlInfo),
+		uintptr(unsafe.Pointer(rgpCrlInfo)),
+		0,
+		0)
+	return ret1 != 0
+}
 
 func CertVerifyCRLTimeValidity(pTimeToVerify *FILETIME, pCrlInfo PCRL_INFO) LONG {
 	ret1 := syscall3(certVerifyCRLTimeValidity, 2,
@@ -707,17 +1118,32 @@ func CertVerifyCRLTimeValidity(pTimeToVerify *FILETIME, pCrlInfo PCRL_INFO) LONG
 // TODO: Unknown type(s): PCERT_REVOCATION_PARA, PCERT_REVOCATION_STATUS
 // func CertVerifyRevocation(dwEncodingType DWORD, dwRevType DWORD, cContext DWORD, rgpvContext *PVOID, dwFlags DWORD, pRevPara PCERT_REVOCATION_PARA, pRevStatus PCERT_REVOCATION_STATUS) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CertVerifySubjectCertificateContext(pSubject PCCERT_CONTEXT, pIssuer PCCERT_CONTEXT, pdwFlags *uint32) bool
+func CertVerifySubjectCertificateContext(pSubject /*const*/ PCCERT_CONTEXT, pIssuer /*const*/ PCCERT_CONTEXT, pdwFlags *uint32) bool {
+	ret1 := syscall3(certVerifySubjectCertificateContext, 3,
+		uintptr(unsafe.Pointer(pSubject)),
+		uintptr(unsafe.Pointer(pIssuer)),
+		uintptr(unsafe.Pointer(pdwFlags)))
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): PCERT_INFO
-// func CertVerifyTimeValidity(pTimeToVerify *FILETIME, pCertInfo PCERT_INFO) LONG
+func CertVerifyTimeValidity(pTimeToVerify *FILETIME, pCertInfo PCERT_INFO) LONG {
+	ret1 := syscall3(certVerifyTimeValidity, 2,
+		uintptr(unsafe.Pointer(pTimeToVerify)),
+		uintptr(unsafe.Pointer(pCertInfo)),
+		0)
+	return LONG(ret1)
+}
 
-// TODO: Unknown type(s): PCERT_INFO
-// func CertVerifyValidityNesting(pSubjectInfo PCERT_INFO, pIssuerInfo PCERT_INFO) bool
+func CertVerifyValidityNesting(pSubjectInfo PCERT_INFO, pIssuerInfo PCERT_INFO) bool {
+	ret1 := syscall3(certVerifyValidityNesting, 2,
+		uintptr(unsafe.Pointer(pSubjectInfo)),
+		uintptr(unsafe.Pointer(pIssuerInfo)),
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): HCRYPTPROV_OR_NCRYPT_KEY_HANDLE *, PCCERT_CONTEXT
-// func CryptAcquireCertificatePrivateKey(pCert PCCERT_CONTEXT, dwFlags DWORD, pvParameters uintptr, phCryptProvOrNCryptKey HCRYPTPROV_OR_NCRYPT_KEY_HANDLE *, pdwKeySpec *uint32, pfCallerFreeProvOrNCryptKey *BOOL) bool
+// TODO: Unknown type(s): HCRYPTPROV_OR_NCRYPT_KEY_HANDLE *
+// func CryptAcquireCertificatePrivateKey(pCert /*const*/ PCCERT_CONTEXT, dwFlags DWORD, pvParameters uintptr, phCryptProvOrNCryptKey HCRYPTPROV_OR_NCRYPT_KEY_HANDLE *, pdwKeySpec *uint32, pfCallerFreeProvOrNCryptKey *BOOL) bool
 
 func CryptBinaryToString(pbBinary /*const*/ *byte, cbBinary DWORD, dwFlags DWORD, pszString LPWSTR, pcchString *uint32) bool {
 	ret1 := syscall6(cryptBinaryToString, 5,
@@ -739,8 +1165,8 @@ func CryptBinaryToString(pbBinary /*const*/ *byte, cbBinary DWORD, dwFlags DWORD
 // TODO: Unknown type(s): const PUBLICKEYSTRUC *
 // func CryptCreateKeyIdentifierFromCSP(dwCertEncodingType DWORD, pszPubKeyOID /*const*/ LPCSTR, pPubKeyStruc /*const*/ const PUBLICKEYSTRUC *, cbPubKeyStruc DWORD, dwFlags DWORD, pvReserved uintptr, pbHash *byte, pcbHash *uint32) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT *, PCRYPT_DECRYPT_MESSAGE_PARA, PCRYPT_VERIFY_MESSAGE_PARA
-// func CryptDecodeMessage(dwMsgTypeFlags DWORD, pDecryptPara PCRYPT_DECRYPT_MESSAGE_PARA, pVerifyPara PCRYPT_VERIFY_MESSAGE_PARA, dwSignerIndex DWORD, pbEncodedBlob /*const*/ *byte, cbEncodedBlob DWORD, dwPrevInnerContentType DWORD, pdwMsgType *uint32, pdwInnerContentType *uint32, pbDecoded *byte, pcbDecoded *uint32, ppXchgCert PCCERT_CONTEXT *, ppSignerCert PCCERT_CONTEXT *) bool
+// TODO: Unknown type(s): PCRYPT_DECRYPT_MESSAGE_PARA, PCRYPT_VERIFY_MESSAGE_PARA
+// func CryptDecodeMessage(dwMsgTypeFlags DWORD, pDecryptPara PCRYPT_DECRYPT_MESSAGE_PARA, pVerifyPara PCRYPT_VERIFY_MESSAGE_PARA, dwSignerIndex DWORD, pbEncodedBlob /*const*/ *byte, cbEncodedBlob DWORD, dwPrevInnerContentType DWORD, pdwMsgType *uint32, pdwInnerContentType *uint32, pbDecoded *byte, pcbDecoded *uint32, ppXchgCert *PCCERT_CONTEXT, ppSignerCert *PCCERT_CONTEXT) bool
 
 func CryptDecodeObject(dwCertEncodingType DWORD, lpszStructType /*const*/ LPCSTR, pbEncoded /*const*/ *byte, cbEncoded DWORD, dwFlags DWORD, pvStructInfo uintptr, pcbStructInfo *uint32) bool {
 	ret1 := syscall9(cryptDecodeObject, 7,
@@ -759,11 +1185,11 @@ func CryptDecodeObject(dwCertEncodingType DWORD, lpszStructType /*const*/ LPCSTR
 // TODO: Unknown type(s): PCRYPT_DECODE_PARA
 // func CryptDecodeObjectEx(dwCertEncodingType DWORD, lpszStructType /*const*/ LPCSTR, pbEncoded /*const*/ *byte, cbEncoded DWORD, dwFlags DWORD, pDecodePara PCRYPT_DECODE_PARA, pvStructInfo uintptr, pcbStructInfo *uint32) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT *, PCRYPT_DECRYPT_MESSAGE_PARA, PCRYPT_VERIFY_MESSAGE_PARA
-// func CryptDecryptAndVerifyMessageSignature(pDecryptPara PCRYPT_DECRYPT_MESSAGE_PARA, pVerifyPara PCRYPT_VERIFY_MESSAGE_PARA, dwSignerIndex DWORD, pbEncryptedBlob /*const*/ *byte, cbEncryptedBlob DWORD, pbDecrypted *byte, pcbDecrypted *uint32, ppXchgCert PCCERT_CONTEXT *, ppSignerCert PCCERT_CONTEXT *) bool
+// TODO: Unknown type(s): PCRYPT_DECRYPT_MESSAGE_PARA, PCRYPT_VERIFY_MESSAGE_PARA
+// func CryptDecryptAndVerifyMessageSignature(pDecryptPara PCRYPT_DECRYPT_MESSAGE_PARA, pVerifyPara PCRYPT_VERIFY_MESSAGE_PARA, dwSignerIndex DWORD, pbEncryptedBlob /*const*/ *byte, cbEncryptedBlob DWORD, pbDecrypted *byte, pcbDecrypted *uint32, ppXchgCert *PCCERT_CONTEXT, ppSignerCert *PCCERT_CONTEXT) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT *, PCRYPT_DECRYPT_MESSAGE_PARA
-// func CryptDecryptMessage(pDecryptPara PCRYPT_DECRYPT_MESSAGE_PARA, pbEncryptedBlob /*const*/ *byte, cbEncryptedBlob DWORD, pbDecrypted *byte, pcbDecrypted *uint32, ppXchgCert PCCERT_CONTEXT *) bool
+// TODO: Unknown type(s): PCRYPT_DECRYPT_MESSAGE_PARA
+// func CryptDecryptMessage(pDecryptPara PCRYPT_DECRYPT_MESSAGE_PARA, pbEncryptedBlob /*const*/ *byte, cbEncryptedBlob DWORD, pbDecrypted *byte, pcbDecrypted *uint32, ppXchgCert *PCCERT_CONTEXT) bool
 
 func CryptEncodeObject(dwCertEncodingType DWORD, lpszStructType /*const*/ LPCSTR, pvStructInfo /*const*/ uintptr, pbEncoded *byte, pcbEncoded *uint32) bool {
 	ret1 := syscall6(cryptEncodeObject, 5,
@@ -779,8 +1205,8 @@ func CryptEncodeObject(dwCertEncodingType DWORD, lpszStructType /*const*/ LPCSTR
 // TODO: Unknown type(s): PCRYPT_ENCODE_PARA
 // func CryptEncodeObjectEx(dwCertEncodingType DWORD, lpszStructType /*const*/ LPCSTR, pvStructInfo /*const*/ uintptr, dwFlags DWORD, pEncodePara PCRYPT_ENCODE_PARA, pvEncoded uintptr, pcbEncoded *uint32) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT*, PCRYPT_ENCRYPT_MESSAGE_PARA
-// func CryptEncryptMessage(pEncryptPara PCRYPT_ENCRYPT_MESSAGE_PARA, cRecipientCert DWORD, rgpRecipientCert PCCERT_CONTEXT*, pbToBeEncrypted /*const*/ *byte, cbToBeEncrypted DWORD, pbEncryptedBlob *byte, pcbEncryptedBlob *uint32) bool
+// TODO: Unknown type(s): PCRYPT_ENCRYPT_MESSAGE_PARA
+// func CryptEncryptMessage(pEncryptPara PCRYPT_ENCRYPT_MESSAGE_PARA, cRecipientCert DWORD, rgpRecipientCert *PCCERT_CONTEXT, pbToBeEncrypted /*const*/ *byte, cbToBeEncrypted DWORD, pbEncryptedBlob *byte, pcbEncryptedBlob *uint32) bool
 
 // TODO: Unknown type(s): PFN_CRYPT_ENUM_KEYID_PROP
 // func CryptEnumKeyIdentifierProperties(pKeyIdentifier /*const*/ *CRYPT_HASH_BLOB, dwPropId DWORD, dwFlags DWORD, pwszComputerName string, pvReserved uintptr, pvArg uintptr, pfnEnum PFN_CRYPT_ENUM_KEYID_PROP) bool
@@ -811,8 +1237,13 @@ func CryptExportPKCS8(hCryptProv HCRYPTPROV, dwKeySpec DWORD, pszPrivateKeyObjId
 // TODO: Unknown type(s): HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, PCERT_PUBLIC_KEY_INFO
 // func CryptExportPublicKeyInfoEx(hCryptProvOrNCryptKey HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec DWORD, dwCertEncodingType DWORD, pszPublicKeyObjId LPSTR, dwFlags DWORD, pvAuxInfo uintptr, pInfo PCERT_PUBLIC_KEY_INFO, pcbInfo *uint32) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT
-// func CryptFindCertificateKeyProvInfo(pCert PCCERT_CONTEXT, dwFlags DWORD, pvReserved uintptr) bool
+func CryptFindCertificateKeyProvInfo(pCert /*const*/ PCCERT_CONTEXT, dwFlags DWORD, pvReserved uintptr) bool {
+	ret1 := syscall3(cryptFindCertificateKeyProvInfo, 3,
+		uintptr(unsafe.Pointer(pCert)),
+		uintptr(dwFlags),
+		pvReserved)
+	return ret1 != 0
+}
 
 func CryptFindLocalizedName(pwszCryptName string) string {
 	pwszCryptNameStr := unicode16FromString(pwszCryptName)
@@ -960,43 +1391,85 @@ func CryptMsgCalculateEncodedLength(dwMsgEncodingType DWORD, dwFlags DWORD, dwMs
 	return DWORD(ret1)
 }
 
-// TODO: Unknown type(s): HCRYPTMSG
-// func CryptMsgClose(hCryptMsg HCRYPTMSG) bool
+func CryptMsgClose(hCryptMsg HCRYPTMSG) bool {
+	ret1 := syscall3(cryptMsgClose, 1,
+		uintptr(unsafe.Pointer(hCryptMsg)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): HCRYPTMSG
-// func CryptMsgControl(hCryptMsg HCRYPTMSG, dwFlags DWORD, dwCtrlType DWORD, pvCtrlPara /*const*/ uintptr) bool
+func CryptMsgControl(hCryptMsg HCRYPTMSG, dwFlags DWORD, dwCtrlType DWORD, pvCtrlPara /*const*/ uintptr) bool {
+	ret1 := syscall6(cryptMsgControl, 4,
+		uintptr(unsafe.Pointer(hCryptMsg)),
+		uintptr(dwFlags),
+		uintptr(dwCtrlType),
+		pvCtrlPara,
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): HCRYPTMSG, PCMSG_SIGNER_ENCODE_INFO
+// TODO: Unknown type(s): PCMSG_SIGNER_ENCODE_INFO
 // func CryptMsgCountersign(hCryptMsg HCRYPTMSG, dwIndex DWORD, cCountersigners DWORD, rgCountersigners PCMSG_SIGNER_ENCODE_INFO) bool
 
 // TODO: Unknown type(s): PCMSG_SIGNER_ENCODE_INFO
 // func CryptMsgCountersignEncoded(dwEncodingType DWORD, pbSignerInfo *byte, cbSignerInfo DWORD, cCountersigners DWORD, rgCountersigners PCMSG_SIGNER_ENCODE_INFO, pbCountersignature *byte, pcbCountersignature *DWORD) bool
 
-// TODO: Unknown type(s): HCRYPTMSG
-// func CryptMsgDuplicate(hCryptMsg HCRYPTMSG) HCRYPTMSG
+func CryptMsgDuplicate(hCryptMsg HCRYPTMSG) HCRYPTMSG {
+	ret1 := syscall3(cryptMsgDuplicate, 1,
+		uintptr(unsafe.Pointer(hCryptMsg)),
+		0,
+		0)
+	return (HCRYPTMSG)(unsafe.Pointer(ret1))
+}
 
-// TODO: Unknown type(s): PCMSG_SIGNED_ENCODE_INFO, PCTL_INFO
+// TODO: Unknown type(s): PCMSG_SIGNED_ENCODE_INFO
 // func CryptMsgEncodeAndSignCTL(dwMsgEncodingType DWORD, pCtlInfo PCTL_INFO, pSignInfo PCMSG_SIGNED_ENCODE_INFO, dwFlags DWORD, pbEncoded *byte, pcbEncoded *uint32) bool
 
-// TODO: Unknown type(s): HCRYPTMSG, PCCERT_CONTEXT *
-// func CryptMsgGetAndVerifySigner(hCryptMsg HCRYPTMSG, cSignerStore DWORD, rghSignerStore *HCERTSTORE, dwFlags DWORD, ppSigner PCCERT_CONTEXT *, pdwSignerIndex *uint32) bool
+func CryptMsgGetAndVerifySigner(hCryptMsg HCRYPTMSG, cSignerStore DWORD, rghSignerStore *HCERTSTORE, dwFlags DWORD, ppSigner *PCCERT_CONTEXT, pdwSignerIndex *uint32) bool {
+	ret1 := syscall6(cryptMsgGetAndVerifySigner, 6,
+		uintptr(unsafe.Pointer(hCryptMsg)),
+		uintptr(cSignerStore),
+		uintptr(unsafe.Pointer(rghSignerStore)),
+		uintptr(dwFlags),
+		uintptr(unsafe.Pointer(ppSigner)),
+		uintptr(unsafe.Pointer(pdwSignerIndex)))
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): HCRYPTMSG
-// func CryptMsgGetParam(hCryptMsg HCRYPTMSG, dwParamType DWORD, dwIndex DWORD, pvData uintptr, pcbData *uint32) bool
+func CryptMsgGetParam(hCryptMsg HCRYPTMSG, dwParamType DWORD, dwIndex DWORD, pvData uintptr, pcbData *uint32) bool {
+	ret1 := syscall6(cryptMsgGetParam, 5,
+		uintptr(unsafe.Pointer(hCryptMsg)),
+		uintptr(dwParamType),
+		uintptr(dwIndex),
+		pvData,
+		uintptr(unsafe.Pointer(pcbData)),
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): HCRYPTMSG, HCRYPTPROV_LEGACY, PCERT_INFO, PCMSG_STREAM_INFO
+// TODO: Unknown type(s): HCRYPTPROV_LEGACY, PCMSG_STREAM_INFO
 // func CryptMsgOpenToDecode(dwMsgEncodingType DWORD, dwFlags DWORD, dwMsgType DWORD, hCryptProv HCRYPTPROV_LEGACY, pRecipientInfo PCERT_INFO, pStreamInfo PCMSG_STREAM_INFO) HCRYPTMSG
 
-// TODO: Unknown type(s): HCRYPTMSG, PCMSG_STREAM_INFO
+// TODO: Unknown type(s): PCMSG_STREAM_INFO
 // func CryptMsgOpenToEncode(dwMsgEncodingType DWORD, dwFlags DWORD, dwMsgType DWORD, pvMsgEncodeInfo /*const*/ uintptr, pszInnerContentObjID LPSTR, pStreamInfo PCMSG_STREAM_INFO) HCRYPTMSG
 
 // TODO: Unknown type(s): PCMSG_SIGNED_ENCODE_INFO
 // func CryptMsgSignCTL(dwMsgEncodingType DWORD, pbCtlContent *byte, cbCtlContent DWORD, pSignInfo PCMSG_SIGNED_ENCODE_INFO, dwFlags DWORD, pbEncoded *byte, pcbEncoded *uint32) bool
 
-// TODO: Unknown type(s): HCRYPTMSG
-// func CryptMsgUpdate(hCryptMsg HCRYPTMSG, pbData /*const*/ *byte, cbData DWORD, fFinal bool) bool
+func CryptMsgUpdate(hCryptMsg HCRYPTMSG, pbData /*const*/ *byte, cbData DWORD, fFinal bool) bool {
+	ret1 := syscall6(cryptMsgUpdate, 4,
+		uintptr(unsafe.Pointer(hCryptMsg)),
+		uintptr(unsafe.Pointer(pbData)),
+		uintptr(cbData),
+		getUintptrFromBool(fFinal),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): HCRYPTPROV_LEGACY, PCERT_INFO
+// TODO: Unknown type(s): HCRYPTPROV_LEGACY
 // func CryptMsgVerifyCountersignatureEncoded(hCryptProv HCRYPTPROV_LEGACY, dwEncodingType DWORD, pbSignerInfo *byte, cbSignerInfo DWORD, pbSignerInfoCountersignature *byte, cbSignerInfoCountersignature DWORD, pciCountersigner PCERT_INFO) bool
 
 // TODO: Unknown type(s): HCRYPTPROV_LEGACY
@@ -1013,8 +1486,22 @@ func CryptProtectMemory(pDataIn LPVOID, cbDataIn DWORD, dwFlags DWORD) bool {
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): HCRYPTMSG *
-// func CryptQueryObject(dwObjectType DWORD, pvObject /*const*/ uintptr, dwExpectedContentTypeFlags DWORD, dwExpectedFormatTypeFlags DWORD, dwFlags DWORD, pdwMsgAndCertEncodingType *uint32, pdwContentType *uint32, pdwFormatType *uint32, phCertStore *HCERTSTORE, phMsg HCRYPTMSG *, ppvContext /*const*/ uintptr) bool
+func CryptQueryObject(dwObjectType DWORD, pvObject /*const*/ uintptr, dwExpectedContentTypeFlags DWORD, dwExpectedFormatTypeFlags DWORD, dwFlags DWORD, pdwMsgAndCertEncodingType *uint32, pdwContentType *uint32, pdwFormatType *uint32, phCertStore *HCERTSTORE, phMsg *HCRYPTMSG, ppvContext /*const*/ uintptr) bool {
+	ret1 := syscall12(cryptQueryObject, 11,
+		uintptr(dwObjectType),
+		pvObject,
+		uintptr(dwExpectedContentTypeFlags),
+		uintptr(dwExpectedFormatTypeFlags),
+		uintptr(dwFlags),
+		uintptr(unsafe.Pointer(pdwMsgAndCertEncodingType)),
+		uintptr(unsafe.Pointer(pdwContentType)),
+		uintptr(unsafe.Pointer(pdwFormatType)),
+		uintptr(unsafe.Pointer(phCertStore)),
+		uintptr(unsafe.Pointer(phMsg)),
+		ppvContext,
+		0)
+	return ret1 != 0
+}
 
 func CryptRegisterDefaultOIDFunction(dwEncodingType DWORD, pszFuncName /*const*/ LPCSTR, dwIndex DWORD, pwszDll string) bool {
 	pwszDllStr := unicode16FromString(pwszDll)
@@ -1123,8 +1610,8 @@ func CryptSetOIDFunctionValue(dwEncodingType DWORD, pszFuncName /*const*/ LPCSTR
 // TODO: Unknown type(s): HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, PCRYPT_ALGORITHM_IDENTIFIER
 // func CryptSignAndEncodeCertificate(hCryptProvOrNCryptKey HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec DWORD, dwCertEncodingType DWORD, lpszStructType /*const*/ LPCSTR, pvStructInfo /*const*/ uintptr, pSignatureAlgorithm PCRYPT_ALGORITHM_IDENTIFIER, pvHashAuxInfo /*const*/ uintptr, pbEncoded *byte, pcbEncoded *uint32) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT*, PCRYPT_ENCRYPT_MESSAGE_PARA, PCRYPT_SIGN_MESSAGE_PARA
-// func CryptSignAndEncryptMessage(pSignPara PCRYPT_SIGN_MESSAGE_PARA, pEncryptPara PCRYPT_ENCRYPT_MESSAGE_PARA, cRecipientCert DWORD, rgpRecipientCert PCCERT_CONTEXT*, pbToBeSignedAndEncrypted /*const*/ *byte, cbToBeSignedAndEncrypted DWORD, pbSignedAndEncryptedBlob *byte, pcbSignedAndEncryptedBlob *uint32) bool
+// TODO: Unknown type(s): PCRYPT_ENCRYPT_MESSAGE_PARA, PCRYPT_SIGN_MESSAGE_PARA
+// func CryptSignAndEncryptMessage(pSignPara PCRYPT_SIGN_MESSAGE_PARA, pEncryptPara PCRYPT_ENCRYPT_MESSAGE_PARA, cRecipientCert DWORD, rgpRecipientCert *PCCERT_CONTEXT, pbToBeSignedAndEncrypted /*const*/ *byte, cbToBeSignedAndEncrypted DWORD, pbSignedAndEncryptedBlob *byte, pcbSignedAndEncryptedBlob *uint32) bool
 
 // TODO: Unknown type(s): HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, PCRYPT_ALGORITHM_IDENTIFIER
 // func CryptSignCertificate(hCryptProvOrNCryptKey HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, dwKeySpec DWORD, dwCertEncodingType DWORD, pbEncodedToBeSigned /*const*/ *byte, cbEncodedToBeSigned DWORD, pSignatureAlgorithm PCRYPT_ALGORITHM_IDENTIFIER, pvHashAuxInfo /*const*/ uintptr, pbSignature *byte, pcbSignature *uint32) bool
@@ -1193,14 +1680,14 @@ func CryptUnregisterOIDFunction(dwEncodingType DWORD, pszFuncName /*const*/ LPCS
 // TODO: Unknown type(s): PCRYPT_HASH_MESSAGE_PARA
 // func CryptVerifyDetachedMessageHash(pHashPara PCRYPT_HASH_MESSAGE_PARA, pbDetachedHashBlob *byte, cbDetachedHashBlob DWORD, cToBeHashed DWORD, rgpbToBeHashed /*const*/ **BYTE, rgcbToBeHashed *uint32, pbComputedHash *byte, pcbComputedHash *uint32) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT *, PCRYPT_VERIFY_MESSAGE_PARA
-// func CryptVerifyDetachedMessageSignature(pVerifyPara PCRYPT_VERIFY_MESSAGE_PARA, dwSignerIndex DWORD, pbDetachedSignBlob /*const*/ *byte, cbDetachedSignBlob DWORD, cToBeSigned DWORD, rgpbToBeSigned /*const*/ **BYTE, rgcbToBeSigned *uint32, ppSignerCert PCCERT_CONTEXT *) bool
+// TODO: Unknown type(s): PCRYPT_VERIFY_MESSAGE_PARA
+// func CryptVerifyDetachedMessageSignature(pVerifyPara PCRYPT_VERIFY_MESSAGE_PARA, dwSignerIndex DWORD, pbDetachedSignBlob /*const*/ *byte, cbDetachedSignBlob DWORD, cToBeSigned DWORD, rgpbToBeSigned /*const*/ **BYTE, rgcbToBeSigned *uint32, ppSignerCert *PCCERT_CONTEXT) bool
 
 // TODO: Unknown type(s): PCRYPT_HASH_MESSAGE_PARA
 // func CryptVerifyMessageHash(pHashPara PCRYPT_HASH_MESSAGE_PARA, pbHashedBlob *byte, cbHashedBlob DWORD, pbToBeHashed *byte, pcbToBeHashed *uint32, pbComputedHash *byte, pcbComputedHash *uint32) bool
 
-// TODO: Unknown type(s): PCCERT_CONTEXT *, PCRYPT_VERIFY_MESSAGE_PARA
-// func CryptVerifyMessageSignature(pVerifyPara PCRYPT_VERIFY_MESSAGE_PARA, dwSignerIndex DWORD, pbSignedBlob /*const*/ *byte, cbSignedBlob DWORD, pbDecoded *byte, pcbDecoded *uint32, ppSignerCert PCCERT_CONTEXT *) bool
+// TODO: Unknown type(s): PCRYPT_VERIFY_MESSAGE_PARA
+// func CryptVerifyMessageSignature(pVerifyPara PCRYPT_VERIFY_MESSAGE_PARA, dwSignerIndex DWORD, pbSignedBlob /*const*/ *byte, cbSignedBlob DWORD, pbDecoded *byte, pcbDecoded *uint32, ppSignerCert *PCCERT_CONTEXT) bool
 
 // TODO: Unknown type(s): PCERT_PUBLIC_KEY_INFO, PCRYPT_KEY_VERIFY_MESSAGE_PARA
 // func CryptVerifyMessageSignatureWithKey(pVerifyPara PCRYPT_KEY_VERIFY_MESSAGE_PARA, pPublicKeyInfo PCERT_PUBLIC_KEY_INFO, pbSignedBlob /*const*/ *byte, cbSignedBlob DWORD, pbDecoded *byte, pcbDecoded *uint32) bool
