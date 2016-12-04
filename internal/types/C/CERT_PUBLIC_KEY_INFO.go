@@ -1,0 +1,9 @@
+package win
+
+//ref CRYPT_ALGORITHM_IDENTIFIER
+//ref CRYPT_BIT_BLOB
+
+type CERT_PUBLIC_KEY_INFO struct {
+	Algorithm CRYPT_ALGORITHM_IDENTIFIER
+	PublicKey CRYPT_BIT_BLOB
+}

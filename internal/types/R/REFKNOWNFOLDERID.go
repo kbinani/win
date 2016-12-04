@@ -1,0 +1,5 @@
+package win
+
+//ref KNOWNFOLDERID
+
+type REFKNOWNFOLDERID *KNOWNFOLDERID

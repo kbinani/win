@@ -991,3 +991,233 @@ const (
 	FVM_CONTENT                   = 8
 	FVM_LAST                      = 8
 )
+
+type FILEOP_FLAGS uint16
+
+const (
+	FOF_MULTIDESTFILES        FILEOP_FLAGS = 0x0001
+	FOF_CONFIRMMOUSE                       = 0x0002
+	FOF_SILENT                             = 0x0004
+	FOF_RENAMEONCOLLISION                  = 0x0008
+	FOF_NOCONFIRMATION                     = 0x0010
+	FOF_WANTMAPPINGHANDLE                  = 0x0020
+	FOF_ALLOWUNDO                          = 0x0040
+	FOF_FILESONLY                          = 0x0080
+	FOF_SIMPLEPROGRESS                     = 0x0100
+	FOF_NOCONFIRMMKDIR                     = 0x0200
+	FOF_NOERRORUI                          = 0x0400
+	FOF_NOCOPYSECURITYATTRIBS              = 0x0800
+	FOF_NORECURSION                        = 0x1000
+	FOF_NO_CONNECTED_ELEMENTS              = 0x2000
+	FOF_WANTNUKEWARNING                    = 0x4000
+	FOF_NORECURSEREPARSE                   = 0x8000
+	FOF_NO_UI                              = (FOF_SILENT | FOF_NOCONFIRMATION | FOF_NOERRORUI | FOF_NOCONFIRMMKDIR)
+)
+
+type DATAOBJ_GET_ITEM_FLAGS int32
+
+const (
+	DOGIF_DEFAULT       DATAOBJ_GET_ITEM_FLAGS = 0
+	DOGIF_TRAVERSE_LINK                        = 0x1
+	DOGIF_NO_HDROP                             = 0x2
+	DOGIF_NO_URL                               = 0x4
+	DOGIF_ONLY_IF_ONE                          = 0x8
+)
+
+type KNOWN_FOLDER_FLAG int32
+
+const (
+	KF_FLAG_DEFAULT                     KNOWN_FOLDER_FLAG = 0x00000000
+	KF_FLAG_NO_APPCONTAINER_REDIRECTION                   = 0x00010000
+	KF_FLAG_CREATE                                        = 0x00008000
+	KF_FLAG_DONT_VERIFY                                   = 0x00004000
+	KF_FLAG_DONT_UNEXPAND                                 = 0x00002000
+	KF_FLAG_NO_ALIAS                                      = 0x00001000
+	KF_FLAG_INIT                                          = 0x00000800
+	KF_FLAG_DEFAULT_PATH                                  = 0x00000400
+	KF_FLAG_NOT_PARENT_RELATIVE                           = 0x00000200
+	KF_FLAG_SIMPLE_IDLIST                                 = 0x00000100
+	KF_FLAG_ALIAS_ONLY                                    = 0x80000000
+)
+
+type SIGDN int32
+
+const (
+	SIGDN_NORMALDISPLAY               SIGDN = 0
+	SIGDN_PARENTRELATIVEPARSING             = 0x80018001
+	SIGDN_DESKTOPABSOLUTEPARSING            = 0x80028000
+	SIGDN_PARENTRELATIVEEDITING             = 0x80031001
+	SIGDN_DESKTOPABSOLUTEEDITING            = 0x8004c000
+	SIGDN_FILESYSPATH                       = 0x80058000
+	SIGDN_URL                               = 0x80068000
+	SIGDN_PARENTRELATIVEFORADDRESSBAR       = 0x8007c001
+	SIGDN_PARENTRELATIVE                    = 0x80080001
+	SIGDN_PARENTRELATIVEFORUI               = 0x80094001
+)
+
+type GETPROPERTYSTOREFLAGS int32
+
+const (
+	GPS_DEFAULT                 GETPROPERTYSTOREFLAGS = 0
+	GPS_HANDLERPROPERTIESONLY                         = 0x1
+	GPS_READWRITE                                     = 0x2
+	GPS_TEMPORARY                                     = 0x4
+	GPS_FASTPROPERTIESONLY                            = 0x8
+	GPS_OPENSLOWITEM                                  = 0x10
+	GPS_DELAYCREATION                                 = 0x20
+	GPS_BESTEFFORT                                    = 0x40
+	GPS_NO_OPLOCK                                     = 0x80
+	GPS_PREFERQUERYPROPERTIES                         = 0x100
+	GPS_EXTRINSICPROPERTIES                           = 0x200
+	GPS_EXTRINSICPROPERTIESONLY                       = 0x400
+	GPS_MASK_VALID                                    = 0x7ff
+)
+
+type SHSTOCKICONID int32
+
+const (
+	SIID_DOCNOASSOC        SHSTOCKICONID = 0
+	SIID_DOCASSOC                        = 1
+	SIID_APPLICATION                     = 2
+	SIID_FOLDER                          = 3
+	SIID_FOLDEROPEN                      = 4
+	SIID_DRIVE525                        = 5
+	SIID_DRIVE35                         = 6
+	SIID_DRIVEREMOVE                     = 7
+	SIID_DRIVEFIXED                      = 8
+	SIID_DRIVENET                        = 9
+	SIID_DRIVENETDISABLED                = 10
+	SIID_DRIVECD                         = 11
+	SIID_DRIVERAM                        = 12
+	SIID_WORLD                           = 13
+	SIID_SERVER                          = 15
+	SIID_PRINTER                         = 16
+	SIID_MYNETWORK                       = 17
+	SIID_FIND                            = 22
+	SIID_HELP                            = 23
+	SIID_SHARE                           = 28
+	SIID_LINK                            = 29
+	SIID_SLOWFILE                        = 30
+	SIID_RECYCLER                        = 31
+	SIID_RECYCLERFULL                    = 32
+	SIID_MEDIACDAUDIO                    = 40
+	SIID_LOCK                            = 47
+	SIID_AUTOLIST                        = 49
+	SIID_PRINTERNET                      = 50
+	SIID_SERVERSHARE                     = 51
+	SIID_PRINTERFAX                      = 52
+	SIID_PRINTERFAXNET                   = 53
+	SIID_PRINTERFILE                     = 54
+	SIID_STACK                           = 55
+	SIID_MEDIASVCD                       = 56
+	SIID_STUFFEDFOLDER                   = 57
+	SIID_DRIVEUNKNOWN                    = 58
+	SIID_DRIVEDVD                        = 59
+	SIID_MEDIADVD                        = 60
+	SIID_MEDIADVDRAM                     = 61
+	SIID_MEDIADVDRW                      = 62
+	SIID_MEDIADVDR                       = 63
+	SIID_MEDIADVDROM                     = 64
+	SIID_MEDIACDAUDIOPLUS                = 65
+	SIID_MEDIACDRW                       = 66
+	SIID_MEDIACDR                        = 67
+	SIID_MEDIACDBURN                     = 68
+	SIID_MEDIABLANKCD                    = 69
+	SIID_MEDIACDROM                      = 70
+	SIID_AUDIOFILES                      = 71
+	SIID_IMAGEFILES                      = 72
+	SIID_VIDEOFILES                      = 73
+	SIID_MIXEDFILES                      = 74
+	SIID_FOLDERBACK                      = 75
+	SIID_FOLDERFRONT                     = 76
+	SIID_SHIELD                          = 77
+	SIID_WARNING                         = 78
+	SIID_INFO                            = 79
+	SIID_ERROR                           = 80
+	SIID_KEY                             = 81
+	SIID_SOFTWARE                        = 82
+	SIID_RENAME                          = 83
+	SIID_DELETE                          = 84
+	SIID_MEDIAAUDIODVD                   = 85
+	SIID_MEDIAMOVIEDVD                   = 86
+	SIID_MEDIAENHANCEDCD                 = 87
+	SIID_MEDIAENHANCEDDVD                = 88
+	SIID_MEDIAHDDVD                      = 89
+	SIID_MEDIABLURAY                     = 90
+	SIID_MEDIAVCD                        = 91
+	SIID_MEDIADVDPLUSR                   = 92
+	SIID_MEDIADVDPLUSRW                  = 93
+	SIID_DESKTOPPC                       = 94
+	SIID_MOBILEPC                        = 95
+	SIID_USERS                           = 96
+	SIID_MEDIASMARTMEDIA                 = 97
+	SIID_MEDIACOMPACTFLASH               = 98
+	SIID_DEVICECELLPHONE                 = 99
+	SIID_DEVICECAMERA                    = 100
+	SIID_DEVICEVIDEOCAMERA               = 101
+	SIID_DEVICEAUDIOPLAYER               = 102
+	SIID_NETWORKCONNECT                  = 103
+	SIID_INTERNET                        = 104
+	SIID_ZIPFILE                         = 105
+	SIID_SETTINGS                        = 106
+	SIID_DRIVEHDDVD                      = 132
+	SIID_DRIVEBD                         = 133
+	SIID_MEDIAHDDVDROM                   = 134
+	SIID_MEDIAHDDVDR                     = 135
+	SIID_MEDIAHDDVDRAM                   = 136
+	SIID_MEDIABDROM                      = 137
+	SIID_MEDIABDR                        = 138
+	SIID_MEDIABDRE                       = 139
+	SIID_CLUSTEREDDRIVE                  = 140
+	SIID_MAX_ICONS                       = 175
+)
+
+const (
+	DROPEFFECT_NONE   = 0
+	DROPEFFECT_COPY   = 1
+	DROPEFFECT_MOVE   = 2
+	DROPEFFECT_LINK   = 4
+	DROPEFFECT_SCROLL = 0x80000000
+)
+
+const (
+	SHCIDS_ALLFIELDS      = 0x80000000
+	SHCIDS_CANONICALONLY  = 0x10000000
+	SHCIDS_BITMASK        = 0xFFFF0000
+	SHCIDS_COLUMNMASK     = 0x0000FFFF
+	SFGAO_CANCOPY         = DROPEFFECT_COPY
+	SFGAO_CANMOVE         = DROPEFFECT_MOVE
+	SFGAO_CANLINK         = DROPEFFECT_LINK
+	SFGAO_STORAGE         = 0x00000008
+	SFGAO_CANRENAME       = 0x00000010
+	SFGAO_CANDELETE       = 0x00000020
+	SFGAO_HASPROPSHEET    = 0x00000040
+	SFGAO_DROPTARGET      = 0x00000100
+	SFGAO_CAPABILITYMASK  = 0x00000177
+	SFGAO_SYSTEM          = 0x00001000
+	SFGAO_ENCRYPTED       = 0x00002000
+	SFGAO_ISSLOW          = 0x00004000
+	SFGAO_GHOSTED         = 0x00008000
+	SFGAO_LINK            = 0x00010000
+	SFGAO_SHARE           = 0x00020000
+	SFGAO_READONLY        = 0x00040000
+	SFGAO_HIDDEN          = 0x00080000
+	SFGAO_DISPLAYATTRMASK = 0x000FC000
+	SFGAO_FILESYSANCESTOR = 0x10000000
+	SFGAO_FOLDER          = 0x20000000
+	SFGAO_FILESYSTEM      = 0x40000000
+	SFGAO_HASSUBFOLDER    = 0x80000000
+	SFGAO_CONTENTSMASK    = 0x80000000
+	SFGAO_VALIDATE        = 0x01000000
+	SFGAO_REMOVABLE       = 0x02000000
+	SFGAO_COMPRESSED      = 0x04000000
+	SFGAO_BROWSABLE       = 0x08000000
+	SFGAO_NONENUMERATED   = 0x00100000
+	SFGAO_NEWCONTENT      = 0x00200000
+	SFGAO_CANMONIKER      = 0x00400000
+	SFGAO_HASSTORAGE      = 0x00400000
+	SFGAO_STREAM          = 0x00400000
+	SFGAO_STORAGEANCESTOR = 0x00800000
+	SFGAO_STORAGECAPMASK  = 0x70C50008
+	SFGAO_PKEYSFGAOMASK   = 0x81044000
+)

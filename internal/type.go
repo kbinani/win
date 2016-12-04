@@ -160,6 +160,8 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"WAVEINCAPSW":                 "WAVEINCAPS",
 		"WAVEOUTCAPSW":                "WAVEOUTCAPS",
 		"BROWSEINFOW":                 "BROWSEINFO",
+		"SHFILEOPSTRUCTW":             "SHFILEOPSTRUCT",
+		"SHFILEINFOW":                 "SHFILEINFO",
 	}
 
 	goType, ok := table[t]
@@ -441,6 +443,21 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"LPCSFV":                             "LPCSFV",
 		"PCIDLIST_ABSOLUTE_ARRAY":            "PCIDLIST_ABSOLUTE_ARRAY",
 		"LPDROPSOURCE":                       "LPDROPSOURCE",
+		"LPSHFILEOPSTRUCTW":                  "LPSHFILEOPSTRUCT",
+		"LPSHELLFOLDER":                      "LPSHELLFOLDER",
+		"REFKNOWNFOLDERID":                   "REFKNOWNFOLDERID",
+		"SHFILEINFOW*":                       "*SHFILEINFO",
+		"PCERT_INFO":                         "PCERT_INFO",
+		"PCTL_INFO":                          "PCTL_INFO",
+		"PCTL_ENTRY":                         "PCTL_ENTRY",
+		"PCRYPT_ATTRIBUTE":                   "PCRYPT_ATTRIBUTE",
+		"HCRYPTMSG":                          "HCRYPTMSG",
+		"PIDLIST_ABSOLUTE":                   "PIDLIST_ABSOLUTE",
+		"LPMALLOC":                           "LPMALLOC",
+		"LPSHELLSTATE":                       "LPSHELLSTATE",
+		"LPSHELLFLAGSTATE":                   "LPSHELLFLAGSTATE",
+		"REFFMTID":                           "REFFMTID",
+		"LPVERSIONEDSTREAM":                  "LPVERSIONEDSTREAM",
 	}
 	goType, ok = tablePtr[t]
 	if ok {
@@ -472,6 +489,9 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"LPCWAVEFORMATEX":            "*WAVEFORMATEX",
 		"LPCSHITEMID":                "*SHITEMID",
 		"PCIDLIST_ABSOLUTE":          "PCIDLIST_ABSOLUTE",
+		"PCZZWSTR":                   "PCZZWSTR",
+		"PCCTL_CONTEXT":              "PCCTL_CONTEXT",
+		"PCCERT_CONTEXT":             "PCCERT_CONTEXT",
 	}
 	goType, ok = tableConst[t]
 	if ok {

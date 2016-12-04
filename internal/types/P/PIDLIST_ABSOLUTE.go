@@ -1,0 +1,5 @@
+package win
+
+//ref LPITEMIDLIST
+
+type PIDLIST_ABSOLUTE LPITEMIDLIST

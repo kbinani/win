@@ -1,0 +1,5 @@
+package win
+
+//ref SHELLSTATE
+
+type LPSHELLSTATE *SHELLSTATE
