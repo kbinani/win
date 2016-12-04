@@ -1,11 +1,12 @@
 @echo off
 
-call :main "%~1" "%~2"
+call :main "%~1" "%~2" "%~3"
 exit /b %errorlevel%
 
 :main
     set OUTPUT=%~1
     set COMMIT_ID=%~2
+    set TAG=%~3
 
     mkdir "%OUTPUT%" >nul 2>&1
     rmdir "%OUTPUT%\.git" /S /Q >nul 2>&1
@@ -63,6 +64,27 @@ exit /b %errorlevel%
         call :exec popd
         exit /b 8
     )
+    call :exec git tag v%TAG%
+    if not %errorlevel% == 0 (
+        call :exec popd
+        exit /b 9
+    )
+    call :exec git push origin v%TAG%
+    if not %errorlevel% == 0 (
+        call :exec popd
+        exit /b 10
+    )
+    call :exec git tag -d %TAG%
+    if not %errorlevel% == 0 (
+        call :exec popd
+        exit /b 11
+    )
+    call :exec git push --delete origin %TAG%
+    if not %errorlevel% == 0 (
+        call :exec popd
+        exit /b 12
+    )
+    
     call :exec popd
 
     exit /b 0
