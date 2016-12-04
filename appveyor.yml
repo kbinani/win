@@ -43,6 +43,6 @@ on_success:
         git config --global user.email "kbinani.bt@gmail.com"
         git config --global user.name "kbinani"
         git remote set-url origin "https://github.com/kbinani/win.git"
-        $cmdOut = cmd.exe /c internal\merge-into-master.bat c:\tmp\win $env:APPVEYOR_REPO_COMMIT $env:APPVEYOR_REPO_TAG 2>&1
+        $cmdOut = cmd.exe /c internal\merge-into-master.bat c:\tmp\win $env:APPVEYOR_REPO_COMMIT $env:APPVEYOR_REPO_TAG_NAME 2>&1
         if ($?) {$out} else {$out.Exception}
       }
