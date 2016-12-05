@@ -1402,3 +1402,36 @@ const (
 	REST_NOFILEASSOCIATE                         = 0x41000003
 	REST_ALLOWCOMMENTTOGGLE                      = 0x41000004
 )
+
+type PROPVAR_CHANGE_FLAGS int32
+
+const (
+	PVCHF_DEFAULT        PROPVAR_CHANGE_FLAGS = 0x00000000
+	PVCHF_NOVALUEPROP                         = 0x00000001
+	PVCHF_ALPHABOOL                           = 0x00000002
+	PVCHF_NOUSEROVERRIDE                      = 0x00000004
+	PVCHF_LOCALBOOL                           = 0x00000008
+	PVCHF_NOHEXSTRING                         = 0x00000010
+)
+
+type APTTYPE int32
+
+const (
+	APTTYPE_CURRENT APTTYPE = -1
+	APTTYPE_STA             = 0
+	APTTYPE_MTA             = 1
+	APTTYPE_NA              = 2
+	APTTYPE_MAINSTA         = 3
+)
+
+type APTTYPEQUALIFIER int32
+
+const (
+	APTTYPEQUALIFIER_NONE               APTTYPEQUALIFIER = 0
+	APTTYPEQUALIFIER_IMPLICIT_MTA                        = 1
+	APTTYPEQUALIFIER_NA_ON_MTA                           = 2
+	APTTYPEQUALIFIER_NA_ON_STA                           = 3
+	APTTYPEQUALIFIER_NA_ON_IMPLICIT_MTA                  = 4
+	APTTYPEQUALIFIER_NA_ON_MAINSTA                       = 5
+	APTTYPEQUALIFIER_APPLICATION_STA                     = 6
+)

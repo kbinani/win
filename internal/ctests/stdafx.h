@@ -43,6 +43,7 @@
 #include <WinSafer.h>
 #include <fltdefs.h>
 #include <Mmddk.h>
+#include <Propvarutil.h>
 
 typedef struct _IO_STATUS_BLOCK {
     union {

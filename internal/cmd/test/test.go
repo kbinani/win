@@ -33,6 +33,7 @@ var (
 		"REFKNOWNFOLDERID",
 		"PIDLIST_ABSOLUTE", // alias of LPITEMIDLIST
 		"REFFMTID",
+		"REFPROPVARIANT",
 
 		"bool",
 		"string",

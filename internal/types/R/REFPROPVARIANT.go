@@ -1,0 +1,5 @@
+package win
+
+//ref PROPVARIANT
+
+type REFPROPVARIANT *PROPVARIANT

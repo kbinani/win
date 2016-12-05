@@ -461,6 +461,9 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"LPVERSIONEDSTREAM":                  "LPVERSIONEDSTREAM",
 		"LPSHQUERYRBINFO":                    "LPSHQUERYRBINFO",
 		"PNOTIFYICONDATAW":                   "PNOTIFYICONDATA",
+		"PROPVARIANT":                        "PROPVARIANT",
+		"REFPROPVARIANT":                     "REFPROPVARIANT",
+		"LPMARSHAL":                          "LPMARSHAL",
 	}
 	goType, ok = tablePtr[t]
 	if ok {
