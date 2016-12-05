@@ -23,6 +23,10 @@ import (
 $3 $2$1
 */
 
+var (
+	excludeApiHeader = []string{"ole.h"}
+)
+
 func main() {
 	flagMinGWVersion := pflag.String("mingw-version", DefaultMinGWVersion, "Version number of MinGW") // https://github.com/mirror/mingw-w64/releases
 	flagWineVersion := pflag.String("wine-version", DefaultWineVersion, "Version number of Wine")     // https://github.com/wine-mirror/wine/releases
@@ -157,6 +161,17 @@ func getFuncList(minGWVersion string, wineVersion string) map[string][]Func {
 	for _, f := range win32headers(reader) {
 		r, err := f.Open()
 		if err != nil {
+			continue
+		}
+		basename := strings.ToLower(filepath.Base(f.Name))
+		shouldExclude := false
+		for _, exclude := range excludeApiHeader {
+			if exclude == basename {
+				shouldExclude = true
+				break
+			}
+		}
+		if shouldExclude {
 			continue
 		}
 		for _, fun := range extractWinAPIDefinition(r) {
