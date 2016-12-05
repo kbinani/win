@@ -1,0 +1,5 @@
+package win
+
+//ref SHQUERYRBINFO
+
+type LPSHQUERYRBINFO *SHQUERYRBINFO

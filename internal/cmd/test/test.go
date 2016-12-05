@@ -8,6 +8,7 @@ import (
 	"runtime"
 	"sort"
 	"strings"
+	"unsafe"
 
 	"bufio"
 
@@ -381,5 +382,66 @@ func getFields(t reflect.Type) []tagField {
 			ret = append(ret, tagField{m.Name, offset})
 		}
 	}
+
+	getters := NewStringSet()
+	setters := NewStringSet()
+	for i := 0; i < ptrType.NumMethod(); i++ {
+		m := ptrType.Method(i)
+		if strings.HasPrefix(m.Name, "Get") {
+			if m.Type.NumOut() != 1 {
+				continue
+			}
+			if m.Type.NumIn() != 1 {
+				continue
+			}
+			getters.Put(strings.TrimPrefix(m.Name, "Get"))
+		} else if strings.HasPrefix(m.Name, "Set") {
+			if m.Type.NumOut() != 0 {
+				continue
+			}
+			if m.Type.NumIn() != 2 {
+				continue
+			}
+			setters.Put(strings.TrimPrefix(m.Name, "Set"))
+		}
+	}
+
+	props := NewStringSet()
+	for _, g := range getters.Values() {
+		if !setters.Has(g) {
+			continue
+		}
+		getter, _ := ptrType.MethodByName(fmt.Sprintf("Get%s", g))
+		setter, _ := ptrType.MethodByName(fmt.Sprintf("Set%s", g))
+		gtype := getter.Type.Out(0)
+		stype := setter.Type.In(1)
+		if gtype.String() == stype.String() {
+			props.Put(g)
+		}
+	}
+	for _, p := range props.Values() {
+		for i := 0; i < int(t.Size()); i++ {
+			*(*byte)(unsafe.Pointer(base + uintptr(i))) = 0
+		}
+
+		setter, _ := ptrType.MethodByName(fmt.Sprintf("Set%s", p))
+		ptype := setter.Type.In(1)
+		pvalue := reflect.New(ptype)
+		for i := 0; i < int(ptype.Size()); i++ {
+			*(*byte)(unsafe.Pointer(pvalue.Pointer() + uintptr(i))) = 0xFF
+		}
+		setter.Func.Call([]reflect.Value{v, reflect.Indirect(pvalue)})
+
+		offset := 0
+		for i := 0; i < int(t.Size()); i++ {
+			b := *(*byte)(unsafe.Pointer(base + uintptr(i)))
+			if b != 0 {
+				offset = i
+				break
+			}
+		}
+		ret = append(ret, tagField{p, uintptr(offset)})
+	}
+
 	return ret
 }

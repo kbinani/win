@@ -162,6 +162,7 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"BROWSEINFOW":                 "BROWSEINFO",
 		"SHFILEOPSTRUCTW":             "SHFILEOPSTRUCT",
 		"SHFILEINFOW":                 "SHFILEINFO",
+		"NOTIFYICONDATAW":             "NOTIFYICONDATA",
 	}
 
 	goType, ok := table[t]
@@ -458,6 +459,8 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"LPSHELLFLAGSTATE":                   "LPSHELLFLAGSTATE",
 		"REFFMTID":                           "REFFMTID",
 		"LPVERSIONEDSTREAM":                  "LPVERSIONEDSTREAM",
+		"LPSHQUERYRBINFO":                    "LPSHQUERYRBINFO",
+		"PNOTIFYICONDATAW":                   "PNOTIFYICONDATA",
 	}
 	goType, ok = tablePtr[t]
 	if ok {
