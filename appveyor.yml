@@ -9,9 +9,6 @@ branches:
 
 clone_folder: c:\gopath\src\github.com\kbinani\win
 
-cache:
-  - internal\cache.json.zip -> internal\version.go
-
 install:
   - go version
   - go env
