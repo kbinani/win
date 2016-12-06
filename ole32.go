@@ -16,6 +16,7 @@ var (
 	// Functions
 	coGetInterceptor                      uintptr
 	coGetInterceptorFromTypeInfo          uintptr
+	propVariantChangeType                 uintptr
 	bindMoniker                           uintptr
 	cLSIDFromProgIDEx                     uintptr
 	cLSIDFromString                       uintptr
@@ -30,21 +31,27 @@ var (
 	coFreeAllLibraries                    uintptr
 	coFreeLibrary                         uintptr
 	coGetActivationState                  uintptr
+	coGetApartmentType                    uintptr
 	coGetCallContext                      uintptr
 	coGetCallState                        uintptr
 	coGetCallerTID                        uintptr
 	coGetContextToken                     uintptr
 	coGetCurrentLogicalThreadId           uintptr
 	coGetCurrentProcess                   uintptr
+	coGetDefaultContext                   uintptr
+	coGetInstanceFromIStorage             uintptr
 	coGetInterfaceAndReleaseStream        uintptr
 	coGetMalloc                           uintptr
 	coGetMarshalSizeMax                   uintptr
+	coGetObject                           uintptr
 	coGetObjectContext                    uintptr
 	coGetPSClsid                          uintptr
+	coGetStandardMarshal                  uintptr
 	coGetState                            uintptr
 	coGetTreatAsClass                     uintptr
 	coImpersonateClient                   uintptr
 	coInitialize                          uintptr
+	coInitializeSecurity                  uintptr
 	coInitializeWOW                       uintptr
 	coIsHandlerConnected                  uintptr
 	coIsOle1Class                         uintptr
@@ -53,8 +60,13 @@ var (
 	coMarshalHresult                      uintptr
 	coMarshalInterThreadInterfaceInStream uintptr
 	coMarshalInterface                    uintptr
+	coQueryClientBlanket                  uintptr
 	coQueryProxyBlanket                   uintptr
+	coRegisterChannelHook                 uintptr
 	coRegisterClassObject                 uintptr
+	coRegisterInitializeSpy               uintptr
+	coRegisterMallocSpy                   uintptr
+	coRegisterMessageFilter               uintptr
 	coRegisterPSClsid                     uintptr
 	coReleaseMarshalData                  uintptr
 	coReleaseServerProcess                uintptr
@@ -74,26 +86,50 @@ var (
 	coUnmarshalInterface                  uintptr
 	coWaitForMultipleHandles              uintptr
 	createAntiMoniker                     uintptr
+	createBindCtx                         uintptr
 	createClassMoniker                    uintptr
+	createDataAdviseHolder                uintptr
 	createDataCache                       uintptr
 	createFileMoniker                     uintptr
 	createGenericComposite                uintptr
+	createILockBytesOnHGlobal             uintptr
 	createItemMoniker                     uintptr
+	createOleAdviseHolder                 uintptr
 	createPointerMoniker                  uintptr
 	createStreamOnHGlobal                 uintptr
 	dllDebugObjectRPCHook                 uintptr
 	doDragDrop                            uintptr
+	fmtIdToPropStgName                    uintptr
 	freePropVariantArray                  uintptr
 	getClassFile                          uintptr
 	getConvertStg                         uintptr
+	getHGlobalFromILockBytes              uintptr
 	getHGlobalFromStream                  uintptr
+	getRunningObjectTable                 uintptr
 	iIDFromString                         uintptr
 	isAccelerator                         uintptr
 	isEqualGUID                           uintptr
 	isValidInterface                      uintptr
+	mkParseDisplayName                    uintptr
 	monikerCommonPrefixWith               uintptr
 	oleBuildVersion                       uintptr
+	oleConvertIStorageToOLESTREAM         uintptr
+	oleConvertOLESTREAMToIStorage         uintptr
+	oleCreate                             uintptr
 	oleCreateDefaultHandler               uintptr
+	oleCreateEmbeddingHelper              uintptr
+	oleCreateFromData                     uintptr
+	oleCreateFromDataEx                   uintptr
+	oleCreateFromFile                     uintptr
+	oleCreateFromFileEx                   uintptr
+	oleCreateLink                         uintptr
+	oleCreateLinkFromData                 uintptr
+	oleCreateLinkToFile                   uintptr
+	oleCreateMenuDescriptor               uintptr
+	oleCreateStaticFromData               uintptr
+	oleDestroyMenuDescriptor              uintptr
+	oleDoAutoConvert                      uintptr
+	oleDraw                               uintptr
 	oleDuplicateData                      uintptr
 	oleFlushClipboard                     uintptr
 	oleGetAutoConvert                     uintptr
@@ -101,28 +137,42 @@ var (
 	oleGetIconOfClass                     uintptr
 	oleInitializeWOW                      uintptr
 	oleIsCurrentClipboard                 uintptr
+	oleIsRunning                          uintptr
+	oleLoad                               uintptr
+	oleLoadFromStream                     uintptr
 	oleLockRunning                        uintptr
 	oleMetafilePictFromIconAndLabel       uintptr
 	oleNoteObjectVisible                  uintptr
 	oleQueryCreateFromData                uintptr
 	oleQueryLinkFromData                  uintptr
+	oleRegEnumVerbs                       uintptr
 	oleRegGetMiscStatus                   uintptr
 	oleRegGetUserType                     uintptr
+	oleSave                               uintptr
+	oleSaveToStream                       uintptr
 	oleSetAutoConvert                     uintptr
 	oleSetClipboard                       uintptr
 	oleSetContainedObject                 uintptr
+	oleSetMenuDescriptor                  uintptr
+	oleTranslateAccelerator               uintptr
+	propStgNameToFmtId                    uintptr
 	propSysAllocString                    uintptr
 	propSysFreeString                     uintptr
 	propVariantClear                      uintptr
 	propVariantCopy                       uintptr
 	readClassStg                          uintptr
 	readClassStm                          uintptr
+	readFmtUserTypeStg                    uintptr
+	registerDragDrop                      uintptr
+	releaseStgMedium                      uintptr
 	revokeDragDrop                        uintptr
 	setConvertStg                         uintptr
 	stgCreateDocfile                      uintptr
+	stgCreateDocfileOnILockBytes          uintptr
 	stgCreatePropSetStg                   uintptr
 	stgCreatePropStg                      uintptr
 	stgIsStorageFile                      uintptr
+	stgIsStorageILockBytes                uintptr
 	stgOpenPropStg                        uintptr
 	stgSetTimes                           uintptr
 	stringFromCLSID                       uintptr
@@ -130,6 +180,7 @@ var (
 	wdtpInterfacePointer_UserFree         uintptr
 	writeClassStg                         uintptr
 	writeClassStm                         uintptr
+	writeFmtUserTypeStg                   uintptr
 )
 
 func init() {
@@ -139,6 +190,7 @@ func init() {
 	// Functions
 	coGetInterceptor = doGetProcAddress(libole32, "CoGetInterceptor")
 	coGetInterceptorFromTypeInfo = doGetProcAddress(libole32, "CoGetInterceptorFromTypeInfo")
+	propVariantChangeType = doGetProcAddress(libole32, "PropVariantChangeType")
 	bindMoniker = doGetProcAddress(libole32, "BindMoniker")
 	cLSIDFromProgIDEx = doGetProcAddress(libole32, "CLSIDFromProgIDEx")
 	cLSIDFromString = doGetProcAddress(libole32, "CLSIDFromString")
@@ -153,21 +205,27 @@ func init() {
 	coFreeAllLibraries = doGetProcAddress(libole32, "CoFreeAllLibraries")
 	coFreeLibrary = doGetProcAddress(libole32, "CoFreeLibrary")
 	coGetActivationState = doGetProcAddress(libole32, "CoGetActivationState")
+	coGetApartmentType = doGetProcAddress(libole32, "CoGetApartmentType")
 	coGetCallContext = doGetProcAddress(libole32, "CoGetCallContext")
 	coGetCallState = doGetProcAddress(libole32, "CoGetCallState")
 	coGetCallerTID = doGetProcAddress(libole32, "CoGetCallerTID")
 	coGetContextToken = doGetProcAddress(libole32, "CoGetContextToken")
 	coGetCurrentLogicalThreadId = doGetProcAddress(libole32, "CoGetCurrentLogicalThreadId")
 	coGetCurrentProcess = doGetProcAddress(libole32, "CoGetCurrentProcess")
+	coGetDefaultContext = doGetProcAddress(libole32, "CoGetDefaultContext")
+	coGetInstanceFromIStorage = doGetProcAddress(libole32, "CoGetInstanceFromIStorage")
 	coGetInterfaceAndReleaseStream = doGetProcAddress(libole32, "CoGetInterfaceAndReleaseStream")
 	coGetMalloc = doGetProcAddress(libole32, "CoGetMalloc")
 	coGetMarshalSizeMax = doGetProcAddress(libole32, "CoGetMarshalSizeMax")
+	coGetObject = doGetProcAddress(libole32, "CoGetObject")
 	coGetObjectContext = doGetProcAddress(libole32, "CoGetObjectContext")
 	coGetPSClsid = doGetProcAddress(libole32, "CoGetPSClsid")
+	coGetStandardMarshal = doGetProcAddress(libole32, "CoGetStandardMarshal")
 	coGetState = doGetProcAddress(libole32, "CoGetState")
 	coGetTreatAsClass = doGetProcAddress(libole32, "CoGetTreatAsClass")
 	coImpersonateClient = doGetProcAddress(libole32, "CoImpersonateClient")
 	coInitialize = doGetProcAddress(libole32, "CoInitialize")
+	coInitializeSecurity = doGetProcAddress(libole32, "CoInitializeSecurity")
 	coInitializeWOW = doGetProcAddress(libole32, "CoInitializeWOW")
 	coIsHandlerConnected = doGetProcAddress(libole32, "CoIsHandlerConnected")
 	coIsOle1Class = doGetProcAddress(libole32, "CoIsOle1Class")
@@ -176,8 +234,13 @@ func init() {
 	coMarshalHresult = doGetProcAddress(libole32, "CoMarshalHresult")
 	coMarshalInterThreadInterfaceInStream = doGetProcAddress(libole32, "CoMarshalInterThreadInterfaceInStream")
 	coMarshalInterface = doGetProcAddress(libole32, "CoMarshalInterface")
+	coQueryClientBlanket = doGetProcAddress(libole32, "CoQueryClientBlanket")
 	coQueryProxyBlanket = doGetProcAddress(libole32, "CoQueryProxyBlanket")
+	coRegisterChannelHook = doGetProcAddress(libole32, "CoRegisterChannelHook")
 	coRegisterClassObject = doGetProcAddress(libole32, "CoRegisterClassObject")
+	coRegisterInitializeSpy = doGetProcAddress(libole32, "CoRegisterInitializeSpy")
+	coRegisterMallocSpy = doGetProcAddress(libole32, "CoRegisterMallocSpy")
+	coRegisterMessageFilter = doGetProcAddress(libole32, "CoRegisterMessageFilter")
 	coRegisterPSClsid = doGetProcAddress(libole32, "CoRegisterPSClsid")
 	coReleaseMarshalData = doGetProcAddress(libole32, "CoReleaseMarshalData")
 	coReleaseServerProcess = doGetProcAddress(libole32, "CoReleaseServerProcess")
@@ -197,26 +260,50 @@ func init() {
 	coUnmarshalInterface = doGetProcAddress(libole32, "CoUnmarshalInterface")
 	coWaitForMultipleHandles = doGetProcAddress(libole32, "CoWaitForMultipleHandles")
 	createAntiMoniker = doGetProcAddress(libole32, "CreateAntiMoniker")
+	createBindCtx = doGetProcAddress(libole32, "CreateBindCtx")
 	createClassMoniker = doGetProcAddress(libole32, "CreateClassMoniker")
+	createDataAdviseHolder = doGetProcAddress(libole32, "CreateDataAdviseHolder")
 	createDataCache = doGetProcAddress(libole32, "CreateDataCache")
 	createFileMoniker = doGetProcAddress(libole32, "CreateFileMoniker")
 	createGenericComposite = doGetProcAddress(libole32, "CreateGenericComposite")
+	createILockBytesOnHGlobal = doGetProcAddress(libole32, "CreateILockBytesOnHGlobal")
 	createItemMoniker = doGetProcAddress(libole32, "CreateItemMoniker")
+	createOleAdviseHolder = doGetProcAddress(libole32, "CreateOleAdviseHolder")
 	createPointerMoniker = doGetProcAddress(libole32, "CreatePointerMoniker")
 	createStreamOnHGlobal = doGetProcAddress(libole32, "CreateStreamOnHGlobal")
 	dllDebugObjectRPCHook = doGetProcAddress(libole32, "DllDebugObjectRPCHook")
 	doDragDrop = doGetProcAddress(libole32, "DoDragDrop")
+	fmtIdToPropStgName = doGetProcAddress(libole32, "FmtIdToPropStgName")
 	freePropVariantArray = doGetProcAddress(libole32, "FreePropVariantArray")
 	getClassFile = doGetProcAddress(libole32, "GetClassFile")
 	getConvertStg = doGetProcAddress(libole32, "GetConvertStg")
+	getHGlobalFromILockBytes = doGetProcAddress(libole32, "GetHGlobalFromILockBytes")
 	getHGlobalFromStream = doGetProcAddress(libole32, "GetHGlobalFromStream")
+	getRunningObjectTable = doGetProcAddress(libole32, "GetRunningObjectTable")
 	iIDFromString = doGetProcAddress(libole32, "IIDFromString")
 	isAccelerator = doGetProcAddress(libole32, "IsAccelerator")
 	isEqualGUID = doGetProcAddress(libole32, "IsEqualGUID")
 	isValidInterface = doGetProcAddress(libole32, "IsValidInterface")
+	mkParseDisplayName = doGetProcAddress(libole32, "MkParseDisplayName")
 	monikerCommonPrefixWith = doGetProcAddress(libole32, "MonikerCommonPrefixWith")
 	oleBuildVersion = doGetProcAddress(libole32, "OleBuildVersion")
+	oleConvertIStorageToOLESTREAM = doGetProcAddress(libole32, "OleConvertIStorageToOLESTREAM")
+	oleConvertOLESTREAMToIStorage = doGetProcAddress(libole32, "OleConvertOLESTREAMToIStorage")
+	oleCreate = doGetProcAddress(libole32, "OleCreate")
 	oleCreateDefaultHandler = doGetProcAddress(libole32, "OleCreateDefaultHandler")
+	oleCreateEmbeddingHelper = doGetProcAddress(libole32, "OleCreateEmbeddingHelper")
+	oleCreateFromData = doGetProcAddress(libole32, "OleCreateFromData")
+	oleCreateFromDataEx = doGetProcAddress(libole32, "OleCreateFromDataEx")
+	oleCreateFromFile = doGetProcAddress(libole32, "OleCreateFromFile")
+	oleCreateFromFileEx = doGetProcAddress(libole32, "OleCreateFromFileEx")
+	oleCreateLink = doGetProcAddress(libole32, "OleCreateLink")
+	oleCreateLinkFromData = doGetProcAddress(libole32, "OleCreateLinkFromData")
+	oleCreateLinkToFile = doGetProcAddress(libole32, "OleCreateLinkToFile")
+	oleCreateMenuDescriptor = doGetProcAddress(libole32, "OleCreateMenuDescriptor")
+	oleCreateStaticFromData = doGetProcAddress(libole32, "OleCreateStaticFromData")
+	oleDestroyMenuDescriptor = doGetProcAddress(libole32, "OleDestroyMenuDescriptor")
+	oleDoAutoConvert = doGetProcAddress(libole32, "OleDoAutoConvert")
+	oleDraw = doGetProcAddress(libole32, "OleDraw")
 	oleDuplicateData = doGetProcAddress(libole32, "OleDuplicateData")
 	oleFlushClipboard = doGetProcAddress(libole32, "OleFlushClipboard")
 	oleGetAutoConvert = doGetProcAddress(libole32, "OleGetAutoConvert")
@@ -224,28 +311,42 @@ func init() {
 	oleGetIconOfClass = doGetProcAddress(libole32, "OleGetIconOfClass")
 	oleInitializeWOW = doGetProcAddress(libole32, "OleInitializeWOW")
 	oleIsCurrentClipboard = doGetProcAddress(libole32, "OleIsCurrentClipboard")
+	oleIsRunning = doGetProcAddress(libole32, "OleIsRunning")
+	oleLoad = doGetProcAddress(libole32, "OleLoad")
+	oleLoadFromStream = doGetProcAddress(libole32, "OleLoadFromStream")
 	oleLockRunning = doGetProcAddress(libole32, "OleLockRunning")
 	oleMetafilePictFromIconAndLabel = doGetProcAddress(libole32, "OleMetafilePictFromIconAndLabel")
 	oleNoteObjectVisible = doGetProcAddress(libole32, "OleNoteObjectVisible")
 	oleQueryCreateFromData = doGetProcAddress(libole32, "OleQueryCreateFromData")
 	oleQueryLinkFromData = doGetProcAddress(libole32, "OleQueryLinkFromData")
+	oleRegEnumVerbs = doGetProcAddress(libole32, "OleRegEnumVerbs")
 	oleRegGetMiscStatus = doGetProcAddress(libole32, "OleRegGetMiscStatus")
 	oleRegGetUserType = doGetProcAddress(libole32, "OleRegGetUserType")
+	oleSave = doGetProcAddress(libole32, "OleSave")
+	oleSaveToStream = doGetProcAddress(libole32, "OleSaveToStream")
 	oleSetAutoConvert = doGetProcAddress(libole32, "OleSetAutoConvert")
 	oleSetClipboard = doGetProcAddress(libole32, "OleSetClipboard")
 	oleSetContainedObject = doGetProcAddress(libole32, "OleSetContainedObject")
+	oleSetMenuDescriptor = doGetProcAddress(libole32, "OleSetMenuDescriptor")
+	oleTranslateAccelerator = doGetProcAddress(libole32, "OleTranslateAccelerator")
+	propStgNameToFmtId = doGetProcAddress(libole32, "PropStgNameToFmtId")
 	propSysAllocString = doGetProcAddress(libole32, "PropSysAllocString")
 	propSysFreeString = doGetProcAddress(libole32, "PropSysFreeString")
 	propVariantClear = doGetProcAddress(libole32, "PropVariantClear")
 	propVariantCopy = doGetProcAddress(libole32, "PropVariantCopy")
 	readClassStg = doGetProcAddress(libole32, "ReadClassStg")
 	readClassStm = doGetProcAddress(libole32, "ReadClassStm")
+	readFmtUserTypeStg = doGetProcAddress(libole32, "ReadFmtUserTypeStg")
+	registerDragDrop = doGetProcAddress(libole32, "RegisterDragDrop")
+	releaseStgMedium = doGetProcAddress(libole32, "ReleaseStgMedium")
 	revokeDragDrop = doGetProcAddress(libole32, "RevokeDragDrop")
 	setConvertStg = doGetProcAddress(libole32, "SetConvertStg")
 	stgCreateDocfile = doGetProcAddress(libole32, "StgCreateDocfile")
+	stgCreateDocfileOnILockBytes = doGetProcAddress(libole32, "StgCreateDocfileOnILockBytes")
 	stgCreatePropSetStg = doGetProcAddress(libole32, "StgCreatePropSetStg")
 	stgCreatePropStg = doGetProcAddress(libole32, "StgCreatePropStg")
 	stgIsStorageFile = doGetProcAddress(libole32, "StgIsStorageFile")
+	stgIsStorageILockBytes = doGetProcAddress(libole32, "StgIsStorageILockBytes")
 	stgOpenPropStg = doGetProcAddress(libole32, "StgOpenPropStg")
 	stgSetTimes = doGetProcAddress(libole32, "StgSetTimes")
 	stringFromCLSID = doGetProcAddress(libole32, "StringFromCLSID")
@@ -253,6 +354,7 @@ func init() {
 	wdtpInterfacePointer_UserFree = doGetProcAddress(libole32, "WdtpInterfacePointer_UserFree")
 	writeClassStg = doGetProcAddress(libole32, "WriteClassStg")
 	writeClassStm = doGetProcAddress(libole32, "WriteClassStm")
+	writeFmtUserTypeStg = doGetProcAddress(libole32, "WriteFmtUserTypeStg")
 }
 
 func CoGetInterceptor(iidIntercepted REFIID, punkOuter *IUnknown, iid REFIID, ppv uintptr) HRESULT {
@@ -277,23 +379,16 @@ func CoGetInterceptorFromTypeInfo(iidIntercepted REFIID, punkOuter *IUnknown, ty
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LHCLIENTDOC, LPOLECLIENT, LPOLEOBJECT *, OLECLIPFORMAT, OLEOPT_RENDER, OLESTATUS
-// func OleCreate(unnamed0 /*const*/ LPCSTR, unnamed1 LPOLECLIENT, unnamed2 /*const*/ LPCSTR, unnamed3 LHCLIENTDOC, unnamed4 /*const*/ LPCSTR, unnamed5 LPOLEOBJECT *, unnamed6 OLEOPT_RENDER, unnamed7 OLECLIPFORMAT) OLESTATUS
-
-// TODO: Unknown type(s): LHCLIENTDOC, LPOLECLIENT, LPOLEOBJECT *, OLECLIPFORMAT, OLEOPT_RENDER, OLESTATUS
-// func OleCreateFromFile(unnamed0 /*const*/ LPCSTR, unnamed1 LPOLECLIENT, unnamed2 /*const*/ LPCSTR, unnamed3 /*const*/ LPCSTR, unnamed4 LHCLIENTDOC, unnamed5 /*const*/ LPCSTR, unnamed6 LPOLEOBJECT *, unnamed7 OLEOPT_RENDER, unnamed8 OLECLIPFORMAT) OLESTATUS
-
-// TODO: Unknown type(s): LPOLEOBJECT, OLESTATUS
-// func OleDraw(unnamed0 LPOLEOBJECT, unnamed1 HDC, unnamed2 /*const*/ *RECT, unnamed3 /*const*/ *RECT, unnamed4 HDC) OLESTATUS
-
-// TODO: Unknown type(s): LHCLIENTDOC, LPOLECLIENT, LPOLEOBJECT *, LPOLESTREAM, OLESTATUS
-// func OleLoadFromStream(unnamed0 LPOLESTREAM, unnamed1 /*const*/ LPCSTR, unnamed2 LPOLECLIENT, unnamed3 LHCLIENTDOC, unnamed4 /*const*/ LPCSTR, unnamed5 LPOLEOBJECT *) OLESTATUS
-
-// TODO: Unknown type(s): LPOLEOBJECT, LPOLESTREAM, OLESTATUS
-// func OleSaveToStream(unnamed0 LPOLEOBJECT, unnamed1 LPOLESTREAM) OLESTATUS
-
-// TODO: Unknown type(s): PROPVAR_CHANGE_FLAGS, REFPROPVARIANT
-// func PropVariantChangeType(ppropvarDest *PROPVARIANT, propvarSrc REFPROPVARIANT, flags PROPVAR_CHANGE_FLAGS, vt VARTYPE) HRESULT
+func PropVariantChangeType(ppropvarDest *PROPVARIANT, propvarSrc REFPROPVARIANT, flags PROPVAR_CHANGE_FLAGS, vt VARTYPE) HRESULT {
+	ret1 := syscall6(propVariantChangeType, 4,
+		uintptr(unsafe.Pointer(ppropvarDest)),
+		uintptr(unsafe.Pointer(propvarSrc)),
+		uintptr(flags),
+		uintptr(vt),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func BindMoniker(pmk LPMONIKER, grfOpt DWORD, riid REFIID, ppvResult *LPVOID) HRESULT {
 	ret1 := syscall6(bindMoniker, 4,
@@ -411,8 +506,13 @@ func CoGetActivationState(guid GUID, unknown DWORD, unknown2 *uint32) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): APTTYPE *, APTTYPEQUALIFIER *
-// func CoGetApartmentType(aType APTTYPE *, qualifier APTTYPEQUALIFIER *) HRESULT
+func CoGetApartmentType(aType *APTTYPE, qualifier *APTTYPEQUALIFIER) HRESULT {
+	ret1 := syscall3(coGetApartmentType, 2,
+		uintptr(unsafe.Pointer(aType)),
+		uintptr(unsafe.Pointer(qualifier)),
+		0)
+	return HRESULT(ret1)
+}
 
 func CoGetCallContext(riid REFIID, ppv uintptr) HRESULT {
 	ret1 := syscall3(coGetCallContext, 2,
@@ -462,11 +562,27 @@ func CoGetCurrentProcess() DWORD {
 	return DWORD(ret1)
 }
 
-// TODO: Unknown type(s): APTTYPE
-// func CoGetDefaultContext(aType APTTYPE, riid REFIID, ppv *LPVOID) HRESULT
+func CoGetDefaultContext(aType APTTYPE, riid REFIID, ppv *LPVOID) HRESULT {
+	ret1 := syscall3(coGetDefaultContext, 3,
+		uintptr(aType),
+		uintptr(unsafe.Pointer(riid)),
+		uintptr(unsafe.Pointer(ppv)))
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): COSERVERINFO *, MULTI_QI *
-// func CoGetInstanceFromIStorage(server_info COSERVERINFO *, rclsid *CLSID, outer *IUnknown, cls_context DWORD, storage *IStorage, count DWORD, results MULTI_QI *) HRESULT
+func CoGetInstanceFromIStorage(server_info *COSERVERINFO, rclsid *CLSID, outer *IUnknown, cls_context DWORD, storage *IStorage, count DWORD, results *MULTI_QI) HRESULT {
+	ret1 := syscall9(coGetInstanceFromIStorage, 7,
+		uintptr(unsafe.Pointer(server_info)),
+		uintptr(unsafe.Pointer(rclsid)),
+		uintptr(unsafe.Pointer(outer)),
+		uintptr(cls_context),
+		uintptr(unsafe.Pointer(storage)),
+		uintptr(count),
+		uintptr(unsafe.Pointer(results)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func CoGetInterfaceAndReleaseStream(pStm LPSTREAM, riid REFIID, ppv *LPVOID) HRESULT {
 	ret1 := syscall3(coGetInterfaceAndReleaseStream, 3,
@@ -495,8 +611,17 @@ func CoGetMarshalSizeMax(pulSize *ULONG, riid REFIID, pUnk *IUnknown, dwDestCont
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): BIND_OPTS *
-// func CoGetObject(pszName string, pBindOptions BIND_OPTS *, riid REFIID, ppv uintptr) HRESULT
+func CoGetObject(pszName string, pBindOptions *BIND_OPTS, riid REFIID, ppv uintptr) HRESULT {
+	pszNameStr := unicode16FromString(pszName)
+	ret1 := syscall6(coGetObject, 4,
+		uintptr(unsafe.Pointer(&pszNameStr[0])),
+		uintptr(unsafe.Pointer(pBindOptions)),
+		uintptr(unsafe.Pointer(riid)),
+		ppv,
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func CoGetObjectContext(riid REFIID, ppv uintptr) HRESULT {
 	ret1 := syscall3(coGetObjectContext, 2,
@@ -514,8 +639,16 @@ func CoGetPSClsid(riid REFIID, pclsid *CLSID) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPMARSHAL *
-// func CoGetStandardMarshal(riid REFIID, pUnk *IUnknown, dwDestContext DWORD, pvDestContext LPVOID, mshlflags DWORD, ppMarshal LPMARSHAL *) HRESULT
+func CoGetStandardMarshal(riid REFIID, pUnk *IUnknown, dwDestContext DWORD, pvDestContext LPVOID, mshlflags DWORD, ppMarshal *LPMARSHAL) HRESULT {
+	ret1 := syscall6(coGetStandardMarshal, 6,
+		uintptr(unsafe.Pointer(riid)),
+		uintptr(unsafe.Pointer(pUnk)),
+		uintptr(dwDestContext),
+		uintptr(unsafe.Pointer(pvDestContext)),
+		uintptr(mshlflags),
+		uintptr(unsafe.Pointer(ppMarshal)))
+	return HRESULT(ret1)
+}
 
 func CoGetState(ppv **IUnknown) HRESULT {
 	ret1 := syscall3(coGetState, 1,
@@ -549,8 +682,19 @@ func CoInitialize(lpReserved LPVOID) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): SOLE_AUTHENTICATION_SERVICE *
-// func CoInitializeSecurity(pSecDesc PSECURITY_DESCRIPTOR, cAuthSvc LONG, asAuthSvc SOLE_AUTHENTICATION_SERVICE *, pReserved1 uintptr, dwAuthnLevel DWORD, dwImpLevel DWORD, pReserved2 uintptr, dwCapabilities DWORD, pReserved3 uintptr) HRESULT
+func CoInitializeSecurity(pSecDesc PSECURITY_DESCRIPTOR, cAuthSvc LONG, asAuthSvc *SOLE_AUTHENTICATION_SERVICE, pReserved1 uintptr, dwAuthnLevel DWORD, dwImpLevel DWORD, pReserved2 uintptr, dwCapabilities DWORD, pReserved3 uintptr) HRESULT {
+	ret1 := syscall9(coInitializeSecurity, 9,
+		uintptr(unsafe.Pointer(pSecDesc)),
+		uintptr(cAuthSvc),
+		uintptr(unsafe.Pointer(asAuthSvc)),
+		pReserved1,
+		uintptr(dwAuthnLevel),
+		uintptr(dwImpLevel),
+		pReserved2,
+		uintptr(dwCapabilities),
+		pReserved3)
+	return HRESULT(ret1)
+}
 
 func CoInitializeWOW(x DWORD, y DWORD) HRESULT {
 	ret1 := syscall3(coInitializeWOW, 2,
@@ -619,8 +763,19 @@ func CoMarshalInterface(pStream *IStream, riid REFIID, pUnk *IUnknown, dwDestCon
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): RPC_AUTHZ_HANDLE *
-// func CoQueryClientBlanket(pAuthnSvc *uint32, pAuthzSvc *uint32, pServerPrincName **OLECHAR, pAuthnLevel *uint32, pImpLevel *uint32, pPrivs RPC_AUTHZ_HANDLE *, pCapabilities *uint32) HRESULT
+func CoQueryClientBlanket(pAuthnSvc *uint32, pAuthzSvc *uint32, pServerPrincName **OLECHAR, pAuthnLevel *uint32, pImpLevel *uint32, pPrivs *RPC_AUTHZ_HANDLE, pCapabilities *uint32) HRESULT {
+	ret1 := syscall9(coQueryClientBlanket, 7,
+		uintptr(unsafe.Pointer(pAuthnSvc)),
+		uintptr(unsafe.Pointer(pAuthzSvc)),
+		uintptr(unsafe.Pointer(pServerPrincName)),
+		uintptr(unsafe.Pointer(pAuthnLevel)),
+		uintptr(unsafe.Pointer(pImpLevel)),
+		uintptr(unsafe.Pointer(pPrivs)),
+		uintptr(unsafe.Pointer(pCapabilities)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func CoQueryProxyBlanket(pProxy *IUnknown, pAuthnSvc *uint32, pAuthzSvc *uint32, ppServerPrincName **OLECHAR, pAuthnLevel *uint32, pImpLevel *uint32, ppAuthInfo uintptr, pCapabilities *uint32) HRESULT {
 	ret1 := syscall9(coQueryProxyBlanket, 8,
@@ -636,8 +791,13 @@ func CoQueryProxyBlanket(pProxy *IUnknown, pAuthnSvc *uint32, pAuthzSvc *uint32,
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IChannelHook *
-// func CoRegisterChannelHook(guidExtension REFGUID, pChannelHook IChannelHook *) HRESULT
+func CoRegisterChannelHook(guidExtension REFGUID, pChannelHook *IChannelHook) HRESULT {
+	ret1 := syscall3(coRegisterChannelHook, 2,
+		uintptr(unsafe.Pointer(guidExtension)),
+		uintptr(unsafe.Pointer(pChannelHook)),
+		0)
+	return HRESULT(ret1)
+}
 
 func CoRegisterClassObject(rclsid /*const*/ REFCLSID, pUnk LPUNKNOWN, dwClsContext DWORD, flags DWORD, lpdwRegister *uint32) HRESULT {
 	ret1 := syscall6(coRegisterClassObject, 5,
@@ -650,14 +810,29 @@ func CoRegisterClassObject(rclsid /*const*/ REFCLSID, pUnk LPUNKNOWN, dwClsConte
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IInitializeSpy *
-// func CoRegisterInitializeSpy(spy IInitializeSpy *, cookie *ULARGE_INTEGER) HRESULT
+func CoRegisterInitializeSpy(spy *IInitializeSpy, cookie *ULARGE_INTEGER) HRESULT {
+	ret1 := syscall3(coRegisterInitializeSpy, 2,
+		uintptr(unsafe.Pointer(spy)),
+		uintptr(unsafe.Pointer(cookie)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPMALLOCSPY
-// func CoRegisterMallocSpy(pMallocSpy LPMALLOCSPY) HRESULT
+func CoRegisterMallocSpy(pMallocSpy LPMALLOCSPY) HRESULT {
+	ret1 := syscall3(coRegisterMallocSpy, 1,
+		uintptr(unsafe.Pointer(pMallocSpy)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPMESSAGEFILTER, LPMESSAGEFILTER *
-// func CoRegisterMessageFilter(lpMessageFilter LPMESSAGEFILTER, lplpMessageFilter LPMESSAGEFILTER *) HRESULT
+func CoRegisterMessageFilter(lpMessageFilter LPMESSAGEFILTER, lplpMessageFilter *LPMESSAGEFILTER) HRESULT {
+	ret1 := syscall3(coRegisterMessageFilter, 2,
+		uintptr(unsafe.Pointer(lpMessageFilter)),
+		uintptr(unsafe.Pointer(lplpMessageFilter)),
+		0)
+	return HRESULT(ret1)
+}
 
 func CoRegisterPSClsid(riid REFIID, rclsid /*const*/ REFCLSID) HRESULT {
 	ret1 := syscall3(coRegisterPSClsid, 2,
@@ -819,8 +994,13 @@ func CreateAntiMoniker(ppmk **IMoniker) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPBC *
-// func CreateBindCtx(reserved DWORD, ppbc LPBC *) HRESULT
+func CreateBindCtx(reserved DWORD, ppbc *LPBC) HRESULT {
+	ret1 := syscall3(createBindCtx, 2,
+		uintptr(reserved),
+		uintptr(unsafe.Pointer(ppbc)),
+		0)
+	return HRESULT(ret1)
+}
 
 func CreateClassMoniker(rclsid /*const*/ REFCLSID, ppmk **IMoniker) HRESULT {
 	ret1 := syscall3(createClassMoniker, 2,
@@ -830,8 +1010,13 @@ func CreateClassMoniker(rclsid /*const*/ REFCLSID, ppmk **IMoniker) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IDataAdviseHolder * *
-// func CreateDataAdviseHolder(ppDAHolder IDataAdviseHolder * *) HRESULT
+func CreateDataAdviseHolder(ppDAHolder **IDataAdviseHolder) HRESULT {
+	ret1 := syscall3(createDataAdviseHolder, 1,
+		uintptr(unsafe.Pointer(ppDAHolder)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func CreateDataCache(pUnkOuter LPUNKNOWN, rclsid /*const*/ REFCLSID, riid REFIID, ppvObj *LPVOID) HRESULT {
 	ret1 := syscall6(createDataCache, 4,
@@ -860,8 +1045,13 @@ func CreateGenericComposite(pmkFirst *IMoniker, pmkRest *IMoniker, ppmkComposite
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): ILockBytes * *
-// func CreateILockBytesOnHGlobal(global HGLOBAL, delete_on_release bool, ret ILockBytes * *) HRESULT
+func CreateILockBytesOnHGlobal(global HGLOBAL, delete_on_release bool, ret **ILockBytes) HRESULT {
+	ret1 := syscall3(createILockBytesOnHGlobal, 3,
+		uintptr(global),
+		getUintptrFromBool(delete_on_release),
+		uintptr(unsafe.Pointer(ret)))
+	return HRESULT(ret1)
+}
 
 func CreateItemMoniker(lpszDelim /*const*/ LPCOLESTR, lpszItem /*const*/ LPCOLESTR, ppmk **IMoniker) HRESULT {
 	ret1 := syscall3(createItemMoniker, 3,
@@ -871,8 +1061,13 @@ func CreateItemMoniker(lpszDelim /*const*/ LPCOLESTR, lpszItem /*const*/ LPCOLES
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IOleAdviseHolder * *
-// func CreateOleAdviseHolder(ppOAHolder IOleAdviseHolder * *) HRESULT
+func CreateOleAdviseHolder(ppOAHolder **IOleAdviseHolder) HRESULT {
+	ret1 := syscall3(createOleAdviseHolder, 1,
+		uintptr(unsafe.Pointer(ppOAHolder)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func CreatePointerMoniker(punk LPUNKNOWN, ppmk *LPMONIKER) HRESULT {
 	ret1 := syscall3(createPointerMoniker, 2,
@@ -909,8 +1104,13 @@ func DoDragDrop(pDataObject *IDataObject, pDropSource *IDropSource, dwOKEffect D
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): const FMTID *
-// func FmtIdToPropStgName(rfmtid /*const*/ const FMTID *, str LPOLESTR) HRESULT
+func FmtIdToPropStgName(rfmtid /*const*/ *FMTID, str LPOLESTR) HRESULT {
+	ret1 := syscall3(fmtIdToPropStgName, 2,
+		uintptr(unsafe.Pointer(rfmtid)),
+		uintptr(unsafe.Pointer(str)),
+		0)
+	return HRESULT(ret1)
+}
 
 func FreePropVariantArray(cVariants ULONG, rgvars *PROPVARIANT) HRESULT {
 	ret1 := syscall3(freePropVariantArray, 2,
@@ -936,8 +1136,13 @@ func GetConvertStg(stg *IStorage) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): ILockBytes *
-// func GetHGlobalFromILockBytes(iface ILockBytes *, phglobal *HGLOBAL) HRESULT
+func GetHGlobalFromILockBytes(iface *ILockBytes, phglobal *HGLOBAL) HRESULT {
+	ret1 := syscall3(getHGlobalFromILockBytes, 2,
+		uintptr(unsafe.Pointer(iface)),
+		uintptr(unsafe.Pointer(phglobal)),
+		0)
+	return HRESULT(ret1)
+}
 
 func GetHGlobalFromStream(pstm *IStream, phglobal *HGLOBAL) HRESULT {
 	ret1 := syscall3(getHGlobalFromStream, 2,
@@ -947,8 +1152,13 @@ func GetHGlobalFromStream(pstm *IStream, phglobal *HGLOBAL) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPRUNNINGOBJECTTABLE *
-// func GetRunningObjectTable(reserved DWORD, pprot LPRUNNINGOBJECTTABLE *) HRESULT
+func GetRunningObjectTable(reserved DWORD, pprot *LPRUNNINGOBJECTTABLE) HRESULT {
+	ret1 := syscall3(getRunningObjectTable, 2,
+		uintptr(reserved),
+		uintptr(unsafe.Pointer(pprot)),
+		0)
+	return HRESULT(ret1)
+}
 
 func IIDFromString(s /*const*/ LPCOLESTR, iid *IID) HRESULT {
 	ret1 := syscall3(iIDFromString, 2,
@@ -985,8 +1195,16 @@ func IsValidInterface(punk LPUNKNOWN) bool {
 	return ret1 != 0
 }
 
-// TODO: Unknown type(s): LPBC
-// func MkParseDisplayName(pbc LPBC, szDisplayName /*const*/ LPCOLESTR, pchEaten *uint32, ppmk *LPMONIKER) HRESULT
+func MkParseDisplayName(pbc LPBC, szDisplayName /*const*/ LPCOLESTR, pchEaten *uint32, ppmk *LPMONIKER) HRESULT {
+	ret1 := syscall6(mkParseDisplayName, 4,
+		uintptr(unsafe.Pointer(pbc)),
+		uintptr(unsafe.Pointer(szDisplayName)),
+		uintptr(unsafe.Pointer(pchEaten)),
+		uintptr(unsafe.Pointer(ppmk)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func MonikerCommonPrefixWith(pmkThis *IMoniker, pmkOther *IMoniker, ppmkCommon **IMoniker) HRESULT {
 	ret1 := syscall3(monikerCommonPrefixWith, 3,
@@ -1004,11 +1222,35 @@ func OleBuildVersion() DWORD {
 	return DWORD(ret1)
 }
 
-// TODO: Unknown type(s): LPOLESTREAM, LPSTORAGE
-// func OleConvertIStorageToOLESTREAM(pstg LPSTORAGE, pOleStream LPOLESTREAM) HRESULT
+func OleConvertIStorageToOLESTREAM(pstg LPSTORAGE, pOleStream LPOLESTREAM) HRESULT {
+	ret1 := syscall3(oleConvertIStorageToOLESTREAM, 2,
+		uintptr(unsafe.Pointer(pstg)),
+		uintptr(unsafe.Pointer(pOleStream)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPOLESTREAM, LPSTORAGE
-// func OleConvertOLESTREAMToIStorage(pOleStream LPOLESTREAM, pstg LPSTORAGE, ptd /*const*/ *DVTARGETDEVICE) HRESULT
+func OleConvertOLESTREAMToIStorage(pOleStream LPOLESTREAM, pstg LPSTORAGE, ptd /*const*/ *DVTARGETDEVICE) HRESULT {
+	ret1 := syscall3(oleConvertOLESTREAMToIStorage, 3,
+		uintptr(unsafe.Pointer(pOleStream)),
+		uintptr(unsafe.Pointer(pstg)),
+		uintptr(unsafe.Pointer(ptd)))
+	return HRESULT(ret1)
+}
+
+func OleCreate(rclsid /*const*/ REFCLSID, riid REFIID, renderopt DWORD, pFormatEtc *FORMATETC, pClientSite LPOLECLIENTSITE, pStg LPSTORAGE, ppvObj *LPVOID) HRESULT {
+	ret1 := syscall9(oleCreate, 7,
+		uintptr(unsafe.Pointer(rclsid)),
+		uintptr(unsafe.Pointer(riid)),
+		uintptr(renderopt),
+		uintptr(unsafe.Pointer(pFormatEtc)),
+		uintptr(unsafe.Pointer(pClientSite)),
+		uintptr(unsafe.Pointer(pStg)),
+		uintptr(unsafe.Pointer(ppvObj)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func OleCreateDefaultHandler(clsid /*const*/ REFCLSID, pUnkOuter LPUNKNOWN, riid REFIID, ppvObj *LPVOID) HRESULT {
 	ret1 := syscall6(oleCreateDefaultHandler, 4,
@@ -1021,38 +1263,172 @@ func OleCreateDefaultHandler(clsid /*const*/ REFCLSID, pUnkOuter LPUNKNOWN, riid
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): IClassFactory *
-// func OleCreateEmbeddingHelper(clsid /*const*/ REFCLSID, pUnkOuter LPUNKNOWN, flags DWORD, pCF IClassFactory *, riid REFIID, ppvObj *LPVOID) HRESULT
+func OleCreateEmbeddingHelper(clsid /*const*/ REFCLSID, pUnkOuter LPUNKNOWN, flags DWORD, pCF *IClassFactory, riid REFIID, ppvObj *LPVOID) HRESULT {
+	ret1 := syscall6(oleCreateEmbeddingHelper, 6,
+		uintptr(unsafe.Pointer(clsid)),
+		uintptr(unsafe.Pointer(pUnkOuter)),
+		uintptr(flags),
+		uintptr(unsafe.Pointer(pCF)),
+		uintptr(unsafe.Pointer(riid)),
+		uintptr(unsafe.Pointer(ppvObj)))
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPOLECLIENTSITE, LPSTORAGE
-// func OleCreateFromData(data LPDATAOBJECT, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site LPOLECLIENTSITE, stg LPSTORAGE, obj *LPVOID) HRESULT
+func OleCreateFromData(data LPDATAOBJECT, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site LPOLECLIENTSITE, stg LPSTORAGE, obj *LPVOID) HRESULT {
+	ret1 := syscall9(oleCreateFromData, 7,
+		uintptr(unsafe.Pointer(data)),
+		uintptr(unsafe.Pointer(iid)),
+		uintptr(renderopt),
+		uintptr(unsafe.Pointer(fmt)),
+		uintptr(unsafe.Pointer(client_site)),
+		uintptr(unsafe.Pointer(stg)),
+		uintptr(unsafe.Pointer(obj)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IAdviseSink *, IOleClientSite *
-// func OleCreateFromDataEx(data *IDataObject, iid REFIID, flags DWORD, renderopt DWORD, num_cache_fmts ULONG, adv_flags *uint32, cache_fmts *FORMATETC, sink IAdviseSink *, conns *uint32, client_site IOleClientSite *, stg *IStorage, obj uintptr) HRESULT
+func OleCreateFromDataEx(data *IDataObject, iid REFIID, flags DWORD, renderopt DWORD, num_cache_fmts ULONG, adv_flags *uint32, cache_fmts *FORMATETC, sink *IAdviseSink, conns *uint32, client_site *IOleClientSite, stg *IStorage, obj uintptr) HRESULT {
+	ret1 := syscall12(oleCreateFromDataEx, 12,
+		uintptr(unsafe.Pointer(data)),
+		uintptr(unsafe.Pointer(iid)),
+		uintptr(flags),
+		uintptr(renderopt),
+		uintptr(num_cache_fmts),
+		uintptr(unsafe.Pointer(adv_flags)),
+		uintptr(unsafe.Pointer(cache_fmts)),
+		uintptr(unsafe.Pointer(sink)),
+		uintptr(unsafe.Pointer(conns)),
+		uintptr(unsafe.Pointer(client_site)),
+		uintptr(unsafe.Pointer(stg)),
+		obj)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IAdviseSink *, IOleClientSite *
-// func OleCreateFromFileEx(clsid /*const*/ REFCLSID, filename /*const*/ *OLECHAR, iid REFIID, flags DWORD, renderopt DWORD, num_fmts ULONG, adv_flags *uint32, fmts *FORMATETC, sink IAdviseSink *, conns *uint32, client_site IOleClientSite *, stg *IStorage, obj uintptr) HRESULT
+func OleCreateFromFile(clsid /*const*/ REFCLSID, filename /*const*/ *OLECHAR, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site *IOleClientSite, storage *IStorage, obj uintptr) HRESULT {
+	ret1 := syscall9(oleCreateFromFile, 8,
+		uintptr(unsafe.Pointer(clsid)),
+		uintptr(unsafe.Pointer(filename)),
+		uintptr(unsafe.Pointer(iid)),
+		uintptr(renderopt),
+		uintptr(unsafe.Pointer(fmt)),
+		uintptr(unsafe.Pointer(client_site)),
+		uintptr(unsafe.Pointer(storage)),
+		obj,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPOLECLIENTSITE, LPSTORAGE
-// func OleCreateLink(pmkLinkSrc LPMONIKER, riid REFIID, renderopt DWORD, lpFormatEtc *FORMATETC, pClientSite LPOLECLIENTSITE, pStg LPSTORAGE, ppvObj *LPVOID) HRESULT
+func OleCreateFromFileEx(clsid /*const*/ REFCLSID, filename /*const*/ *OLECHAR, iid REFIID, flags DWORD, renderopt DWORD, num_fmts ULONG, adv_flags *uint32, fmts *FORMATETC, sink *IAdviseSink, conns *uint32, client_site *IOleClientSite, stg *IStorage, obj uintptr) HRESULT {
+	ret1 := syscall15(oleCreateFromFileEx, 13,
+		uintptr(unsafe.Pointer(clsid)),
+		uintptr(unsafe.Pointer(filename)),
+		uintptr(unsafe.Pointer(iid)),
+		uintptr(flags),
+		uintptr(renderopt),
+		uintptr(num_fmts),
+		uintptr(unsafe.Pointer(adv_flags)),
+		uintptr(unsafe.Pointer(fmts)),
+		uintptr(unsafe.Pointer(sink)),
+		uintptr(unsafe.Pointer(conns)),
+		uintptr(unsafe.Pointer(client_site)),
+		uintptr(unsafe.Pointer(stg)),
+		obj,
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IOleClientSite *
-// func OleCreateLinkFromData(data *IDataObject, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site IOleClientSite *, stg *IStorage, obj uintptr) HRESULT
+func OleCreateLink(pmkLinkSrc LPMONIKER, riid REFIID, renderopt DWORD, lpFormatEtc *FORMATETC, pClientSite LPOLECLIENTSITE, pStg LPSTORAGE, ppvObj *LPVOID) HRESULT {
+	ret1 := syscall9(oleCreateLink, 7,
+		uintptr(unsafe.Pointer(pmkLinkSrc)),
+		uintptr(unsafe.Pointer(riid)),
+		uintptr(renderopt),
+		uintptr(unsafe.Pointer(lpFormatEtc)),
+		uintptr(unsafe.Pointer(pClientSite)),
+		uintptr(unsafe.Pointer(pStg)),
+		uintptr(unsafe.Pointer(ppvObj)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPOLECLIENTSITE, LPSTORAGE
-// func OleCreateLinkToFile(lpszFileName /*const*/ LPCOLESTR, riid REFIID, renderopt DWORD, lpFormatEtc *FORMATETC, pClientSite LPOLECLIENTSITE, pStg LPSTORAGE, ppvObj *LPVOID) HRESULT
+func OleCreateLinkFromData(data *IDataObject, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site *IOleClientSite, stg *IStorage, obj uintptr) HRESULT {
+	ret1 := syscall9(oleCreateLinkFromData, 7,
+		uintptr(unsafe.Pointer(data)),
+		uintptr(unsafe.Pointer(iid)),
+		uintptr(renderopt),
+		uintptr(unsafe.Pointer(fmt)),
+		uintptr(unsafe.Pointer(client_site)),
+		uintptr(unsafe.Pointer(stg)),
+		obj,
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): HOLEMENU, LPOLEMENUGROUPWIDTHS
-// func OleCreateMenuDescriptor(hmenuCombined HMENU, lpMenuWidths LPOLEMENUGROUPWIDTHS) HOLEMENU
+func OleCreateLinkToFile(lpszFileName /*const*/ LPCOLESTR, riid REFIID, renderopt DWORD, lpFormatEtc *FORMATETC, pClientSite LPOLECLIENTSITE, pStg LPSTORAGE, ppvObj *LPVOID) HRESULT {
+	ret1 := syscall9(oleCreateLinkToFile, 7,
+		uintptr(unsafe.Pointer(lpszFileName)),
+		uintptr(unsafe.Pointer(riid)),
+		uintptr(renderopt),
+		uintptr(unsafe.Pointer(lpFormatEtc)),
+		uintptr(unsafe.Pointer(pClientSite)),
+		uintptr(unsafe.Pointer(pStg)),
+		uintptr(unsafe.Pointer(ppvObj)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): IOleClientSite *
-// func OleCreateStaticFromData(data *IDataObject, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site IOleClientSite *, stg *IStorage, obj uintptr) HRESULT
+func OleCreateMenuDescriptor(hmenuCombined HMENU, lpMenuWidths LPOLEMENUGROUPWIDTHS) HOLEMENU {
+	ret1 := syscall3(oleCreateMenuDescriptor, 2,
+		uintptr(hmenuCombined),
+		uintptr(unsafe.Pointer(lpMenuWidths)),
+		0)
+	return HOLEMENU(ret1)
+}
 
-// TODO: Unknown type(s): HOLEMENU
-// func OleDestroyMenuDescriptor(hmenuDescriptor HOLEMENU) HRESULT
+func OleCreateStaticFromData(data *IDataObject, iid REFIID, renderopt DWORD, fmt *FORMATETC, client_site *IOleClientSite, stg *IStorage, obj uintptr) HRESULT {
+	ret1 := syscall9(oleCreateStaticFromData, 7,
+		uintptr(unsafe.Pointer(data)),
+		uintptr(unsafe.Pointer(iid)),
+		uintptr(renderopt),
+		uintptr(unsafe.Pointer(fmt)),
+		uintptr(unsafe.Pointer(client_site)),
+		uintptr(unsafe.Pointer(stg)),
+		obj,
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPSTORAGE
-// func OleDoAutoConvert(pStg LPSTORAGE, pClsidNew *CLSID) HRESULT
+func OleDestroyMenuDescriptor(hmenuDescriptor HOLEMENU) HRESULT {
+	ret1 := syscall3(oleDestroyMenuDescriptor, 1,
+		uintptr(hmenuDescriptor),
+		0,
+		0)
+	return HRESULT(ret1)
+}
+
+func OleDoAutoConvert(pStg LPSTORAGE, pClsidNew *CLSID) HRESULT {
+	ret1 := syscall3(oleDoAutoConvert, 2,
+		uintptr(unsafe.Pointer(pStg)),
+		uintptr(unsafe.Pointer(pClsidNew)),
+		0)
+	return HRESULT(ret1)
+}
+
+func OleDraw(pUnk *IUnknown, dwAspect DWORD, hdcDraw HDC, rect /*const*/ *RECT) HRESULT {
+	ret1 := syscall6(oleDraw, 4,
+		uintptr(unsafe.Pointer(pUnk)),
+		uintptr(dwAspect),
+		uintptr(hdcDraw),
+		uintptr(unsafe.Pointer(rect)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func OleDuplicateData(hSrc HANDLE, cfFormat CLIPFORMAT, uiFlags UINT) HANDLE {
 	ret1 := syscall3(oleDuplicateData, 3,
@@ -1110,11 +1486,32 @@ func OleIsCurrentClipboard(data *IDataObject) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPOLEOBJECT
-// func OleIsRunning(object LPOLEOBJECT) bool
+func OleIsRunning(object LPOLEOBJECT) bool {
+	ret1 := syscall3(oleIsRunning, 1,
+		uintptr(unsafe.Pointer(object)),
+		0,
+		0)
+	return ret1 != 0
+}
 
-// TODO: Unknown type(s): LPOLECLIENTSITE, LPSTORAGE
-// func OleLoad(pStg LPSTORAGE, riid REFIID, pClientSite LPOLECLIENTSITE, ppvObj *LPVOID) HRESULT
+func OleLoad(pStg LPSTORAGE, riid REFIID, pClientSite LPOLECLIENTSITE, ppvObj *LPVOID) HRESULT {
+	ret1 := syscall6(oleLoad, 4,
+		uintptr(unsafe.Pointer(pStg)),
+		uintptr(unsafe.Pointer(riid)),
+		uintptr(unsafe.Pointer(pClientSite)),
+		uintptr(unsafe.Pointer(ppvObj)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
+
+func OleLoadFromStream(pStm *IStream, iidInterface REFIID, ppvObj uintptr) HRESULT {
+	ret1 := syscall3(oleLoadFromStream, 3,
+		uintptr(unsafe.Pointer(pStm)),
+		uintptr(unsafe.Pointer(iidInterface)),
+		ppvObj)
+	return HRESULT(ret1)
+}
 
 func OleLockRunning(pUnknown LPUNKNOWN, fLock bool, fLastUnlockCloses bool) HRESULT {
 	ret1 := syscall3(oleLockRunning, 3,
@@ -1159,8 +1556,13 @@ func OleQueryLinkFromData(pSrcDataObject *IDataObject) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPENUMOLEVERB *
-// func OleRegEnumVerbs(clsid /*const*/ REFCLSID, ppenum LPENUMOLEVERB *) HRESULT
+func OleRegEnumVerbs(clsid /*const*/ REFCLSID, ppenum *LPENUMOLEVERB) HRESULT {
+	ret1 := syscall3(oleRegEnumVerbs, 2,
+		uintptr(unsafe.Pointer(clsid)),
+		uintptr(unsafe.Pointer(ppenum)),
+		0)
+	return HRESULT(ret1)
+}
 
 func OleRegGetMiscStatus(clsid /*const*/ REFCLSID, dwAspect DWORD, pdwStatus *uint32) HRESULT {
 	ret1 := syscall3(oleRegGetMiscStatus, 3,
@@ -1178,8 +1580,21 @@ func OleRegGetUserType(clsid /*const*/ REFCLSID, form DWORD, usertype *LPOLESTR)
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPPERSISTSTORAGE, LPSTORAGE
-// func OleSave(pPS LPPERSISTSTORAGE, pStg LPSTORAGE, fSameAsLoad bool) HRESULT
+func OleSave(pPS LPPERSISTSTORAGE, pStg LPSTORAGE, fSameAsLoad bool) HRESULT {
+	ret1 := syscall3(oleSave, 3,
+		uintptr(unsafe.Pointer(pPS)),
+		uintptr(unsafe.Pointer(pStg)),
+		getUintptrFromBool(fSameAsLoad))
+	return HRESULT(ret1)
+}
+
+func OleSaveToStream(pPStm *IPersistStream, pStm *IStream) HRESULT {
+	ret1 := syscall3(oleSaveToStream, 2,
+		uintptr(unsafe.Pointer(pPStm)),
+		uintptr(unsafe.Pointer(pStm)),
+		0)
+	return HRESULT(ret1)
+}
 
 func OleSetAutoConvert(clsidOld /*const*/ REFCLSID, clsidNew /*const*/ REFCLSID) HRESULT {
 	ret1 := syscall3(oleSetAutoConvert, 2,
@@ -1205,14 +1620,32 @@ func OleSetContainedObject(pUnknown LPUNKNOWN, fContained bool) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): HOLEMENU, LPOLEINPLACEACTIVEOBJECT, LPOLEINPLACEFRAME
-// func OleSetMenuDescriptor(hOleMenu HOLEMENU, hwndFrame HWND, hwndActiveObject HWND, lpFrame LPOLEINPLACEFRAME, lpActiveObject LPOLEINPLACEACTIVEOBJECT) HRESULT
+func OleSetMenuDescriptor(hOleMenu HOLEMENU, hwndFrame HWND, hwndActiveObject HWND, lpFrame LPOLEINPLACEFRAME, lpActiveObject LPOLEINPLACEACTIVEOBJECT) HRESULT {
+	ret1 := syscall6(oleSetMenuDescriptor, 5,
+		uintptr(hOleMenu),
+		uintptr(hwndFrame),
+		uintptr(hwndActiveObject),
+		uintptr(unsafe.Pointer(lpFrame)),
+		uintptr(unsafe.Pointer(lpActiveObject)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPOLEINPLACEFRAME, LPOLEINPLACEFRAMEINFO
-// func OleTranslateAccelerator(lpFrame LPOLEINPLACEFRAME, lpFrameInfo LPOLEINPLACEFRAMEINFO, lpmsg *MSG) HRESULT
+func OleTranslateAccelerator(lpFrame LPOLEINPLACEFRAME, lpFrameInfo LPOLEINPLACEFRAMEINFO, lpmsg *MSG) HRESULT {
+	ret1 := syscall3(oleTranslateAccelerator, 3,
+		uintptr(unsafe.Pointer(lpFrame)),
+		uintptr(unsafe.Pointer(lpFrameInfo)),
+		uintptr(unsafe.Pointer(lpmsg)))
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): FMTID *
-// func PropStgNameToFmtId(str /*const*/ LPOLESTR, rfmtid FMTID *) HRESULT
+func PropStgNameToFmtId(str /*const*/ LPOLESTR, rfmtid *FMTID) HRESULT {
+	ret1 := syscall3(propStgNameToFmtId, 2,
+		uintptr(unsafe.Pointer(str)),
+		uintptr(unsafe.Pointer(rfmtid)),
+		0)
+	return HRESULT(ret1)
+}
 
 func PropSysAllocString(str /*const*/ LPCOLESTR) BSTR {
 	ret1 := syscall3(propSysAllocString, 1,
@@ -1261,14 +1694,28 @@ func ReadClassStm(pStm *IStream, pclsid *CLSID) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPSTORAGE
-// func ReadFmtUserTypeStg(pstg LPSTORAGE, pcf *CLIPFORMAT, lplpszUserType *LPOLESTR) HRESULT
+func ReadFmtUserTypeStg(pstg LPSTORAGE, pcf *CLIPFORMAT, lplpszUserType *LPOLESTR) HRESULT {
+	ret1 := syscall3(readFmtUserTypeStg, 3,
+		uintptr(unsafe.Pointer(pstg)),
+		uintptr(unsafe.Pointer(pcf)),
+		uintptr(unsafe.Pointer(lplpszUserType)))
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): LPDROPTARGET
-// func RegisterDragDrop(hwnd HWND, pDropTarget LPDROPTARGET) HRESULT
+func RegisterDragDrop(hwnd HWND, pDropTarget LPDROPTARGET) HRESULT {
+	ret1 := syscall3(registerDragDrop, 2,
+		uintptr(hwnd),
+		uintptr(unsafe.Pointer(pDropTarget)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): STGMEDIUM *
-// func ReleaseStgMedium(pmedium STGMEDIUM *)
+func ReleaseStgMedium(pmedium *STGMEDIUM) {
+	syscall3(releaseStgMedium, 1,
+		uintptr(unsafe.Pointer(pmedium)),
+		0,
+		0)
+}
 
 func RevokeDragDrop(hwnd HWND) HRESULT {
 	ret1 := syscall3(revokeDragDrop, 1,
@@ -1300,8 +1747,16 @@ func StgCreateDocfile(pwcsName /*const*/ LPCOLESTR, grfMode DWORD, reserved DWOR
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): ILockBytes *
-// func StgCreateDocfileOnILockBytes(plkbyt ILockBytes *, grfMode DWORD, reserved DWORD, ppstgOpen **IStorage) HRESULT
+func StgCreateDocfileOnILockBytes(plkbyt *ILockBytes, grfMode DWORD, reserved DWORD, ppstgOpen **IStorage) HRESULT {
+	ret1 := syscall6(stgCreateDocfileOnILockBytes, 4,
+		uintptr(unsafe.Pointer(plkbyt)),
+		uintptr(grfMode),
+		uintptr(reserved),
+		uintptr(unsafe.Pointer(ppstgOpen)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func StgCreatePropSetStg(pstg *IStorage, reserved DWORD, propset **IPropertySetStorage) HRESULT {
 	ret1 := syscall3(stgCreatePropSetStg, 3,
@@ -1333,8 +1788,13 @@ func StgIsStorageFile(fn /*const*/ LPCOLESTR) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): ILockBytes *
-// func StgIsStorageILockBytes(plkbyt ILockBytes *) HRESULT
+func StgIsStorageILockBytes(plkbyt *ILockBytes) HRESULT {
+	ret1 := syscall3(stgIsStorageILockBytes, 1,
+		uintptr(unsafe.Pointer(plkbyt)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func StgOpenPropStg(unk *IUnknown, fmt REFFMTID, flags DWORD, reserved DWORD, prop_stg **IPropertyStorage) HRESULT {
 	ret1 := syscall6(stgOpenPropStg, 5,
@@ -1353,8 +1813,8 @@ func StgOpenPropStg(unk *IUnknown, fmt REFFMTID, flags DWORD, reserved DWORD, pr
 // TODO: Unknown type(s): STGOPTIONS *
 // func StgOpenStorageEx(pwcsName /*const*/ *WCHAR, grfMode DWORD, stgfmt DWORD, grfAttrs DWORD, pStgOptions STGOPTIONS *, reserved uintptr, riid REFIID, ppObjectOpen uintptr) HRESULT
 
-// TODO: Unknown type(s): ILockBytes *, SNB
-// func StgOpenStorageOnILockBytes(plkbyt ILockBytes *, pstgPriority *IStorage, grfMode DWORD, snbExclude SNB, reserved DWORD, ppstgOpen **IStorage) HRESULT
+// TODO: Unknown type(s): SNB
+// func StgOpenStorageOnILockBytes(plkbyt *ILockBytes, pstgPriority *IStorage, grfMode DWORD, snbExclude SNB, reserved DWORD, ppstgOpen **IStorage) HRESULT
 
 func StgSetTimes(str /*const*/ *OLECHAR, pctime /*const*/ *FILETIME, patime /*const*/ *FILETIME, pmtime /*const*/ *FILETIME) HRESULT {
 	ret1 := syscall6(stgSetTimes, 4,
@@ -1406,5 +1866,10 @@ func WriteClassStm(pStm *IStream, rclsid /*const*/ REFCLSID) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPSTORAGE
-// func WriteFmtUserTypeStg(pstg LPSTORAGE, cf CLIPFORMAT, lpszUserType LPOLESTR) HRESULT
+func WriteFmtUserTypeStg(pstg LPSTORAGE, cf CLIPFORMAT, lpszUserType LPOLESTR) HRESULT {
+	ret1 := syscall3(writeFmtUserTypeStg, 3,
+		uintptr(unsafe.Pointer(pstg)),
+		uintptr(cf),
+		uintptr(unsafe.Pointer(lpszUserType)))
+	return HRESULT(ret1)
+}

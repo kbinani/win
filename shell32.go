@@ -158,7 +158,10 @@ var (
 	sHPropStgCreate                         uintptr
 	sHPropStgReadMultiple                   uintptr
 	sHPropStgWriteMultiple                  uintptr
+	sHQueryRecycleBin                       uintptr
+	sHQueryUserNotificationState            uintptr
 	sHRemoveLocalizedName                   uintptr
+	sHRestricted                            uintptr
 	sHRunControlPanel                       uintptr
 	sHSetInstanceExplorer                   uintptr
 	sHSetLocalizedName                      uintptr
@@ -174,6 +177,7 @@ var (
 	shellExecute                            uintptr
 	shell_GetImageLists                     uintptr
 	shell_MergeMenus                        uintptr
+	shell_NotifyIcon                        uintptr
 	signalFileOpen                          uintptr
 	wOWShellExecute                         uintptr
 	writeCabinetState                       uintptr
@@ -327,7 +331,10 @@ func init() {
 	sHPropStgCreate = doGetProcAddress(libshell32, "SHPropStgCreate")
 	sHPropStgReadMultiple = doGetProcAddress(libshell32, "SHPropStgReadMultiple")
 	sHPropStgWriteMultiple = doGetProcAddress(libshell32, "SHPropStgWriteMultiple")
+	sHQueryRecycleBin = doGetProcAddress(libshell32, "SHQueryRecycleBinW")
+	sHQueryUserNotificationState = doGetProcAddress(libshell32, "SHQueryUserNotificationState")
 	sHRemoveLocalizedName = doGetProcAddress(libshell32, "SHRemoveLocalizedName")
+	sHRestricted = doGetProcAddress(libshell32, "SHRestricted")
 	sHRunControlPanel = doGetProcAddress(libshell32, "SHRunControlPanel")
 	sHSetInstanceExplorer = doGetProcAddress(libshell32, "SHSetInstanceExplorer")
 	sHSetLocalizedName = doGetProcAddress(libshell32, "SHSetLocalizedName")
@@ -343,6 +350,7 @@ func init() {
 	shellExecute = doGetProcAddress(libshell32, "ShellExecuteW")
 	shell_GetImageLists = doGetProcAddress(libshell32, "Shell_GetImageLists")
 	shell_MergeMenus = doGetProcAddress(libshell32, "Shell_MergeMenus")
+	shell_NotifyIcon = doGetProcAddress(libshell32, "Shell_NotifyIconW")
 	signalFileOpen = doGetProcAddress(libshell32, "SignalFileOpen")
 	wOWShellExecute = doGetProcAddress(libshell32, "WOWShellExecute")
 	writeCabinetState = doGetProcAddress(libshell32, "WriteCabinetState")
@@ -1686,11 +1694,22 @@ func SHPropStgWriteMultiple(pps *IPropertyStorage, uCodePage *UINT, cpspec ULONG
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): LPSHQUERYRBINFO
-// func SHQueryRecycleBin(pszRootPath string, pSHQueryRBInfo LPSHQUERYRBINFO) HRESULT
+func SHQueryRecycleBin(pszRootPath string, pSHQueryRBInfo LPSHQUERYRBINFO) HRESULT {
+	pszRootPathStr := unicode16FromString(pszRootPath)
+	ret1 := syscall3(sHQueryRecycleBin, 2,
+		uintptr(unsafe.Pointer(&pszRootPathStr[0])),
+		uintptr(unsafe.Pointer(pSHQueryRBInfo)),
+		0)
+	return HRESULT(ret1)
+}
 
-// TODO: Unknown type(s): QUERY_USER_NOTIFICATION_STATE *
-// func SHQueryUserNotificationState(state QUERY_USER_NOTIFICATION_STATE *) HRESULT
+func SHQueryUserNotificationState(state *QUERY_USER_NOTIFICATION_STATE) HRESULT {
+	ret1 := syscall3(sHQueryUserNotificationState, 1,
+		uintptr(unsafe.Pointer(state)),
+		0,
+		0)
+	return HRESULT(ret1)
+}
 
 func SHRemoveLocalizedName(path /*const*/ *WCHAR) HRESULT {
 	ret1 := syscall3(sHRemoveLocalizedName, 1,
@@ -1700,8 +1719,13 @@ func SHRemoveLocalizedName(path /*const*/ *WCHAR) HRESULT {
 	return HRESULT(ret1)
 }
 
-// TODO: Unknown type(s): RESTRICTIONS
-// func SHRestricted(policy RESTRICTIONS) DWORD
+func SHRestricted(policy RESTRICTIONS) DWORD {
+	ret1 := syscall3(sHRestricted, 1,
+		uintptr(policy),
+		0,
+		0)
+	return DWORD(ret1)
+}
 
 func SHRunControlPanel(commandLine string, parent HWND) bool {
 	commandLineStr := unicode16FromString(commandLine)
@@ -1845,8 +1869,13 @@ func Shell_MergeMenus(hmDst HMENU, hmSrc HMENU, uInsert UINT, uIDAdjust UINT, uI
 	return UINT(ret1)
 }
 
-// TODO: Unknown type(s): PNOTIFYICONDATAW
-// func Shell_NotifyIcon(dwMessage DWORD, nid PNOTIFYICONDATAW) bool
+func Shell_NotifyIcon(dwMessage DWORD, nid PNOTIFYICONDATA) bool {
+	ret1 := syscall3(shell_NotifyIcon, 2,
+		uintptr(dwMessage),
+		uintptr(unsafe.Pointer(nid)),
+		0)
+	return ret1 != 0
+}
 
 func SignalFileOpen(pidl /*const*/ PCIDLIST_ABSOLUTE) bool {
 	ret1 := syscall3(signalFileOpen, 1,

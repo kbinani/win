@@ -27,6 +27,8 @@ func init() {
 	types["ALG_ID"] = reflect.TypeOf((*ALG_ID)(nil)).Elem()
 	types["ALTTABINFO"] = reflect.TypeOf((*ALTTABINFO)(nil)).Elem()
 	types["APPBARDATA"] = reflect.TypeOf((*APPBARDATA)(nil)).Elem()
+	types["APTTYPE"] = reflect.TypeOf((*APTTYPE)(nil)).Elem()
+	types["APTTYPEQUALIFIER"] = reflect.TypeOf((*APTTYPEQUALIFIER)(nil)).Elem()
 	types["ARRAY_INFO"] = reflect.TypeOf((*ARRAY_INFO)(nil)).Elem()
 	types["ASSOCF"] = reflect.TypeOf((*ASSOCF)(nil)).Elem()
 	types["ASSOCKEY"] = reflect.TypeOf((*ASSOCKEY)(nil)).Elem()
@@ -37,6 +39,7 @@ func init() {
 	types["AUTO_SCROLL_DATA"] = reflect.TypeOf((*AUTO_SCROLL_DATA)(nil)).Elem()
 	types["AUXCAPS"] = reflect.TypeOf((*AUXCAPS)(nil)).Elem()
 	types["BFFCALLBACK"] = reflect.TypeOf((*BFFCALLBACK)(nil)).Elem()
+	types["BIND_OPTS"] = reflect.TypeOf((*BIND_OPTS)(nil)).Elem()
 	types["BITMAP"] = reflect.TypeOf((*BITMAP)(nil)).Elem()
 	types["BITMAPINFO"] = reflect.TypeOf((*BITMAPINFO)(nil)).Elem()
 	types["BITMAPINFOHEADER"] = reflect.TypeOf((*BITMAPINFOHEADER)(nil)).Elem()
@@ -100,6 +103,8 @@ func init() {
 	types["CLIPLINE"] = reflect.TypeOf((*CLIPLINE)(nil)).Elem()
 	types["CLIPOBJ"] = reflect.TypeOf((*CLIPOBJ)(nil)).Elem()
 	types["CLSID"] = reflect.TypeOf((*CLSID)(nil)).Elem()
+	types["COAUTHIDENTITY"] = reflect.TypeOf((*COAUTHIDENTITY)(nil)).Elem()
+	types["COAUTHINFO"] = reflect.TypeOf((*COAUTHINFO)(nil)).Elem()
 	types["COLOR16"] = reflect.TypeOf((*COLOR16)(nil)).Elem()
 	types["COLORADJUSTMENT"] = reflect.TypeOf((*COLORADJUSTMENT)(nil)).Elem()
 	types["COLORMAP"] = reflect.TypeOf((*COLORMAP)(nil)).Elem()
@@ -112,6 +117,7 @@ func init() {
 	types["CONVCONTEXT"] = reflect.TypeOf((*CONVCONTEXT)(nil)).Elem()
 	types["CONVINFO"] = reflect.TypeOf((*CONVINFO)(nil)).Elem()
 	types["COORD"] = reflect.TypeOf((*COORD)(nil)).Elem()
+	types["COSERVERINFO"] = reflect.TypeOf((*COSERVERINFO)(nil)).Elem()
 	types["CPINFO"] = reflect.TypeOf((*CPINFO)(nil)).Elem()
 	types["CPINFOEX"] = reflect.TypeOf((*CPINFOEX)(nil)).Elem()
 	types["CREDENTIAL"] = reflect.TypeOf((*CREDENTIAL)(nil)).Elem()
@@ -200,6 +206,7 @@ func init() {
 	types["FLOAT_LONG"] = reflect.TypeOf((*FLOAT_LONG)(nil)).Elem()
 	types["FLONG"] = reflect.TypeOf((*FLONG)(nil)).Elem()
 	types["FLOWSPEC"] = reflect.TypeOf((*FLOWSPEC)(nil)).Elem()
+	types["FMTID"] = reflect.TypeOf((*FMTID)(nil)).Elem()
 	types["FOLDERVIEWMODE"] = reflect.TypeOf((*FOLDERVIEWMODE)(nil)).Elem()
 	types["FONTDESC"] = reflect.TypeOf((*FONTDESC)(nil)).Elem()
 	types["FONTENUMPROC"] = reflect.TypeOf((*FONTENUMPROC)(nil)).Elem()
@@ -294,6 +301,7 @@ func init() {
 	types["HLOCAL"] = reflect.TypeOf((*HLOCAL)(nil)).Elem()
 	types["HMENU"] = reflect.TypeOf((*HMENU)(nil)).Elem()
 	types["HMETAFILE"] = reflect.TypeOf((*HMETAFILE)(nil)).Elem()
+	types["HMETAFILEPICT"] = reflect.TypeOf((*HMETAFILEPICT)(nil)).Elem()
 	types["HMIDI"] = reflect.TypeOf((*HMIDI)(nil)).Elem()
 	types["HMIDIIN"] = reflect.TypeOf((*HMIDIIN)(nil)).Elem()
 	types["HMIDIOUT"] = reflect.TypeOf((*HMIDIOUT)(nil)).Elem()
@@ -303,6 +311,7 @@ func init() {
 	types["HMMIO"] = reflect.TypeOf((*HMMIO)(nil)).Elem()
 	types["HMODULE"] = reflect.TypeOf((*HMODULE)(nil)).Elem()
 	types["HMONITOR"] = reflect.TypeOf((*HMONITOR)(nil)).Elem()
+	types["HOLEMENU"] = reflect.TypeOf((*HOLEMENU)(nil)).Elem()
 	types["HOOKPROC"] = reflect.TypeOf((*HOOKPROC)(nil)).Elem()
 	types["HPAINTBUFFER"] = reflect.TypeOf((*HPAINTBUFFER)(nil)).Elem()
 	types["HPALETTE"] = reflect.TypeOf((*HPALETTE)(nil)).Elem()
@@ -329,9 +338,12 @@ func init() {
 	types["HWINSTA"] = reflect.TypeOf((*HWINSTA)(nil)).Elem()
 	types["HWND"] = reflect.TypeOf((*HWND)(nil)).Elem()
 	types["Handle_t"] = reflect.TypeOf((*Handle_t)(nil)).Elem()
+	types["IAdviseSink"] = reflect.TypeOf((*IAdviseSink)(nil)).Elem()
 	types["IBindCtx"] = reflect.TypeOf((*IBindCtx)(nil)).Elem()
 	types["ICMENUMPROC"] = reflect.TypeOf((*ICMENUMPROC)(nil)).Elem()
 	types["ICONINFO"] = reflect.TypeOf((*ICONINFO)(nil)).Elem()
+	types["IChannelHook"] = reflect.TypeOf((*IChannelHook)(nil)).Elem()
+	types["IClassFactory"] = reflect.TypeOf((*IClassFactory)(nil)).Elem()
 	types["IConnectionPoint"] = reflect.TypeOf((*IConnectionPoint)(nil)).Elem()
 	types["IContextMenu"] = reflect.TypeOf((*IContextMenu)(nil)).Elem()
 	types["IContextMenuCB"] = reflect.TypeOf((*IContextMenuCB)(nil)).Elem()
@@ -339,23 +351,31 @@ func init() {
 	types["ICreateTypeLib"] = reflect.TypeOf((*ICreateTypeLib)(nil)).Elem()
 	types["ICreateTypeLib2"] = reflect.TypeOf((*ICreateTypeLib2)(nil)).Elem()
 	types["IDL_CS_CONVERT"] = reflect.TypeOf((*IDL_CS_CONVERT)(nil)).Elem()
+	types["IDataAdviseHolder"] = reflect.TypeOf((*IDataAdviseHolder)(nil)).Elem()
 	types["IDataObject"] = reflect.TypeOf((*IDataObject)(nil)).Elem()
 	types["IDispatch"] = reflect.TypeOf((*IDispatch)(nil)).Elem()
 	types["IDropSource"] = reflect.TypeOf((*IDropSource)(nil)).Elem()
+	types["IDropTarget"] = reflect.TypeOf((*IDropTarget)(nil)).Elem()
 	types["IEnumAssocHandlers"] = reflect.TypeOf((*IEnumAssocHandlers)(nil)).Elem()
 	types["IEnumFORMATETC"] = reflect.TypeOf((*IEnumFORMATETC)(nil)).Elem()
+	types["IEnumOLEVERB"] = reflect.TypeOf((*IEnumOLEVERB)(nil)).Elem()
 	types["IErrorInfo"] = reflect.TypeOf((*IErrorInfo)(nil)).Elem()
 	types["IFTYPE"] = reflect.TypeOf((*IFTYPE)(nil)).Elem()
 	types["IF_INDEX"] = reflect.TypeOf((*IF_INDEX)(nil)).Elem()
 	types["IF_LUID"] = reflect.TypeOf((*IF_LUID)(nil)).Elem()
 	types["IF_OPER_STATUS"] = reflect.TypeOf((*IF_OPER_STATUS)(nil)).Elem()
 	types["IID"] = reflect.TypeOf((*IID)(nil)).Elem()
+	types["IInitializeSpy"] = reflect.TypeOf((*IInitializeSpy)(nil)).Elem()
+	types["ILockBytes"] = reflect.TypeOf((*ILockBytes)(nil)).Elem()
 	types["IMAGEINFO"] = reflect.TypeOf((*IMAGEINFO)(nil)).Elem()
 	types["IMAGELISTDRAWPARAMS"] = reflect.TypeOf((*IMAGELISTDRAWPARAMS)(nil)).Elem()
 	types["IMCENUMPROC"] = reflect.TypeOf((*IMCENUMPROC)(nil)).Elem()
 	types["IMEMENUITEMINFO"] = reflect.TypeOf((*IMEMENUITEMINFO)(nil)).Elem()
 	types["IMEPRO"] = reflect.TypeOf((*IMEPRO)(nil)).Elem()
 	types["IMalloc"] = reflect.TypeOf((*IMalloc)(nil)).Elem()
+	types["IMallocSpy"] = reflect.TypeOf((*IMallocSpy)(nil)).Elem()
+	types["IMarshal"] = reflect.TypeOf((*IMarshal)(nil)).Elem()
+	types["IMessageFilter"] = reflect.TypeOf((*IMessageFilter)(nil)).Elem()
 	types["IMoniker"] = reflect.TypeOf((*IMoniker)(nil)).Elem()
 	types["IN6_ADDR"] = reflect.TypeOf((*IN6_ADDR)(nil)).Elem()
 	types["INITCOMMONCONTROLSEX"] = reflect.TypeOf((*INITCOMMONCONTROLSEX)(nil)).Elem()
@@ -369,6 +389,11 @@ func init() {
 	types["INT_PTR"] = reflect.TypeOf((*INT_PTR)(nil)).Elem()
 	types["IN_ADDR"] = reflect.TypeOf((*IN_ADDR)(nil)).Elem()
 	types["IO_STATUS_BLOCK"] = reflect.TypeOf((*IO_STATUS_BLOCK)(nil)).Elem()
+	types["IOleAdviseHolder"] = reflect.TypeOf((*IOleAdviseHolder)(nil)).Elem()
+	types["IOleClientSite"] = reflect.TypeOf((*IOleClientSite)(nil)).Elem()
+	types["IOleInPlaceActiveObject"] = reflect.TypeOf((*IOleInPlaceActiveObject)(nil)).Elem()
+	types["IOleInPlaceFrame"] = reflect.TypeOf((*IOleInPlaceFrame)(nil)).Elem()
+	types["IOleObject"] = reflect.TypeOf((*IOleObject)(nil)).Elem()
 	types["IPAddr"] = reflect.TypeOf((*IPAddr)(nil)).Elem()
 	types["IPMask"] = reflect.TypeOf((*IPMask)(nil)).Elem()
 	types["IP_ADAPTER_ADDRESSES_LH"] = reflect.TypeOf((*IP_ADAPTER_ADDRESSES_LH)(nil)).Elem()
@@ -396,11 +421,14 @@ func init() {
 	types["IP_STATUS"] = reflect.TypeOf((*IP_STATUS)(nil)).Elem()
 	types["IP_SUFFIX_ORIGIN"] = reflect.TypeOf((*IP_SUFFIX_ORIGIN)(nil)).Elem()
 	types["IP_UNIDIRECTIONAL_ADAPTER_ADDRESS"] = reflect.TypeOf((*IP_UNIDIRECTIONAL_ADAPTER_ADDRESS)(nil)).Elem()
+	types["IPersistStorage"] = reflect.TypeOf((*IPersistStorage)(nil)).Elem()
+	types["IPersistStream"] = reflect.TypeOf((*IPersistStream)(nil)).Elem()
 	types["IPropertySetStorage"] = reflect.TypeOf((*IPropertySetStorage)(nil)).Elem()
 	types["IPropertyStorage"] = reflect.TypeOf((*IPropertyStorage)(nil)).Elem()
 	types["IRecordInfo"] = reflect.TypeOf((*IRecordInfo)(nil)).Elem()
 	types["IRpcChannelBuffer"] = reflect.TypeOf((*IRpcChannelBuffer)(nil)).Elem()
 	types["IRpcStubBuffer"] = reflect.TypeOf((*IRpcStubBuffer)(nil)).Elem()
+	types["IRunningObjectTable"] = reflect.TypeOf((*IRunningObjectTable)(nil)).Elem()
 	types["IShellFolder"] = reflect.TypeOf((*IShellFolder)(nil)).Elem()
 	types["IShellFolderViewCB"] = reflect.TypeOf((*IShellFolderViewCB)(nil)).Elem()
 	types["IShellItem"] = reflect.TypeOf((*IShellItem)(nil)).Elem()
@@ -441,6 +469,7 @@ func init() {
 	types["LONG_PTR"] = reflect.TypeOf((*LONG_PTR)(nil)).Elem()
 	types["LPAFPROTOCOLS"] = reflect.TypeOf((*LPAFPROTOCOLS)(nil)).Elem()
 	types["LPARAM"] = reflect.TypeOf((*LPARAM)(nil)).Elem()
+	types["LPBC"] = reflect.TypeOf((*LPBC)(nil)).Elem()
 	types["LPBLOB"] = reflect.TypeOf((*LPBLOB)(nil)).Elem()
 	types["LPBROWSEINFO"] = reflect.TypeOf((*LPBROWSEINFO)(nil)).Elem()
 	types["LPBYTE"] = reflect.TypeOf((*LPBYTE)(nil)).Elem()
@@ -459,7 +488,9 @@ func init() {
 	types["LPDEVMODE"] = reflect.TypeOf((*LPDEVMODE)(nil)).Elem()
 	types["LPDISPATCH"] = reflect.TypeOf((*LPDISPATCH)(nil)).Elem()
 	types["LPDROPSOURCE"] = reflect.TypeOf((*LPDROPSOURCE)(nil)).Elem()
+	types["LPDROPTARGET"] = reflect.TypeOf((*LPDROPTARGET)(nil)).Elem()
 	types["LPENUMFORMATETC"] = reflect.TypeOf((*LPENUMFORMATETC)(nil)).Elem()
+	types["LPENUMOLEVERB"] = reflect.TypeOf((*LPENUMOLEVERB)(nil)).Elem()
 	types["LPFINDREPLACE"] = reflect.TypeOf((*LPFINDREPLACE)(nil)).Elem()
 	types["LPFNADDPROPSHEETPAGE"] = reflect.TypeOf((*LPFNADDPROPSHEETPAGE)(nil)).Elem()
 	types["LPFNDFMCALLBACK"] = reflect.TypeOf((*LPFNDFMCALLBACK)(nil)).Elem()
@@ -476,6 +507,9 @@ func init() {
 	types["LPLOGFONT"] = reflect.TypeOf((*LPLOGFONT)(nil)).Elem()
 	types["LPLOOKUPSERVICE_COMPLETION_ROUTINE"] = reflect.TypeOf((*LPLOOKUPSERVICE_COMPLETION_ROUTINE)(nil)).Elem()
 	types["LPMALLOC"] = reflect.TypeOf((*LPMALLOC)(nil)).Elem()
+	types["LPMALLOCSPY"] = reflect.TypeOf((*LPMALLOCSPY)(nil)).Elem()
+	types["LPMARSHAL"] = reflect.TypeOf((*LPMARSHAL)(nil)).Elem()
+	types["LPMESSAGEFILTER"] = reflect.TypeOf((*LPMESSAGEFILTER)(nil)).Elem()
 	types["LPMIDIOUTCAPS"] = reflect.TypeOf((*LPMIDIOUTCAPS)(nil)).Elem()
 	types["LPMIXERCAPS"] = reflect.TypeOf((*LPMIXERCAPS)(nil)).Elem()
 	types["LPMIXERCONTROL"] = reflect.TypeOf((*LPMIXERCONTROL)(nil)).Elem()
@@ -485,12 +519,20 @@ func init() {
 	types["LPMMIOINFO"] = reflect.TypeOf((*LPMMIOINFO)(nil)).Elem()
 	types["LPMONIKER"] = reflect.TypeOf((*LPMONIKER)(nil)).Elem()
 	types["LPOFNHOOKPROC"] = reflect.TypeOf((*LPOFNHOOKPROC)(nil)).Elem()
+	types["LPOLECLIENTSITE"] = reflect.TypeOf((*LPOLECLIENTSITE)(nil)).Elem()
+	types["LPOLEINPLACEACTIVEOBJECT"] = reflect.TypeOf((*LPOLEINPLACEACTIVEOBJECT)(nil)).Elem()
+	types["LPOLEINPLACEFRAME"] = reflect.TypeOf((*LPOLEINPLACEFRAME)(nil)).Elem()
+	types["LPOLEINPLACEFRAMEINFO"] = reflect.TypeOf((*LPOLEINPLACEFRAMEINFO)(nil)).Elem()
+	types["LPOLEMENUGROUPWIDTHS"] = reflect.TypeOf((*LPOLEMENUGROUPWIDTHS)(nil)).Elem()
+	types["LPOLEOBJECT"] = reflect.TypeOf((*LPOLEOBJECT)(nil)).Elem()
 	types["LPOLESTR"] = reflect.TypeOf((*LPOLESTR)(nil)).Elem()
+	types["LPOLESTREAM"] = reflect.TypeOf((*LPOLESTREAM)(nil)).Elem()
 	types["LPOPENFILENAME"] = reflect.TypeOf((*LPOPENFILENAME)(nil)).Elem()
 	types["LPOUTLINETEXTMETRIC"] = reflect.TypeOf((*LPOUTLINETEXTMETRIC)(nil)).Elem()
 	types["LPPAGEPAINTHOOK"] = reflect.TypeOf((*LPPAGEPAINTHOOK)(nil)).Elem()
 	types["LPPAGESETUPDLG"] = reflect.TypeOf((*LPPAGESETUPDLG)(nil)).Elem()
 	types["LPPAGESETUPHOOK"] = reflect.TypeOf((*LPPAGESETUPHOOK)(nil)).Elem()
+	types["LPPERSISTSTORAGE"] = reflect.TypeOf((*LPPERSISTSTORAGE)(nil)).Elem()
 	types["LPPRINTDLG"] = reflect.TypeOf((*LPPRINTDLG)(nil)).Elem()
 	types["LPPRINTDLGEX"] = reflect.TypeOf((*LPPRINTDLGEX)(nil)).Elem()
 	types["LPPRINTHOOKPROC"] = reflect.TypeOf((*LPPRINTHOOKPROC)(nil)).Elem()
@@ -498,13 +540,16 @@ func init() {
 	types["LPQOS"] = reflect.TypeOf((*LPQOS)(nil)).Elem()
 	types["LPRASTERIZER_STATUS"] = reflect.TypeOf((*LPRASTERIZER_STATUS)(nil)).Elem()
 	types["LPRECT"] = reflect.TypeOf((*LPRECT)(nil)).Elem()
+	types["LPRUNNINGOBJECTTABLE"] = reflect.TypeOf((*LPRUNNINGOBJECTTABLE)(nil)).Elem()
 	types["LPSAFEARRAY"] = reflect.TypeOf((*LPSAFEARRAY)(nil)).Elem()
 	types["LPSETUPHOOKPROC"] = reflect.TypeOf((*LPSETUPHOOKPROC)(nil)).Elem()
 	types["LPSHELLFLAGSTATE"] = reflect.TypeOf((*LPSHELLFLAGSTATE)(nil)).Elem()
 	types["LPSHELLFOLDER"] = reflect.TypeOf((*LPSHELLFOLDER)(nil)).Elem()
 	types["LPSHELLSTATE"] = reflect.TypeOf((*LPSHELLSTATE)(nil)).Elem()
 	types["LPSHFILEOPSTRUCT"] = reflect.TypeOf((*LPSHFILEOPSTRUCT)(nil)).Elem()
+	types["LPSHQUERYRBINFO"] = reflect.TypeOf((*LPSHQUERYRBINFO)(nil)).Elem()
 	types["LPSOCKADDR"] = reflect.TypeOf((*LPSOCKADDR)(nil)).Elem()
+	types["LPSTORAGE"] = reflect.TypeOf((*LPSTORAGE)(nil)).Elem()
 	types["LPSTR"] = reflect.TypeOf((*LPSTR)(nil)).Elem()
 	types["LPSTREAM"] = reflect.TypeOf((*LPSTREAM)(nil)).Elem()
 	types["LPSTYLEBUF"] = reflect.TypeOf((*LPSTYLEBUF)(nil)).Elem()
@@ -613,6 +658,7 @@ func init() {
 	types["MSGBOXCALLBACK"] = reflect.TypeOf((*MSGBOXCALLBACK)(nil)).Elem()
 	types["MSGBOXPARAMS"] = reflect.TypeOf((*MSGBOXPARAMS)(nil)).Elem()
 	types["MULTIPLE_TRUSTEE_OPERATION"] = reflect.TypeOf((*MULTIPLE_TRUSTEE_OPERATION)(nil)).Elem()
+	types["MULTI_QI"] = reflect.TypeOf((*MULTI_QI)(nil)).Elem()
 	types["NDIS_MEDIUM"] = reflect.TypeOf((*NDIS_MEDIUM)(nil)).Elem()
 	types["NDIS_PHYSICAL_MEDIUM"] = reflect.TypeOf((*NDIS_PHYSICAL_MEDIUM)(nil)).Elem()
 	types["NDR_CS_ROUTINES"] = reflect.TypeOf((*NDR_CS_ROUTINES)(nil)).Elem()
@@ -637,6 +683,7 @@ func init() {
 	types["NL_PREFIX_ORIGIN"] = reflect.TypeOf((*NL_PREFIX_ORIGIN)(nil)).Elem()
 	types["NL_ROUTE_PROTOCOL"] = reflect.TypeOf((*NL_ROUTE_PROTOCOL)(nil)).Elem()
 	types["NL_SUFFIX_ORIGIN"] = reflect.TypeOf((*NL_SUFFIX_ORIGIN)(nil)).Elem()
+	types["NOTIFYICONDATA"] = reflect.TypeOf((*NOTIFYICONDATA)(nil)).Elem()
 	types["NTSTATUS"] = reflect.TypeOf((*NTSTATUS)(nil)).Elem()
 	types["NUMPARSE"] = reflect.TypeOf((*NUMPARSE)(nil)).Elem()
 	types["OBJECTS_AND_NAME"] = reflect.TypeOf((*OBJECTS_AND_NAME)(nil)).Elem()
@@ -644,6 +691,8 @@ func init() {
 	types["OBJECT_TYPE_LIST"] = reflect.TypeOf((*OBJECT_TYPE_LIST)(nil)).Elem()
 	types["OCPFIPARAMS"] = reflect.TypeOf((*OCPFIPARAMS)(nil)).Elem()
 	types["OLECHAR"] = reflect.TypeOf((*OLECHAR)(nil)).Elem()
+	types["OLEINPLACEFRAMEINFO"] = reflect.TypeOf((*OLEINPLACEFRAMEINFO)(nil)).Elem()
+	types["OLEMENUGROUPWIDTHS"] = reflect.TypeOf((*OLEMENUGROUPWIDTHS)(nil)).Elem()
 	types["OLE_COLOR"] = reflect.TypeOf((*OLE_COLOR)(nil)).Elem()
 	types["OPENFILENAME"] = reflect.TypeOf((*OPENFILENAME)(nil)).Elem()
 	types["OUTLINETEXTMETRIC"] = reflect.TypeOf((*OUTLINETEXTMETRIC)(nil)).Elem()
@@ -760,6 +809,7 @@ func init() {
 	types["PMIB_UDPTABLE"] = reflect.TypeOf((*PMIB_UDPTABLE)(nil)).Elem()
 	types["PMIDL_STUB_MESSAGE"] = reflect.TypeOf((*PMIDL_STUB_MESSAGE)(nil)).Elem()
 	types["PNET_ADDRESS_INFO"] = reflect.TypeOf((*PNET_ADDRESS_INFO)(nil)).Elem()
+	types["PNOTIFYICONDATA"] = reflect.TypeOf((*PNOTIFYICONDATA)(nil)).Elem()
 	types["POINT"] = reflect.TypeOf((*POINT)(nil)).Elem()
 	types["POINTFIX"] = reflect.TypeOf((*POINTFIX)(nil)).Elem()
 	types["POINTFLOAT"] = reflect.TypeOf((*POINTFLOAT)(nil)).Elem()
@@ -795,6 +845,7 @@ func init() {
 	types["PROPSHEETPAGE_V4"] = reflect.TypeOf((*PROPSHEETPAGE_V4)(nil)).Elem()
 	types["PROPSPEC"] = reflect.TypeOf((*PROPSPEC)(nil)).Elem()
 	types["PROPVARIANT"] = reflect.TypeOf((*PROPVARIANT)(nil)).Elem()
+	types["PROPVAR_CHANGE_FLAGS"] = reflect.TypeOf((*PROPVAR_CHANGE_FLAGS)(nil)).Elem()
 	types["PRPC_MESSAGE"] = reflect.TypeOf((*PRPC_MESSAGE)(nil)).Elem()
 	types["PRPC_SYNTAX_IDENTIFIER"] = reflect.TypeOf((*PRPC_SYNTAX_IDENTIFIER)(nil)).Elem()
 	types["PSAPI_WS_WATCH_INFORMATION"] = reflect.TypeOf((*PSAPI_WS_WATCH_INFORMATION)(nil)).Elem()
@@ -816,6 +867,7 @@ func init() {
 	types["PWSTR"] = reflect.TypeOf((*PWSTR)(nil)).Elem()
 	types["QITAB"] = reflect.TypeOf((*QITAB)(nil)).Elem()
 	types["QOS"] = reflect.TypeOf((*QOS)(nil)).Elem()
+	types["QUERY_USER_NOTIFICATION_STATE"] = reflect.TypeOf((*QUERY_USER_NOTIFICATION_STATE)(nil)).Elem()
 	types["RASTERIZER_STATUS"] = reflect.TypeOf((*RASTERIZER_STATUS)(nil)).Elem()
 	types["RAWHID"] = reflect.TypeOf((*RAWHID)(nil)).Elem()
 	types["RAWINPUT"] = reflect.TypeOf((*RAWINPUT)(nil)).Elem()
@@ -832,13 +884,16 @@ func init() {
 	types["REFGUID"] = reflect.TypeOf((*REFGUID)(nil)).Elem()
 	types["REFIID"] = reflect.TypeOf((*REFIID)(nil)).Elem()
 	types["REFKNOWNFOLDERID"] = reflect.TypeOf((*REFKNOWNFOLDERID)(nil)).Elem()
+	types["REFPROPVARIANT"] = reflect.TypeOf((*REFPROPVARIANT)(nil)).Elem()
 	types["REGISTERWORDENUMPROC"] = reflect.TypeOf((*REGISTERWORDENUMPROC)(nil)).Elem()
 	types["REGKIND"] = reflect.TypeOf((*REGKIND)(nil)).Elem()
 	types["REGSAM"] = reflect.TypeOf((*REGSAM)(nil)).Elem()
+	types["RESTRICTIONS"] = reflect.TypeOf((*RESTRICTIONS)(nil)).Elem()
 	types["RGBQUAD"] = reflect.TypeOf((*RGBQUAD)(nil)).Elem()
 	types["RGNDATA"] = reflect.TypeOf((*RGNDATA)(nil)).Elem()
 	types["RGNDATAHEADER"] = reflect.TypeOf((*RGNDATAHEADER)(nil)).Elem()
 	types["ROP4"] = reflect.TypeOf((*ROP4)(nil)).Elem()
+	types["RPC_AUTHZ_HANDLE"] = reflect.TypeOf((*RPC_AUTHZ_HANDLE)(nil)).Elem()
 	types["RPC_BINDING_HANDLE"] = reflect.TypeOf((*RPC_BINDING_HANDLE)(nil)).Elem()
 	types["RPC_MESSAGE"] = reflect.TypeOf((*RPC_MESSAGE)(nil)).Elem()
 	types["RPC_STATUS"] = reflect.TypeOf((*RPC_STATUS)(nil)).Elem()
@@ -876,6 +931,7 @@ func init() {
 	types["SHFILEOPSTRUCT"] = reflect.TypeOf((*SHFILEOPSTRUCT)(nil)).Elem()
 	types["SHITEMID"] = reflect.TypeOf((*SHITEMID)(nil)).Elem()
 	types["SHORT"] = reflect.TypeOf((*SHORT)(nil)).Elem()
+	types["SHQUERYRBINFO"] = reflect.TypeOf((*SHQUERYRBINFO)(nil)).Elem()
 	types["SHREGDEL_FLAGS"] = reflect.TypeOf((*SHREGDEL_FLAGS)(nil)).Elem()
 	types["SHREGENUM_FLAGS"] = reflect.TypeOf((*SHREGENUM_FLAGS)(nil)).Elem()
 	types["SHSTOCKICONID"] = reflect.TypeOf((*SHSTOCKICONID)(nil)).Elem()
@@ -895,7 +951,9 @@ func init() {
 	types["SOCKADDR_IN6_PAIR"] = reflect.TypeOf((*SOCKADDR_IN6_PAIR)(nil)).Elem()
 	types["SOCKET"] = reflect.TypeOf((*SOCKET)(nil)).Elem()
 	types["SOCKET_ADDRESS"] = reflect.TypeOf((*SOCKET_ADDRESS)(nil)).Elem()
+	types["SOLE_AUTHENTICATION_SERVICE"] = reflect.TypeOf((*SOLE_AUTHENTICATION_SERVICE)(nil)).Elem()
 	types["STARTUPINFO"] = reflect.TypeOf((*STARTUPINFO)(nil)).Elem()
+	types["STGMEDIUM"] = reflect.TypeOf((*STGMEDIUM)(nil)).Elem()
 	types["STROBJ"] = reflect.TypeOf((*STROBJ)(nil)).Elem()
 	types["STRRET"] = reflect.TypeOf((*STRRET)(nil)).Elem()
 	types["STYLEBUF"] = reflect.TypeOf((*STYLEBUF)(nil)).Elem()
@@ -1120,6 +1178,12 @@ type AUXCAPS struct {
 	DwSupport      DWORD
 }
 type BFFCALLBACK func(hwnd HWND, uMsg UINT, lParam LPARAM, lpData LPARAM) int32
+type BIND_OPTS struct {
+	CbStruct            DWORD
+	GrfFlags            DWORD
+	GrfMode             DWORD
+	DwTickCountDeadline DWORD
+}
 type BITMAP struct {
 	BmType       LONG
 	BmWidth      LONG
@@ -1445,6 +1509,24 @@ type CLIPOBJ struct {
 	FjOptions    BYTE
 }
 type CLSID GUID
+type COAUTHIDENTITY struct {
+	User           *USHORT
+	UserLength     ULONG
+	Domain         *USHORT
+	DomainLength   ULONG
+	Password       *USHORT
+	PasswordLength ULONG
+	Flags          ULONG
+}
+type COAUTHINFO struct {
+	DwAuthnSvc           DWORD
+	DwAuthzSvc           DWORD
+	PwszServerPrincName  LPWSTR
+	DwAuthnLevel         DWORD
+	DwImpersonationLevel DWORD
+	PAuthIdentityData    *COAUTHIDENTITY
+	DwCapabilities       DWORD
+}
 type COLOR16 USHORT
 type COLORADJUSTMENT struct {
 	CaSize            WORD
@@ -1549,6 +1631,12 @@ func getUintptrFromCOORD(c COORD) uintptr {
 	return ret
 }
 
+type COSERVERINFO struct {
+	DwReserved1 DWORD
+	PwszName    LPWSTR
+	PAuthInfo   *COAUTHINFO
+	DwReserved2 DWORD
+}
 type CPINFO struct {
 	MaxCharSize UINT
 	DefaultChar [MAX_DEFAULTCHAR]BYTE
@@ -1700,14 +1788,23 @@ type CY struct {
 	union1 [8]byte
 }
 
-func (this CY) Lo() uint32 {
+func (this *CY) GetLo() uint32 {
 	return *(*uint32)(unsafe.Pointer(&this.union1[0]))
 }
-func (this CY) Hi() int32 {
+func (this *CY) SetLo(v uint32) {
+	*(*uint32)(unsafe.Pointer(&this.union1[0])) = v
+}
+func (this *CY) GetHi() int32 {
 	return *(*int32)(unsafe.Pointer(uintptr(unsafe.Pointer(&this.union1[0])) + uintptr(4)))
 }
-func (this CY) Int64() int64 {
+func (this *CY) SetHi(v int32) {
+	*(*int32)(unsafe.Pointer(uintptr(unsafe.Pointer(&this.union1[0])) + uintptr(4))) = v
+}
+func (this *CY) GetInt64() int64 {
 	return *(*int64)(unsafe.Pointer(&this.union1[0]))
+}
+func (this *CY) SetInt64(v int64) {
+	*(*int64)(unsafe.Pointer(&this.union1[0])) = v
 }
 
 type DACOMPARE func(p1 uintptr, p2 uintptr, lParam LPARAM) int32
@@ -2062,6 +2159,7 @@ type FLOWSPEC struct {
 	MaxSduSize         ULONG
 	MinimumPolicedSize ULONG
 }
+type FMTID GUID
 type FONTDESC struct {
 	CbSizeofstruct UINT
 	LpstrName      LPOLESTR
@@ -2305,6 +2403,7 @@ type HKL HANDLE
 type HLOCAL HANDLE
 type HMENU HANDLE
 type HMETAFILE HANDLE
+type HMETAFILEPICT uintptr
 type HMIDI HANDLE
 type HMIDIIN HANDLE
 type HMIDIOUT HANDLE
@@ -2314,6 +2413,7 @@ type HMIXEROBJ HANDLE
 type HMMIO HANDLE
 type HMODULE uintptr
 type HMONITOR HANDLE
+type HOLEMENU HGLOBAL
 type HOOKPROC func(code int32, wParam WPARAM, lParam LPARAM) LRESULT
 type HPAINTBUFFER HANDLE
 type HPALETTE HGDIOBJ
@@ -2340,6 +2440,9 @@ type HWINEVENTHOOK HANDLE
 type HWINSTA HANDLE
 type HWND HANDLE
 type Handle_t RPC_BINDING_HANDLE
+type IAdviseSink struct {
+	lpVtbl uintptr
+}
 type IBindCtx struct {
 	lpVtbl uintptr
 }
@@ -2350,6 +2453,12 @@ type ICONINFO struct {
 	YHotspot uint32
 	HbmMask  HBITMAP
 	HbmColor HBITMAP
+}
+type IChannelHook struct {
+	lpVtbl uintptr
+}
+type IClassFactory struct {
+	lpVtbl uintptr
 }
 type IConnectionPoint struct {
 	lpVtbl uintptr
@@ -2369,6 +2478,9 @@ type ICreateTypeLib struct {
 type ICreateTypeLib2 struct {
 	lpVtbl uintptr
 }
+type IDataAdviseHolder struct {
+	lpVtbl uintptr
+}
 type IDataObject struct {
 	lpVtbl uintptr
 }
@@ -2378,10 +2490,16 @@ type IDispatch struct {
 type IDropSource struct {
 	lpVtbl uintptr
 }
+type IDropTarget struct {
+	lpVtbl uintptr
+}
 type IEnumAssocHandlers struct {
 	lpVtbl uintptr
 }
 type IEnumFORMATETC struct {
+	lpVtbl uintptr
+}
+type IEnumOLEVERB struct {
 	lpVtbl uintptr
 }
 type IErrorInfo struct {
@@ -2391,6 +2509,12 @@ type IFTYPE ULONG
 type IF_INDEX NET_IFINDEX
 type IF_LUID NET_LUID
 type IID GUID
+type IInitializeSpy struct {
+	lpVtbl uintptr
+}
+type ILockBytes struct {
+	lpVtbl uintptr
+}
 type IMAGEINFO struct {
 	HbmImage HBITMAP
 	HbmMask  HBITMAP
@@ -2438,6 +2562,15 @@ type IMEPRO struct {
 	SzOptions     [30]uint16
 }
 type IMalloc struct {
+	lpVtbl uintptr
+}
+type IMallocSpy struct {
+	lpVtbl uintptr
+}
+type IMarshal struct {
+	lpVtbl uintptr
+}
+type IMessageFilter struct {
 	lpVtbl uintptr
 }
 type IMoniker struct {
@@ -2560,6 +2693,21 @@ func (this *IO_STATUS_BLOCK) Pointer() *PVOID {
 	return (*PVOID)(unsafe.Pointer(&this.union1))
 }
 
+type IOleAdviseHolder struct {
+	lpVtbl uintptr
+}
+type IOleClientSite struct {
+	lpVtbl uintptr
+}
+type IOleInPlaceActiveObject struct {
+	lpVtbl uintptr
+}
+type IOleInPlaceFrame struct {
+	lpVtbl uintptr
+}
+type IOleObject struct {
+	lpVtbl uintptr
+}
 type IPAddr ULONG
 type IPMask ULONG
 
@@ -2773,6 +2921,12 @@ type IP_UNIDIRECTIONAL_ADAPTER_ADDRESS struct {
 	NumAdapters ULONG
 	Address     [1]IPAddr
 }
+type IPersistStorage struct {
+	lpVtbl uintptr
+}
+type IPersistStream struct {
+	lpVtbl uintptr
+}
 type IPropertySetStorage struct {
 	lpVtbl uintptr
 }
@@ -2786,6 +2940,9 @@ type IRpcChannelBuffer struct {
 	lpVtbl uintptr
 }
 type IRpcStubBuffer struct {
+	lpVtbl uintptr
+}
+type IRunningObjectTable struct {
 	lpVtbl uintptr
 }
 type IShellFolder struct {
@@ -2988,6 +3145,7 @@ type LONGLONG int64
 type LONG_PTR *int32
 type LPAFPROTOCOLS *AFPROTOCOLS
 type LPARAM uintptr
+type LPBC *IBindCtx
 type tagBLOB struct {
 	CbSize    ULONG
 	PBlobData *BYTE
@@ -3010,7 +3168,9 @@ type LPDATAOBJECT *IDataObject
 type LPDEVMODE *DEVMODE
 type LPDISPATCH *IDispatch
 type LPDROPSOURCE *IDropSource
+type LPDROPTARGET *IDropTarget
 type LPENUMFORMATETC *IEnumFORMATETC
+type LPENUMOLEVERB *IEnumOLEVERB
 type LPFINDREPLACE *FINDREPLACE
 type LPFNADDPROPSHEETPAGE func(unnamed0 HPROPSHEETPAGE, unnamed1 LPARAM) BOOL
 type LPFNDFMCALLBACK func(psf *IShellFolder, hwnd HWND, pdtobj *IDataObject, uMsg UINT, wParam WPARAM, lParam LPARAM) HRESULT
@@ -3027,6 +3187,9 @@ type LPLOGCOLORSPACE *LOGCOLORSPACE
 type LPLOGFONT *LOGFONT
 type LPLOOKUPSERVICE_COMPLETION_ROUTINE func(dwError DWORD, dwBytes DWORD, lpOverlapped LPWSAOVERLAPPED)
 type LPMALLOC *IMalloc
+type LPMALLOCSPY *IMallocSpy
+type LPMARSHAL *IMarshal
+type LPMESSAGEFILTER *IMessageFilter
 type LPMIDIOUTCAPS *MIDIOUTCAPS
 type LPMIXERCAPS *MIXERCAPS
 type LPMIXERCONTROL *MIXERCONTROL
@@ -3036,12 +3199,23 @@ type LPMMCKINFO *MMCKINFO
 type LPMMIOINFO *MMIOINFO
 type LPMONIKER *IMoniker
 type LPOFNHOOKPROC func(unnamed0 HWND, unnamed1 UINT, unnamed2 WPARAM, unnamed3 LPARAM) UINT_PTR
+type LPOLECLIENTSITE *IOleClientSite
+type LPOLEINPLACEACTIVEOBJECT *IOleInPlaceActiveObject
+type LPOLEINPLACEFRAME *IOleInPlaceFrame
+type LPOLEINPLACEFRAMEINFO *OLEINPLACEFRAMEINFO
+type LPOLEMENUGROUPWIDTHS *OLEMENUGROUPWIDTHS
+type LPOLEOBJECT *IOleObject
 type LPOLESTR *OLECHAR
+type _OLESTREAM struct {
+	lpVtbl uintptr
+}
+type LPOLESTREAM *_OLESTREAM
 type LPOPENFILENAME *OPENFILENAME
 type LPOUTLINETEXTMETRIC *OUTLINETEXTMETRIC
 type LPPAGEPAINTHOOK func(unnamed0 HWND, unnamed1 UINT, unnamed2 WPARAM, unnamed3 LPARAM) UINT_PTR
 type LPPAGESETUPDLG *PAGESETUPDLG
 type LPPAGESETUPHOOK func(unnamed0 HWND, unnamed1 UINT, unnamed2 WPARAM, unnamed3 LPARAM) UINT_PTR
+type LPPERSISTSTORAGE *IPersistStorage
 type LPPRINTDLG *PRINTDLG
 type LPPRINTDLGEX *PRINTDLGEX
 type LPPRINTHOOKPROC func(unnamed0 HWND, unnamed1 UINT, unnamed2 WPARAM, unnamed3 LPARAM) UINT_PTR
@@ -3049,13 +3223,16 @@ type LPPRINTPAGERANGE *PRINTPAGERANGE
 type LPQOS *QOS
 type LPRASTERIZER_STATUS *RASTERIZER_STATUS
 type LPRECT *RECT
+type LPRUNNINGOBJECTTABLE *IRunningObjectTable
 type LPSAFEARRAY *SAFEARRAY
 type LPSETUPHOOKPROC func(unnamed0 HWND, unnamed1 UINT, unnamed2 WPARAM, unnamed3 LPARAM) UINT_PTR
 type LPSHELLFLAGSTATE *SHELLFLAGSTATE
 type LPSHELLFOLDER *IShellFolder
 type LPSHELLSTATE *SHELLSTATE
 type LPSHFILEOPSTRUCT *SHFILEOPSTRUCT
+type LPSHQUERYRBINFO *SHQUERYRBINFO
 type LPSOCKADDR *SOCKADDR
+type LPSTORAGE *IStorage
 type LPSTR *CHAR
 type LPSTREAM *IStream
 type LPSTYLEBUF *STYLEBUF
@@ -3937,6 +4114,11 @@ type MSGBOXPARAMS struct {
 	LpfnMsgBoxCallback uintptr // MSGBOXCALLBACK
 	DwLanguageId       uint32
 }
+type MULTI_QI struct {
+	PIID/*const*/ *IID
+	PItf *IUnknown
+	Hr   HRESULT
+}
 type NDR_CS_ROUTINES struct {
 	PSizeConvertRoutines *NDR_CS_SIZE_CONVERT_ROUTINES // NDR_CS_SIZE_CONVERT_ROUTINES
 	PTagGettingRoutines  uintptr                       // CS_TAG_GETTING_ROUTINE
@@ -3999,6 +4181,37 @@ func (this *NET_LUID_LH) IfType() ULONG64 {
 	return v & 0xFFFF
 }
 
+type NOTIFYICONDATA struct {
+	CbSize           DWORD
+	HWnd             HWND
+	UID              UINT
+	UFlags           UINT
+	UCallbackMessage UINT
+	HIcon            HICON
+	SzTip            [128]WCHAR
+	DwState          DWORD
+	DwStateMask      DWORD
+	SzInfo           [256]WCHAR
+	union1           UINT
+	SzInfoTitle      [64]WCHAR
+	DwInfoFlags      DWORD
+	GuidItem         GUID
+	HBalloonIcon     HICON
+}
+
+func (this *NOTIFYICONDATA) GetUTimeout() UINT {
+	return this.union1
+}
+func (this *NOTIFYICONDATA) SetUTimeout(v UINT) {
+	this.union1 = v
+}
+func (this *NOTIFYICONDATA) GetUVersion() UINT {
+	return this.union1
+}
+func (this *NOTIFYICONDATA) SetUVersion(v UINT) {
+	this.union1 = v
+}
+
 type NTSTATUS LONG
 type NUMPARSE struct {
 	CDig       INT
@@ -4040,6 +4253,16 @@ type OCPFIPARAMS struct {
 	DispidInitialProperty DISPID
 }
 type OLECHAR WCHAR
+type OLEINPLACEFRAMEINFO struct {
+	Cb            UINT
+	FMDIApp       BOOL
+	HwndFrame     HWND
+	Haccel        HACCEL
+	CAccelEntries UINT
+}
+type OLEMENUGROUPWIDTHS struct {
+	Width [6]LONG
+}
 type OLE_COLOR DWORD
 type OPENFILENAME struct {
 	LStructSize       DWORD
@@ -4455,6 +4678,7 @@ type PMIB_UDPSTATS *MIB_UDPSTATS
 type PMIB_UDPTABLE *MIB_UDPTABLE
 type PMIDL_STUB_MESSAGE *MIDL_STUB_MESSAGE
 type PNET_ADDRESS_INFO *NET_ADDRESS_INFO
+type PNOTIFYICONDATA *NOTIFYICONDATA
 type POINT struct {
 	X, Y int32
 }
@@ -4883,6 +5107,7 @@ type REFFMTID /*const*/ *IID
 type REFGUID /*const*/ *GUID
 type REFIID /*const*/ *IID
 type REFKNOWNFOLDERID *KNOWNFOLDERID
+type REFPROPVARIANT *PROPVARIANT
 type REGISTERWORDENUMPROC func(lpszReading string, unnamed1 DWORD, lpszString string, unnamed3 LPVOID) int32
 type REGSAM uint32
 type RGBQUAD struct {
@@ -4903,6 +5128,7 @@ type RGNDATAHEADER struct {
 	RcBound  RECT
 }
 type ROP4 ULONG
+type RPC_AUTHZ_HANDLE uintptr
 type RPC_BINDING_HANDLE I_RPC_HANDLE
 type RPC_MESSAGE struct {
 	Handle                  RPC_BINDING_HANDLE
@@ -5232,6 +5458,11 @@ func (this *SHITEMID) AbID() *BYTE {
 }
 
 type SHORT int16
+type SHQUERYRBINFO struct {
+	CbSize      DWORD
+	I64Size     int64
+	I64NumItems int64
+}
 type SHSTOCKICONINFO struct {
 	CbSize         DWORD
 	HIcon          HICON
@@ -5298,6 +5529,12 @@ type SOCKET_ADDRESS struct {
 	LpSockaddr      LPSOCKADDR
 	ISockaddrLength INT
 }
+type SOLE_AUTHENTICATION_SERVICE struct {
+	DwAuthnSvc     DWORD
+	DwAuthzSvc     DWORD
+	PPrincipalName *OLECHAR
+	Hr             HRESULT
+}
 type STARTUPINFO struct {
 	Cb              DWORD
 	LpReserved      LPWSTR
@@ -5318,6 +5555,55 @@ type STARTUPINFO struct {
 	HStdOutput      HANDLE
 	HStdError       HANDLE
 }
+type STGMEDIUM struct {
+	Tymed          DWORD
+	union1         uintptr
+	PUnkForRelease *IUnknown
+}
+
+func (this *STGMEDIUM) GetHBitmap() HBITMAP {
+	return *(*HBITMAP)(unsafe.Pointer(&this.union1))
+}
+func (this *STGMEDIUM) SetHBitmap(v HBITMAP) {
+	*(*HBITMAP)(unsafe.Pointer(&this.union1)) = v
+}
+func (this *STGMEDIUM) GetHMetaFilePict() HMETAFILEPICT {
+	return *(*HMETAFILEPICT)(unsafe.Pointer(&this.union1))
+}
+func (this *STGMEDIUM) SetHMetaFilePict(v HMETAFILEPICT) {
+	*(*HMETAFILEPICT)(unsafe.Pointer(&this.union1)) = v
+}
+func (this *STGMEDIUM) GetHEnhMetaFile() HENHMETAFILE {
+	return *(*HENHMETAFILE)(unsafe.Pointer(&this.union1))
+}
+func (this *STGMEDIUM) SetHEnhMetaFile(v HENHMETAFILE) {
+	*(*HENHMETAFILE)(unsafe.Pointer(&this.union1)) = v
+}
+func (this *STGMEDIUM) GetHGlobal() HGLOBAL {
+	return *(*HGLOBAL)(unsafe.Pointer(&this.union1))
+}
+func (this *STGMEDIUM) SetHGlobal(v HGLOBAL) {
+	*(*HGLOBAL)(unsafe.Pointer(&this.union1)) = v
+}
+func (this *STGMEDIUM) GetLpszFileName() LPOLESTR {
+	return *(*LPOLESTR)(unsafe.Pointer(&this.union1))
+}
+func (this *STGMEDIUM) SetLpszFileName(v LPOLESTR) {
+	*(*LPOLESTR)(unsafe.Pointer(&this.union1)) = v
+}
+func (this *STGMEDIUM) GetPstm() *IStream {
+	return *(**IStream)(unsafe.Pointer(&this.union1))
+}
+func (this *STGMEDIUM) SetPstm(v *IStream) {
+	*(**IStream)(unsafe.Pointer(&this.union1)) = v
+}
+func (this *STGMEDIUM) GetPstg() *IStorage {
+	return *(**IStorage)(unsafe.Pointer(&this.union1))
+}
+func (this *STGMEDIUM) SetPstg(v *IStorage) {
+	*(**IStorage)(unsafe.Pointer(&this.union1)) = v
+}
+
 type STROBJ struct {
 	CGlyphs     ULONG
 	FlAccel     FLONG
