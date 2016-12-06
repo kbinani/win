@@ -378,6 +378,9 @@ func getFields(t reflect.Type) []tagField {
 			if o.Kind() != reflect.Ptr {
 				continue
 			}
+			if strings.HasPrefix(m.Name, "Get") {
+				continue
+			}
 			r := m.Func.Call([]reflect.Value{v})
 			offset := r[0].Pointer() - base
 			ret = append(ret, tagField{m.Name, offset})
