@@ -1,6 +1,7 @@
 package win
 
 //ref XLAT_SIDE
+
 type FULL_PTR_XLAT_TABLES struct {
 	RefIdToPointer uintptr
 	PointerToRefId uintptr

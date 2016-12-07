@@ -1435,3 +1435,32 @@ const (
 	APTTYPEQUALIFIER_NA_ON_MAINSTA                       = 5
 	APTTYPEQUALIFIER_APPLICATION_STA                     = 6
 )
+
+type RPC_ASYNC_EVENT int32
+
+const (
+	RpcCallComplete RPC_ASYNC_EVENT = iota
+	RpcSendComplete
+	RpcReceiveComplete
+	RpcClientDisconnect
+	RpcClientCancel
+)
+
+type RPC_NOTIFICATION_TYPES int32
+
+const (
+	RpcNotificationTypeNone RPC_NOTIFICATION_TYPES = iota
+	RpcNotificationTypeEvent
+	RpcNotificationTypeApc
+	RpcNotificationTypeIoc
+	RpcNotificationTypeHwnd
+	RpcNotificationTypeCallback
+)
+
+type MIDL_ES_CODE int32
+
+const (
+	MES_ENCODE MIDL_ES_CODE = iota
+	MES_DECODE
+	MES_ENCODE_NDR64
+)

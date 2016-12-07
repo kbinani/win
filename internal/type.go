@@ -163,6 +163,12 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"SHFILEOPSTRUCTW":             "SHFILEOPSTRUCT",
 		"SHFILEINFOW":                 "SHFILEINFO",
 		"NOTIFYICONDATAW":             "NOTIFYICONDATA",
+		"handle_t":                    "Handle_t",
+		"unsigned char":               "byte",
+		"RPC_PROTSEQ_VECTORW":         "RPC_PROTSEQ_VECTOR",
+		"DECLSPEC_NORETURN":           "void", // __declspec(noreturn)
+		"VOID":                        "void",
+		"void":                        "void",
 	}
 
 	goType, ok := table[t]
@@ -481,6 +487,31 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"LPOLEINPLACEFRAMEINFO":              "LPOLEINPLACEFRAMEINFO",
 		"LPDROPTARGET":                       "LPDROPTARGET",
 		"HMETAFILEPICT":                      "HMETAFILEPICT",
+		"SNB":                                "SNB",
+		"LPRPCSTUBBUFFER":                    "*IRpcStubBuffer",
+		"LPRPCPROXYBUFFER":                   "*IRpcProxyBuffer",
+		"LPRPCPROXYBUFFER*":                  "**IRpcProxyBuffer",
+		"LPTYPEINFO":                         "LPTYPEINFO",
+		"PRPC_ASYNC_STATE":                   "PRPC_ASYNC_STATE",
+		"char**":                             "**CHAR",
+		"handle_t*":                          "*Handle_t",
+		"NDR_CCONTEXT":                       "NDR_CCONTEXT",
+		"unsigned int*":                      "*uint32",
+		"PFULL_PTR_XLAT_TABLES":              "PFULL_PTR_XLAT_TABLES",
+		"struct IRpcChannelBuffer*":          "*IRpcChannelBuffer",
+		"struct IRpcStubBuffer*":             "*IRpcStubBuffer",
+		"LPRPCCHANNELBUFFER":                 "*IRpcChannelBuffer",
+		"RPC_WSTR":                           "RPC_WSTR",
+		"RPC_IF_HANDLE":                      "RPC_IF_HANDLE",
+		"RPC_EP_INQ_HANDLE":                  "RPC_EP_INQ_HANDLE",
+		"I_RPC_HANDLE":                       "I_RPC_HANDLE",
+		"RPC_PROTSEQ_VECTORW**":              "**RPC_PROTSEQ_VECTOR",
+		"RPC_PROTSEQ_VECTORW*":               "*RPC_PROTSEQ_VECTOR",
+		"RPC_MGR_EPV*":                       "uintptr",
+		"PRPC_POLICY":                        "PRPC_POLICY",
+		"twr_t*":                             "uintptr", // twr_t not found in MSDN.
+		"twr_t**":                            "*uintptr",
+		"PRPC_SYNTAX_IDENTIFIER":             "PRPC_SYNTAX_IDENTIFIER",
 	}
 	goType, ok = tablePtr[t]
 	if ok {
@@ -515,6 +546,7 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"PCZZWSTR":                   "PCZZWSTR",
 		"PCCTL_CONTEXT":              "PCCTL_CONTEXT",
 		"PCCERT_CONTEXT":             "PCCERT_CONTEXT",
+		"PMIDL_STUB_DESC":            "PMIDL_STUB_DESC",
 	}
 	goType, ok = tableConst[t]
 	if ok {
@@ -584,6 +616,13 @@ func (tt Type) getGoName() (goName string, isConstType bool, funcDeclStr string,
 		"LPFNADDPROPSHEETPAGE":               "LPFNADDPROPSHEETPAGE",
 		"LPFNDFMCALLBACK":                    "LPFNDFMCALLBACK",
 		"BFFCALLBACK":                        "BFFCALLBACK",
+		"PFN_RPCNOTIFICATION_ROUTINE":        "PFN_RPCNOTIFICATION_ROUTINE",
+		"MIDL_ES_READ":                       "MIDL_ES_READ",
+		"MIDL_ES_ALLOC":                      "MIDL_ES_ALLOC",
+		"MIDL_ES_WRITE":                      "MIDL_ES_WRITE",
+		"RPC_MGMT_AUTHORIZATION_FN":          "RPC_MGMT_AUTHORIZATION_FN",
+		"RPC_AUTH_KEY_RETRIEVAL_FN":          "RPC_AUTH_KEY_RETRIEVAL_FN",
+		"RPC_IF_CALLBACK_FN":                 "RPC_IF_CALLBACK_FN",
 	}
 	goType, ok = tableFunc[t]
 	if ok {

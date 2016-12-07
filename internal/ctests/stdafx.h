@@ -25,6 +25,7 @@
 #include <Uxtheme.h>
 #include <Psapi.h>
 #include <Rpc.h>
+#include <Midles.h>
 #include <WinCred.h>
 #include <Shtypes.h>
 #include <Prsht.h>
@@ -44,6 +45,19 @@
 #include <fltdefs.h>
 #include <Mmddk.h>
 #include <Propvarutil.h>
+
+#include <type_traits>
+
+#ifdef IUnknown
+  static_assert(std::is_same<void, IUnknown>::value == true, "");
+  #undef IUnknown
+  #define CTESTS_IUNKNOWN_DEFINED
+#endif
+#include <RpcProxy.h>
+  #ifdef CTESTS_IUNKNOWN_DEFINED
+  #define IUnknown void
+  #undef CTESTS_IUNKNOWN_DEFINED
+#endif
 
 typedef struct _IO_STATUS_BLOCK {
     union {

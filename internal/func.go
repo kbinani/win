@@ -131,8 +131,8 @@ func (fun Func) Decl() (declLine string, referencedTypes *StringSet, e error) {
 	}
 	decl = decl + fmt.Sprintf("%s)", strings.Join(args, ", "))
 
-	retIsVoid := fun.Ret.Name == "VOID" || fun.Ret.Name == "void"
 	retGoType := fun.Ret.GoName()
+	retIsVoid := retGoType == "void"
 	if retGoType == "" && !retIsVoid {
 		unknownTypes.Put(fun.Ret.Name)
 		retGoType = fun.Ret.Name
@@ -185,8 +185,8 @@ func (fun Func) ToString(funcPtrVarName string, indentLevel int) (lines []string
 		return ret, types, imported, nil
 	}
 
-	retIsVoid := fun.Ret.Name == "VOID" || fun.Ret.Name == "void"
 	retGoType := fun.Ret.GoName()
+	retIsVoid := retGoType == "void"
 
 	decl = decl + " {"
 	ret = append(ret, decl)

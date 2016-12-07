@@ -1,0 +1,5 @@
+package win
+
+//ref RPC_ASYNC_STATE
+
+type PRPC_ASYNC_STATE *RPC_ASYNC_STATE

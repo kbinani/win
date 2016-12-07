@@ -157,28 +157,28 @@ func printTestCase(typename string) (string, error) {
 	lines = append(lines, fmt.Sprintf("\tstruct order1 : public order2 {};"))
 	lines = append(lines, fmt.Sprintf(""))
 
-	enabler := fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%sW)>::value && std::is_pointer<decltype(new ::%sA)>::value>::type", typename, typename)
+	enabler := fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%sW*>::value && std::is_pointer<::%sA*>::value>::type", typename, typename)
 	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
 	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order1 arg) { return sizeof(::%sW); }", typename, typename))
 	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%sW", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
-	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", typename)
+	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%s*>::value>::type", typename)
 	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
 	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order2 arg) { return sizeof(::%s); }", typename, typename))
 	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, typename)
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
-	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%sW)>::value>::type", typename)
+	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%sW*>::value>::type", typename)
 	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
 	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order3 arg) { return sizeof(::%sW); }", typename, typename))
 	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%sW", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
-	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s_W)>::value>::type", typename)
+	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%s_W*>::value>::type", typename)
 	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
 	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order4 arg) { return sizeof(::%s_W); }", typename, typename))
 	lines = append(lines, fmt.Sprintf(""))
@@ -187,7 +187,7 @@ func printTestCase(typename string) (string, error) {
 
 	lowerCamelTypename := strings.ToLower(typename[0:1]) + typename[1:]
 	if lowerCamelTypename != typename {
-		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", lowerCamelTypename)
+		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%s*>::value>::type", lowerCamelTypename)
 		lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
 		lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order5 arg) { return sizeof(::%s); }", typename, lowerCamelTypename))
 		lines = append(lines, fmt.Sprintf(""))
@@ -199,7 +199,7 @@ func printTestCase(typename string) (string, error) {
 		pre := strings.Join(tokens[0:len(tokens)-1], "_")
 		versionedTypename := fmt.Sprintf("%sW_%s", pre, tokens[len(tokens)-1])
 
-		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<decltype(new ::%s)>::value>::type", versionedTypename)
+		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%s*>::value>::type", versionedTypename)
 		lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
 		lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order6 arg) { return sizeof(::%s); }", typename, versionedTypename))
 		lines = append(lines, fmt.Sprintf(""))

@@ -1,0 +1,3 @@
+package win
+
+type PFN_RPCNOTIFICATION_ROUTINE func(pAsync *RPC_ASYNC_STATE, Context PVOID, Event RPC_ASYNC_EVENT)
