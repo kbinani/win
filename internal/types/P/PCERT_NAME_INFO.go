@@ -1,0 +1,5 @@
+package win
+
+//ref CERT_NAME_INFO
+
+type PCERT_NAME_INFO *CERT_NAME_INFO

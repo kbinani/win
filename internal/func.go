@@ -98,6 +98,12 @@ func (fun Func) unpackArgs() []Arg {
 			// struct with 8 bytes size
 			ret = append(ret, Arg{NewType("uint32"), fmt.Sprintf("*(*uint32)(unsafe.Pointer(&%s))", name)})
 			ret = append(ret, Arg{NewType("uint32"), fmt.Sprintf("*(*uint32)(unsafe.Pointer(uintptr(unsafe.Pointer(&%s)) + uintptr(4)))", name)})
+		} else if goTypeName == "CRYPT_PKCS8_IMPORT_PARAMS" {
+			// struct with ptrsize*4 size
+			ret = append(ret, Arg{NewType("uintptr"), fmt.Sprintf("*(*uintptr)(unsafe.Pointer(uintptr(unsafe.Pointer(&%s))))", name)})
+			ret = append(ret, Arg{NewType("uintptr"), fmt.Sprintf("*(*uintptr)(unsafe.Pointer(uintptr(unsafe.Pointer(&%s)) + uintptr(ptrsize)))", name)})
+			ret = append(ret, Arg{NewType("uintptr"), fmt.Sprintf("*(*uintptr)(unsafe.Pointer(uintptr(unsafe.Pointer(&%s)) + uintptr(ptrsize*2)))", name)})
+			ret = append(ret, Arg{NewType("uintptr"), fmt.Sprintf("*(*uintptr)(unsafe.Pointer(uintptr(unsafe.Pointer(&%s)) + uintptr(ptrsize*3)))", name)})
 		} else {
 			ret = append(ret, arg)
 		}

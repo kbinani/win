@@ -1,0 +1,5 @@
+package win
+
+//ref CMSG_STREAM_INFO
+
+type PCMSG_STREAM_INFO *CMSG_STREAM_INFO

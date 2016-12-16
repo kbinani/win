@@ -45,6 +45,8 @@
 #include <fltdefs.h>
 #include <Mmddk.h>
 #include <Propvarutil.h>
+#include <Mssip.h>
+#include <Mscat.h>
 
 #include <type_traits>
 

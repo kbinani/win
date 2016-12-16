@@ -1,0 +1,5 @@
+package win
+
+//ref MS_ADDINFO_FLAT
+
+type PMS_ADDINFO_FLAT *MS_ADDINFO_FLAT

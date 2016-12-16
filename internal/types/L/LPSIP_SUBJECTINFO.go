@@ -1,0 +1,5 @@
+package win
+
+//ref SIP_SUBJECTINFO
+
+type LPSIP_SUBJECTINFO *SIP_SUBJECTINFO

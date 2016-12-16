@@ -1,0 +1,5 @@
+package win
+
+//ref CERT_SIMPLE_CHAIN
+
+type PCERT_SIMPLE_CHAIN *CERT_SIMPLE_CHAIN

@@ -1,0 +1,5 @@
+package win
+
+//ref SIP_DISPATCH_INFO
+
+type LPSIP_DISPATCH_INFO *SIP_DISPATCH_INFO

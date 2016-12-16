@@ -1,0 +1,5 @@
+package win
+
+//ref CRYPT_DECODE_PARA
+
+type PCRYPT_DECODE_PARA *CRYPT_DECODE_PARA

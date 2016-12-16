@@ -1,0 +1,8 @@
+package win
+
+//ref CRYPT_PRIVATE_KEY_INFO
+//ref HCRYPTPROV
+//ref LPVOID
+//ref BOOL
+
+type PCRYPT_RESOLVE_HCRYPTPROV_FUNC func(pPrivateKeyInfo *CRYPT_PRIVATE_KEY_INFO, phCryptProv *HCRYPTPROV, pVoidResolveFunc LPVOID) BOOL

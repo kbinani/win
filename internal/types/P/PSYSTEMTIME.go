@@ -1,0 +1,5 @@
+package win
+
+//ref SYSTEMTIME
+
+type PSYSTEMTIME *SYSTEMTIME

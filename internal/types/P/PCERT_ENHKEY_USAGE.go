@@ -1,0 +1,5 @@
+package win
+
+//ref CERT_ENHKEY_USAGE
+
+type PCERT_ENHKEY_USAGE *CERT_ENHKEY_USAGE

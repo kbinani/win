@@ -6,6 +6,7 @@ package win
 //ref COLORREF
 //ref LPARAM
 //ref LPCWSTR
+
 type CHOOSECOLOR struct {
 	LStructSize    DWORD
 	HwndOwner      HWND
@@ -14,6 +15,6 @@ type CHOOSECOLOR struct {
 	LpCustColors   *COLORREF
 	Flags          DWORD
 	LCustData      LPARAM
-	LpfnHook       uintptr // LPCCHOOKPROC
+	LpfnHook       uintptr // CCHOOKPROC
 	LpTemplateName LPCWSTR
 }

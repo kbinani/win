@@ -1,0 +1,13 @@
+package win
+
+//ref DWORD
+//ref CRYPT_ALGORITHM_IDENTIFIER
+//ref CRYPT_DER_BLOB
+//ref PCRYPT_ATTRIBUTES
+
+type CRYPT_PRIVATE_KEY_INFO struct {
+	Version     DWORD
+	Algorithm   CRYPT_ALGORITHM_IDENTIFIER
+	PrivateKey  CRYPT_DER_BLOB
+	PAttributes PCRYPT_ATTRIBUTES
+}

@@ -1,0 +1,5 @@
+package win
+
+//ref MS_ADDINFO_BLOB
+
+type PMS_ADDINFO_BLOB *MS_ADDINFO_BLOB

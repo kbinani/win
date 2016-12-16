@@ -1,0 +1,5 @@
+package win
+
+//ref ULONG_PTR
+
+type HCRYPTPROV_OR_NCRYPT_KEY_HANDLE ULONG_PTR

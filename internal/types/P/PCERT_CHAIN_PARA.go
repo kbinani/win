@@ -1,0 +1,5 @@
+package win
+
+//ref CERT_CHAIN_PARA
+
+type PCERT_CHAIN_PARA *CERT_CHAIN_PARA

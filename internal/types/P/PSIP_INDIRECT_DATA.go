@@ -1,0 +1,5 @@
+package win
+
+//ref SIP_INDIRECT_DATA
+
+type PSIP_INDIRECT_DATA *SIP_INDIRECT_DATA

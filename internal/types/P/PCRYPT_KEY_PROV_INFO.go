@@ -1,0 +1,5 @@
+package win
+
+//ref CRYPT_KEY_PROV_INFO
+
+type PCRYPT_KEY_PROV_INFO *CRYPT_KEY_PROV_INFO
