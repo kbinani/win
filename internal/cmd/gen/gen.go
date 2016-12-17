@@ -299,7 +299,6 @@ func createTypedefFile(referencedTypes *StringSet, dir string) error {
 	importedPackages := NewStringSet()
 	typeDefLines := []string{}
 
-	reg := regexp.MustCompile(`\s*(LPCWSTR)\s*`)
 	for _, name := range types.Values() {
 		templateFilePath := TemplateFilePath(name, "")
 		templateFile, err := os.Open(templateFilePath)
@@ -322,11 +321,32 @@ func createTypedefFile(referencedTypes *StringSet, dir string) error {
 				continue
 			}
 			if strings.Contains(line, "func") && !strings.HasPrefix(line, "func") {
-				lineBytes := []byte(line)
-				replaced := reg.ReplaceAllFunc(lineBytes, func(match []byte) []byte {
-					return []byte(" string ")
-				})
-				line = string(replaced)
+				regFuncDecl := regexp.MustCompile(`^(.*)func\s*\((.*)\)\s*(.*)$`)
+				regArg := regexp.MustCompile(`^([a-zA-Z0-9_]*)\s+(.*)$`)
+				uncomment := string(regexp.MustCompile(`/\*.*?\*/`).ReplaceAllFunc([]byte(line), func(match []byte) []byte {
+					return []byte{}
+				}))
+
+				match := regFuncDecl.FindSubmatch([]byte(uncomment))
+				argsStr := string(match[2])
+				args := strings.Split(argsStr, ",")
+				newArgs := []string{}
+				if len(args) > 0 && args[0] != "" {
+					for _, arg := range args {
+						arg = strings.Trim(arg, " ")
+						m := regArg.FindSubmatch([]byte(arg))
+						name := string(m[1])
+						t := string(m[2])
+						ty := NewType(t)
+						if ty.GoName() == "LPCWSTR" {
+							newArgs = append(newArgs, fmt.Sprintf("%s string", name))
+						} else {
+							newArgs = append(newArgs, arg)
+						}
+					}
+				}
+
+				line = fmt.Sprintf("%sfunc(%s) %s", string(match[1]), strings.Join(newArgs, ", "), string(match[3]))
 				line = strings.Replace(line, "  ", " ", -1)
 				line = strings.Replace(line, " , ", ", ", -1)
 				line = strings.Replace(line, " )", ")", -1)
