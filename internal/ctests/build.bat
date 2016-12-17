@@ -4,6 +4,8 @@ call :main
 exit /b %errorlevel%
 
 :main
+	call :exec gofmt -s -w .
+
 	(call :exec go run internal\cmd\gen\gen.go) > generate.log
 	if not %errorlevel% == 0 (
 		exit /b 1
