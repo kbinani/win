@@ -26,7 +26,7 @@ type OPENFILENAME struct {
 	NFileExtension    WORD
 	LpstrDefExt       LPCWSTR
 	LCustData         LPARAM
-	LpfnHook          LPOFNHOOKPROC
+	LpfnHook          uintptr // LPOFNHOOKPROC
 	LpTemplateName    LPCWSTR
 	PvReserved        uintptr
 	DwReserved        DWORD

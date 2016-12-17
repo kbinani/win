@@ -21,8 +21,8 @@ type PAGESETUPDLG struct {
 	RtMargin                RECT
 	HInstance               HINSTANCE
 	LCustData               LPARAM
-	LpfnPageSetupHook       LPPAGESETUPHOOK
-	LpfnPagePaintHook       LPPAGEPAINTHOOK
+	LpfnPageSetupHook       uintptr // LPPAGESETUPHOOK
+	LpfnPagePaintHook       uintptr // LPPAGEPAINTHOOK
 	LpPageSetupTemplateName LPCWSTR
 	HPageSetupTemplate      HGLOBAL
 }

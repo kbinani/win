@@ -14,6 +14,6 @@ type CSFV struct {
 	PsvOuter    *IShellView
 	Pidl        PCIDLIST_ABSOLUTE
 	LEvents     LONG
-	PfnCallback LPFNVIEWCALLBACK
+	PfnCallback uintptr // LPFNVIEWCALLBACK
 	Fvm         FOLDERVIEWMODE
 }

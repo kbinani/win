@@ -9,6 +9,6 @@ type CRYPT_VERIFY_MESSAGE_PARA struct {
 	CbSize                   DWORD
 	DwMsgAndCertEncodingType DWORD
 	HCryptProv               HCRYPTPROV_LEGACY
-	PfnGetSignerCertificate  PFN_CRYPT_GET_SIGNER_CERTIFICATE
+	PfnGetSignerCertificate  uintptr // PFN_CRYPT_GET_SIGNER_CERTIFICATE
 	PvGetArg                 PVOID
 }

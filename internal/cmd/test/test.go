@@ -365,6 +365,9 @@ func getFields(t reflect.Type) []tagField {
 		if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 			continue
 		}
+		if sf.Type.Kind() == reflect.Func {
+			panic(fmt.Errorf("Public struct filed should not be Func. Replace its type to uintptr type; type: %s, field: %s", t.Name(), sf.Name))
+		}
 		ret = append(ret, tagField{sf.Name, sf.Offset})
 	}
 
