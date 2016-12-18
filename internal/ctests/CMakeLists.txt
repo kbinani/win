@@ -14,6 +14,7 @@ endif()
 
 add_msvc_precompiled_header("stdafx.h" "stdafx.cpp" ctests_src)
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} /MP /EHsc")
+add_definitions(/DUNICODE)
 
 add_executable(ctests ${ctests_src} googletest/googletest/src/gtest_main.cc googletest/googletest/src/gtest-all.cc)
 include_directories(. googletest/googletest/include googletest/googletest)
