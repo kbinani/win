@@ -1484,3 +1484,355 @@ const (
 	MSSIP_ADDINFO_BLOB      = 3
 	MSSIP_ADDINFO_NONMSSIP  = 500
 )
+
+type WELL_KNOWN_SID_TYPE int32
+
+const (
+	WinNullSid                                    WELL_KNOWN_SID_TYPE = 0
+	WinWorldSid                                                       = 1
+	WinLocalSid                                                       = 2
+	WinCreatorOwnerSid                                                = 3
+	WinCreatorGroupSid                                                = 4
+	WinCreatorOwnerServerSid                                          = 5
+	WinCreatorGroupServerSid                                          = 6
+	WinNtAuthoritySid                                                 = 7
+	WinDialupSid                                                      = 8
+	WinNetworkSid                                                     = 9
+	WinBatchSid                                                       = 10
+	WinInteractiveSid                                                 = 11
+	WinServiceSid                                                     = 12
+	WinAnonymousSid                                                   = 13
+	WinProxySid                                                       = 14
+	WinEnterpriseControllersSid                                       = 15
+	WinSelfSid                                                        = 16
+	WinAuthenticatedUserSid                                           = 17
+	WinRestrictedCodeSid                                              = 18
+	WinTerminalServerSid                                              = 19
+	WinRemoteLogonIdSid                                               = 20
+	WinLogonIdsSid                                                    = 21
+	WinLocalSystemSid                                                 = 22
+	WinLocalServiceSid                                                = 23
+	WinNetworkServiceSid                                              = 24
+	WinBuiltinDomainSid                                               = 25
+	WinBuiltinAdministratorsSid                                       = 26
+	WinBuiltinUsersSid                                                = 27
+	WinBuiltinGuestsSid                                               = 28
+	WinBuiltinPowerUsersSid                                           = 29
+	WinBuiltinAccountOperatorsSid                                     = 30
+	WinBuiltinSystemOperatorsSid                                      = 31
+	WinBuiltinPrintOperatorsSid                                       = 32
+	WinBuiltinBackupOperatorsSid                                      = 33
+	WinBuiltinReplicatorSid                                           = 34
+	WinBuiltinPreWindows2000CompatibleAccessSid                       = 35
+	WinBuiltinRemoteDesktopUsersSid                                   = 36
+	WinBuiltinNetworkConfigurationOperatorsSid                        = 37
+	WinAccountAdministratorSid                                        = 38
+	WinAccountGuestSid                                                = 39
+	WinAccountKrbtgtSid                                               = 40
+	WinAccountDomainAdminsSid                                         = 41
+	WinAccountDomainUsersSid                                          = 42
+	WinAccountDomainGuestsSid                                         = 43
+	WinAccountComputersSid                                            = 44
+	WinAccountControllersSid                                          = 45
+	WinAccountCertAdminsSid                                           = 46
+	WinAccountSchemaAdminsSid                                         = 47
+	WinAccountEnterpriseAdminsSid                                     = 48
+	WinAccountPolicyAdminsSid                                         = 49
+	WinAccountRasAndIasServersSid                                     = 50
+	WinNTLMAuthenticationSid                                          = 51
+	WinDigestAuthenticationSid                                        = 52
+	WinSChannelAuthenticationSid                                      = 53
+	WinThisOrganizationSid                                            = 54
+	WinOtherOrganizationSid                                           = 55
+	WinBuiltinIncomingForestTrustBuildersSid                          = 56
+	WinBuiltinPerfMonitoringUsersSid                                  = 57
+	WinBuiltinPerfLoggingUsersSid                                     = 58
+	WinBuiltinAuthorizationAccessSid                                  = 59
+	WinBuiltinTerminalServerLicenseServersSid                         = 60
+	WinBuiltinDCOMUsersSid                                            = 61
+	WinBuiltinIUsersSid                                               = 62
+	WinIUserSid                                                       = 63
+	WinBuiltinCryptoOperatorsSid                                      = 64
+	WinUntrustedLabelSid                                              = 65
+	WinLowLabelSid                                                    = 66
+	WinMediumLabelSid                                                 = 67
+	WinHighLabelSid                                                   = 68
+	WinSystemLabelSid                                                 = 69
+	WinWriteRestrictedCodeSid                                         = 70
+	WinCreatorOwnerRightsSid                                          = 71
+	WinCacheablePrincipalsGroupSid                                    = 72
+	WinNonCacheablePrincipalsGroupSid                                 = 73
+	WinEnterpriseReadonlyControllersSid                               = 74
+	WinAccountReadonlyControllersSid                                  = 75
+	WinBuiltinEventLogReadersGroup                                    = 76
+	WinNewEnterpriseReadonlyControllersSid                            = 77
+	WinBuiltinCertSvcDComAccessGroup                                  = 78
+	WinMediumPlusLabelSid                                             = 79
+	WinLocalLogonSid                                                  = 80
+	WinConsoleLogonSid                                                = 81
+	WinThisOrganizationCertificateSid                                 = 82
+	WinApplicationPackageAuthoritySid                                 = 83
+	WinBuiltinAnyPackageSid                                           = 84
+	WinCapabilityInternetClientSid                                    = 85
+	WinCapabilityInternetClientServerSid                              = 86
+	WinCapabilityPrivateNetworkClientServerSid                        = 87
+	WinCapabilityPicturesLibrarySid                                   = 88
+	WinCapabilityVideosLibrarySid                                     = 89
+	WinCapabilityMusicLibrarySid                                      = 90
+	WinCapabilityDocumentsLibrarySid                                  = 91
+	WinCapabilitySharedUserCertificatesSid                            = 92
+	WinCapabilityEnterpriseAuthenticationSid                          = 93
+	WinCapabilityRemovableStorageSid                                  = 94
+	WinBuiltinRDSRemoteAccessServersSid                               = 95
+	WinBuiltinRDSEndpointServersSid                                   = 96
+	WinBuiltinRDSManagementServersSid                                 = 97
+	WinUserModeDriversSid                                             = 98
+	WinBuiltinHyperVAdminsSid                                         = 99
+	WinAccountCloneableControllersSid                                 = 100
+	WinBuiltinAccessControlAssistanceOperatorsSid                     = 101
+	WinBuiltinRemoteManagementUsersSid                                = 102
+	WinAuthenticationAuthorityAssertedSid                             = 103
+	WinAuthenticationServiceAssertedSid                               = 104
+	WinLocalAccountSid                                                = 105
+	WinLocalAccountAndAdministratorSid                                = 106
+	WinAccountProtectedUsersSid                                       = 107
+)
+
+type CRED_PROTECTION_TYPE int32
+
+const (
+	CredUnprotected CRED_PROTECTION_TYPE = iota
+	CredUserProtection
+	CredTrustedProtection
+)
+
+type CRED_MARSHAL_TYPE int32
+
+const (
+	CertCredential CRED_MARSHAL_TYPE = iota + 1
+	UsernameTargetCredential
+	BinaryBlobCredential
+	UsernameForPackedCredentials
+)
+
+type TOKEN_TYPE int32
+
+const (
+	TokenPrimary TOKEN_TYPE = iota + 1
+	TokenImpersonation
+)
+
+type SC_ENUM_TYPE int32
+
+const (
+	SC_ENUM_PROCESS_INFO SC_ENUM_TYPE = 0
+)
+
+type ACL_INFORMATION_CLASS int32
+
+const (
+	AclRevisionInformation ACL_INFORMATION_CLASS = iota + 1
+	AclSizeInformation
+)
+
+const HW_PROFILE_GUIDLEN = 39
+const MAX_PROFILE_LEN = 80
+
+type WCT_OBJECT_TYPE int32
+
+const (
+	WctCriticalSectionType WCT_OBJECT_TYPE = iota + 1
+	WctSendMessageType
+	WctMutexType
+	WctAlpcType
+	WctComType
+	WctThreadWaitType
+	WctProcessWaitType
+	WctThreadType
+	WctComActivationType
+	WctUnknownType
+	WctSocketIoType
+	WctSmbIoType
+	WctMaxType
+)
+
+type WCT_OBJECT_STATUS int32
+
+const (
+	WctStatusNoAccess WCT_OBJECT_STATUS = iota + 1
+	WctStatusRunning
+	WctStatusBlocked
+	WctStatusPidOnly
+	WctStatusPidOnlyRpcss
+	WctStatusOwned
+	WctStatusNotOwned
+	WctStatusAbandoned
+	WctStatusUnknown
+	WctStatusError
+	WctStatusMax
+)
+
+const WCT_OBJNAME_LENGTH = 128
+
+type TOKEN_INFORMATION_CLASS int32
+
+const (
+	TokenUser TOKEN_INFORMATION_CLASS = iota + 1
+	TokenGroups
+	TokenPrivileges
+	TokenOwner
+	TokenPrimaryGroup
+	TokenDefaultDacl
+	TokenSource
+	TokenType
+	TokenImpersonationLevel
+	TokenStatistics
+	TokenRestrictedSids
+	TokenSessionId
+	TokenGroupsAndPrivileges
+	TokenSessionReference
+	TokenSandBoxInert
+	TokenAuditPolicy
+	TokenOrigin
+	TokenElevationType
+	TokenLinkedToken
+	TokenElevation
+	TokenHasRestrictions
+	TokenAccessInformation
+	TokenVirtualizationAllowed
+	TokenVirtualizationEnabled
+	TokenIntegrityLevel
+	TokenUIAccess
+	TokenMandatoryPolicy
+	TokenLogonSid
+	TokenIsAppContainer
+	TokenCapabilities
+	TokenAppContainerSid
+	TokenAppContainerNumber
+	TokenUserClaimAttributes
+	TokenDeviceClaimAttributes
+	TokenRestrictedUserClaimAttributes
+	TokenRestrictedDeviceClaimAttributes
+	TokenDeviceGroups
+	TokenRestrictedDeviceGroups
+	TokenSecurityAttributes
+	TokenIsRestricted
+	TokenProcessTrustLevel
+	MaxTokenInfoClass
+)
+
+type INSTALLSPECTYPE int32
+
+const (
+	APPNAME INSTALLSPECTYPE = iota + 1
+	FILEEXT
+	PROGID
+	COMCLASS
+)
+
+type SID_NAME_USE int32
+
+const (
+	SidTypeUser SID_NAME_USE = iota + 1
+	SidTypeGroup
+	SidTypeDomain
+	SidTypeAlias
+	SidTypeWellKnownGroup
+	SidTypeDeletedAccount
+	SidTypeInvalid
+	SidTypeUnknown
+	SidTypeComputer
+	SidTypeLabel
+)
+
+const CYPHER_BLOCK_LENGTH = 8
+
+type SC_STATUS_TYPE int32
+
+const (
+	SC_STATUS_PROCESS_INFO SC_STATUS_TYPE = iota
+)
+
+type SAFER_OBJECT_INFO_CLASS int32
+
+const (
+	SaferObjectLevelId SAFER_OBJECT_INFO_CLASS = iota + 1
+	SaferObjectScopeId
+	SaferObjectFriendlyName
+	SaferObjectDescription
+	SaferObjectBuiltin
+	SaferObjectDisallowed
+	SaferObjectDisableMaxPrivilege
+	SaferObjectInvertDeletedPrivileges
+	SaferObjectDeletedPrivileges
+	SaferObjectDefaultOwner
+	SaferObjectSidsToDisable
+	SaferObjectRestrictedSidsInverted
+	SaferObjectRestrictedSidsAdded
+	SaferObjectAllIdentificationGuids
+	SaferObjectSingleIdentification
+	SaferObjectExtendedError
+)
+
+type SAFER_POLICY_INFO_CLASS int32
+
+const (
+	SaferPolicyLevelList SAFER_POLICY_INFO_CLASS = iota + 1
+	SaferPolicyEnableTransparentEnforcement
+	SaferPolicyDefaultLevel
+	SaferPolicyEvaluateUserScope
+	SaferPolicyScopeFlags
+	SaferPolicyDefaultLevelFlags
+	SaferPolicyAuthenticodeEnabled
+)
+
+const SAFER_MAX_HASH_SIZE = 64
+
+type PROG_INVOKE_SETTING int32
+
+const (
+	ProgressInvokeNever PROG_INVOKE_SETTING = iota + 1
+	ProgressInvokeEveryObject
+	ProgressInvokeOnError
+	ProgressCancelOperation
+	ProgressRetryOperation
+	ProgressInvokePrePostError
+)
+
+type POLICY_INFORMATION_CLASS int32
+
+const (
+	PolicyAuditLogInformation POLICY_INFORMATION_CLASS = iota + 1
+	PolicyAuditEventsInformation
+	PolicyPrimaryDomainInformation
+	PolicyPdAccountInformation
+	PolicyAccountDomainInformation
+	PolicyLsaServerRoleInformation
+	PolicyReplicaSourceInformation
+	PolicyDefaultQuotaInformation
+	PolicyModificationInformation
+	PolicyAuditFullSetInformation
+	PolicyAuditFullQueryInformation
+	PolicyDnsDomainInformation
+	PolicyDnsDomainInformationInt
+	PolicyLocalAccountDomainInformation
+	PolicyLastEntry
+)
+
+type TRUSTED_INFORMATION_CLASS int32
+
+const (
+	TrustedDomainNameInformation TRUSTED_INFORMATION_CLASS = iota + 1
+	TrustedControllersInformation
+	TrustedPosixOffsetInformation
+	TrustedPasswordInformation
+	TrustedDomainInformationBasic
+	TrustedDomainInformationEx
+	TrustedDomainAuthInformation
+	TrustedDomainFullInformation
+	TrustedDomainAuthInformationInternal
+	TrustedDomainFullInformationInternal
+	TrustedDomainInformationEx2Internal
+	TrustedDomainFullInformation2Internal
+	TrustedDomainSupportedEncryptionTypes
+)

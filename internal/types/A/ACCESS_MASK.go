@@ -1,3 +1,5 @@
 package win
 
-type ACCESS_MASK uint32
+//ref DWORD
+
+type ACCESS_MASK DWORD

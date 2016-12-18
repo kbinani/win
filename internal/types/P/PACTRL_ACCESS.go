@@ -1,0 +1,5 @@
+package win
+
+//ref ACTRL_ACCESS
+
+type PACTRL_ACCESS *ACTRL_ACCESS

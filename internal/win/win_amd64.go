@@ -11,3 +11,4 @@ const pad3for64_2for32 = 3
 const pad3for64_1for32 = 3
 const pad6for64_3for32 = 6
 const pad6for64_0for32 = 6
+const pad4for64_8for32 = 4

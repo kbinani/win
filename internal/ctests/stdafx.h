@@ -47,6 +47,11 @@
 #include <Propvarutil.h>
 #include <Mssip.h>
 #include <Mscat.h>
+#include <Appmgmt.h>
+#include <MsChapp.h>
+#include <Evntrace.h>
+#include <Evntprov.h>
+#include <Evntcons.h>
 
 #include <type_traits>
 

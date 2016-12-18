@@ -1,0 +1,5 @@
+package win
+
+//ref HW_PROFILE_INFO
+
+type LPHW_PROFILE_INFO *HW_PROFILE_INFO

@@ -1,0 +1,5 @@
+package win
+
+//ref ACCESS_RIGHTS
+
+type PACCESS_RIGHTS *ACCESS_RIGHTS

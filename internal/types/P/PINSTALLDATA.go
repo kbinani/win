@@ -1,0 +1,5 @@
+package win
+
+//ref INSTALLDATA
+
+type PINSTALLDATA *INSTALLDATA

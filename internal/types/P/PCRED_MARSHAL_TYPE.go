@@ -1,0 +1,5 @@
+package win
+
+//ref CRED_MARSHAL_TYPE
+
+type PCRED_MARSHAL_TYPE *CRED_MARSHAL_TYPE

@@ -1,0 +1,5 @@
+package win
+
+//ref LSA_UNICODE_STRING
+
+type UNICODE_STRING LSA_UNICODE_STRING

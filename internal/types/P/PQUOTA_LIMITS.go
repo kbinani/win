@@ -1,0 +1,5 @@
+package win
+
+//ref QUOTA_LIMITS
+
+type PQUOTA_LIMITS *QUOTA_LIMITS

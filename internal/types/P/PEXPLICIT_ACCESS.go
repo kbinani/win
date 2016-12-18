@@ -1,0 +1,5 @@
+package win
+
+//ref EXPLICIT_ACCESS
+
+type PEXPLICIT_ACCESS *EXPLICIT_ACCESS

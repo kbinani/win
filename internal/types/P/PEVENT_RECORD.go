@@ -1,0 +1,5 @@
+package win
+
+//ref EVENT_RECORD
+
+type PEVENT_RECORD *EVENT_RECORD

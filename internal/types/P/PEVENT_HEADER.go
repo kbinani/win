@@ -1,0 +1,5 @@
+package win
+
+//ref EVENT_HEADER
+
+type PEVENT_HEADER *EVENT_HEADER

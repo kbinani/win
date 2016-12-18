@@ -1,0 +1,5 @@
+package win
+
+//ref SERVICE_NOTIFY
+
+type PSERVICE_NOTIFY *SERVICE_NOTIFY

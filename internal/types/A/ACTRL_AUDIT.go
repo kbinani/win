@@ -1,0 +1,5 @@
+package win
+
+//ref ACTRL_ACCESS
+
+type ACTRL_AUDIT ACTRL_ACCESS

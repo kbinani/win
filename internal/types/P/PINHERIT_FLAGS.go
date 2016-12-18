@@ -1,0 +1,5 @@
+package win
+
+//ref INHERIT_FLAGS
+
+type PINHERIT_FLAGS *INHERIT_FLAGS

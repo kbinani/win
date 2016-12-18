@@ -1,0 +1,5 @@
+package win
+
+//ref CREDENTIAL
+
+type PCREDENTIAL *CREDENTIAL

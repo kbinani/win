@@ -1,0 +1,9 @@
+package win
+
+//ref ULONG
+//ref PLSA_TRUST_INFORMATION
+
+type LSA_REFERENCED_DOMAIN_LIST struct {
+	Entries ULONG
+	Domains PLSA_TRUST_INFORMATION
+}

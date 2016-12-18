@@ -14,7 +14,13 @@ func NewArg(arg string) Arg {
 	arg = strings.Trim(arg, " ")
 	arg = strings.Replace(arg, "*", " * ", -1)
 	arg = strings.Trim(ReplaceString(arg, "  ", " "), " ")
-	tokens := strings.Split(arg, " ")
+	tokens := []string{}
+	for _, token := range strings.Split(arg, " ") {
+		if token == "IN" || token == "OUT" {
+			continue
+		}
+		tokens = append(tokens, token)
+	}
 	if len(tokens) == 1 {
 		return Arg{NewType(tokens[0]), ""}
 	} else {

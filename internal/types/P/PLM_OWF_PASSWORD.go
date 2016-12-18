@@ -1,0 +1,5 @@
+package win
+
+//ref LM_OWF_PASSWORD
+
+type PLM_OWF_PASSWORD *LM_OWF_PASSWORD

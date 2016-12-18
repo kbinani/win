@@ -1,0 +1,5 @@
+package win
+
+//ref TRACEHANDLE
+
+type PTRACEHANDLE *TRACEHANDLE

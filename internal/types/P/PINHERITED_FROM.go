@@ -1,0 +1,5 @@
+package win
+
+//ref INHERITED_FROM
+
+type PINHERITED_FROM *INHERITED_FROM

@@ -1,0 +1,5 @@
+package win
+
+//ref NT_OWF_PASSWORD
+
+type PNT_OWF_PASSWORD *NT_OWF_PASSWORD
