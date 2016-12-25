@@ -157,30 +157,49 @@ func printTestCase(typename string) (string, error) {
 	lines = append(lines, fmt.Sprintf("\tstruct order1 : public order2 {};"))
 	lines = append(lines, fmt.Sprintf(""))
 
+	lines = append(lines, "\tstatic void report_size(char const* type, size_t size) {")
+	lines = append(lines, "\t\t#ifdef GOWIN_GENERATOR_REPORT")
+	lines = append(lines, "\t\tstd::cout << \"size\" << \"\\t\" << type << \"\\t\" << size << std::endl;")
+	lines = append(lines, "\t\t#endif")
+	lines = append(lines, "\t}")
+	lines = append(lines, "")
+
 	enabler := fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%sW*>::value && std::is_pointer<::%sA*>::value>::type", typename, typename)
 	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
-	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order1 arg) { return sizeof(::%sW); }", typename, typename))
+	lines = append(lines, fmt.Sprintf("\tstatic size_t %s_impl(order1 arg) {", typename))
+	lines = append(lines, fmt.Sprintf("\t\treport_size(\"%sW\", sizeof(::%sW));", typename, typename))
+	lines = append(lines, fmt.Sprintf("\t\treturn sizeof(::%sW);", typename))
+	lines = append(lines, fmt.Sprintf("\t}"))
 	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%sW", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%s*>::value>::type", typename)
 	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
-	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order2 arg) { return sizeof(::%s); }", typename, typename))
+	lines = append(lines, fmt.Sprintf("\tstatic size_t %s_impl(order2 arg) {", typename))
+	lines = append(lines, fmt.Sprintf("\t\treport_size(\"%s\", sizeof(::%s));", typename, typename))
+	lines = append(lines, fmt.Sprintf("\t\treturn sizeof(::%s);", typename))
+	lines = append(lines, fmt.Sprintf("\t}"))
 	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, typename)
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%sW*>::value>::type", typename)
 	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
-	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order3 arg) { return sizeof(::%sW); }", typename, typename))
+	lines = append(lines, fmt.Sprintf("\tstatic size_t %s_impl(order3 arg) {", typename))
+	lines = append(lines, fmt.Sprintf("\t\treport_size(\"%sW\", sizeof(::%sW));", typename, typename))
+	lines = append(lines, fmt.Sprintf("\t\treturn sizeof(::%sW);", typename))
+	lines = append(lines, fmt.Sprintf("\t}"))
 	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%sW", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
 
 	enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%s_W*>::value>::type", typename)
 	lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
-	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order4 arg) { return sizeof(::%s_W); }", typename, typename))
+	lines = append(lines, fmt.Sprintf("\tstatic size_t %s_impl(order4 arg) {", typename))
+	lines = append(lines, fmt.Sprintf("\t\treport_size(\"%s_W\", sizeof(::%s_W));", typename, typename))
+	lines = append(lines, fmt.Sprintf("\t\treturn sizeof(::%s_W);", typename))
+	lines = append(lines, fmt.Sprintf("\t}"))
 	lines = append(lines, fmt.Sprintf(""))
 	draftTypeNames = append(draftTypeNames, fmt.Sprintf("%s_W", typename))
 	draftTypeEnabler = append(draftTypeEnabler, enabler)
@@ -189,7 +208,10 @@ func printTestCase(typename string) (string, error) {
 	if lowerCamelTypename != typename {
 		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%s*>::value>::type", lowerCamelTypename)
 		lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
-		lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order5 arg) { return sizeof(::%s); }", typename, lowerCamelTypename))
+		lines = append(lines, fmt.Sprintf("\tstatic size_t %s_impl(order5 arg) {", typename))
+		lines = append(lines, fmt.Sprintf("\t\treport_size(\"%s\", sizeof(::%s));", lowerCamelTypename, lowerCamelTypename))
+		lines = append(lines, fmt.Sprintf("\t\treturn sizeof(::%s);", lowerCamelTypename))
+		lines = append(lines, fmt.Sprintf("\t}"))
 		lines = append(lines, fmt.Sprintf(""))
 		draftTypeNames = append(draftTypeNames, lowerCamelTypename)
 		draftTypeEnabler = append(draftTypeEnabler, enabler)
@@ -201,17 +223,20 @@ func printTestCase(typename string) (string, error) {
 
 		enabler = fmt.Sprintf("typename = std::enable_if<std::is_pointer<::%s*>::value>::type", versionedTypename)
 		lines = append(lines, fmt.Sprintf("\ttemplate <%s>", enabler))
-		lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order6 arg) { return sizeof(::%s); }", typename, versionedTypename))
+		lines = append(lines, fmt.Sprintf("\tstatic size_t %s_impl(order6 arg) {", typename))
+		lines = append(lines, fmt.Sprintf("\t\treport_size(\"%s\", sizeof(::%s));", versionedTypename, versionedTypename))
+		lines = append(lines, fmt.Sprintf("\t\treturn sizeof(::%s);", versionedTypename))
+		lines = append(lines, fmt.Sprintf("\t}"))
 		lines = append(lines, fmt.Sprintf(""))
 		draftTypeNames = append(draftTypeNames, versionedTypename)
 		draftTypeEnabler = append(draftTypeEnabler, enabler)
 	}
 	lines = append(lines, fmt.Sprintf("public:"))
-	lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s() { return %s_impl(order1{}); }", typename, typename))
+	lines = append(lines, fmt.Sprintf("\tstatic size_t %s() { return %s_impl(order1{}); }", typename, typename))
 
 	lines = append(lines, fmt.Sprintf("};"))
 	lines = append(lines, fmt.Sprintf(""))
-	lines = append(lines, fmt.Sprintf("static constexpr size_t %s = impl::%s();", typename, typename))
+	lines = append(lines, fmt.Sprintf("static size_t %s() { return impl::%s(); }", typename, typename))
 	lines = append(lines, fmt.Sprintf(""))
 	lines = append(lines, fmt.Sprintf("} // namespace of"))
 	lines = append(lines, fmt.Sprintf(""))
@@ -242,6 +267,13 @@ func printTestCase(typename string) (string, error) {
 		}
 		lines = append(lines, fmt.Sprintf(""))
 
+		lines = append(lines, "\tstatic void report_offset(char const* type, char const* field, size_t offset) {")
+		lines = append(lines, "\t\t#ifdef GOWIN_GENERATOR_REPORT")
+		lines = append(lines, "\t\tstd::cout << \"offset\" << \"\\t\" << type << \"\\t\" << field << \"\\t\" << offset << std::endl;")
+		lines = append(lines, "\t\t#endif")
+		lines = append(lines, "\t}")
+		lines = append(lines, "")
+
 		fields := getFields(t)
 		for i := 0; i < len(fields); i++ {
 			sf := fields[i]
@@ -257,7 +289,10 @@ func printTestCase(typename string) (string, error) {
 				typeEnabler := draftTypeEnabler[j]
 				for _, draftFieldName := range draftFieldNames {
 					lines = append(lines, fmt.Sprintf("\ttemplate <%s, typename = enabler<decltype(::%s::%s)>::type>", typeEnabler, draftTypeName, draftFieldName))
-					lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s_impl(order%d arg0) { return offsetof(::%s, %s); }", sf.Name, order, draftTypeName, draftFieldName))
+					lines = append(lines, fmt.Sprintf("\tstatic size_t %s_impl(order%d arg0) {", sf.Name, order))
+					lines = append(lines, fmt.Sprintf("\t\treport_offset(\"%s\", \"%s\", offsetof(::%s, %s));", draftTypeName, draftFieldName, draftTypeName, draftFieldName))
+					lines = append(lines, fmt.Sprintf("\t\treturn offsetof(::%s, %s);", draftTypeName, draftFieldName))
+					lines = append(lines, fmt.Sprintf("\t}"))
 					lines = append(lines, fmt.Sprintf(""))
 					order++
 				}
@@ -269,14 +304,14 @@ func printTestCase(typename string) (string, error) {
 			if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 				continue
 			}
-			lines = append(lines, fmt.Sprintf("\tstatic constexpr size_t %s() { return %s_impl(order1{}); }", sf.Name, sf.Name))
+			lines = append(lines, fmt.Sprintf("\tstatic size_t %s() { return %s_impl(order1{}); }", sf.Name, sf.Name))
 		}
 
 		lines = append(lines, fmt.Sprintf("};"))
 		lines = append(lines, fmt.Sprintf(""))
 		for i := 0; i < len(fields); i++ {
 			sf := fields[i]
-			lines = append(lines, fmt.Sprintf("static constexpr size_t %s = impl::%s();", sf.Name, sf.Name))
+			lines = append(lines, fmt.Sprintf("static size_t %s() { return impl::%s(); }", sf.Name, sf.Name))
 		}
 		lines = append(lines, fmt.Sprintf(""))
 		lines = append(lines, fmt.Sprintf("} // namespace %s", typename))
@@ -290,10 +325,8 @@ func printTestCase(typename string) (string, error) {
 	lines = append(lines, fmt.Sprintf("} // anonymouse namespace"))
 	lines = append(lines, fmt.Sprintf(""))
 
-	lines = append(lines, fmt.Sprintf("TEST(%s, size) {", typename))
-	lines = append(lines, fmt.Sprintf("\tEXPECT_EQ(size::of::%s, %d);", typename, t.Size()))
-	lines = append(lines, fmt.Sprintf("}"))
-	lines = append(lines, fmt.Sprintf(""))
+	lines = append(lines, fmt.Sprintf("TEST(%s, layout) {", typename))
+	lines = append(lines, fmt.Sprintf("\tEXPECT_EQ(size::of::%s(), %d);", typename, t.Size()))
 
 	if t.Kind() == reflect.Struct {
 		fields := getFields(t)
@@ -302,14 +335,13 @@ func printTestCase(typename string) (string, error) {
 			if strings.ToLower(sf.Name[0:1]) == sf.Name[0:1] {
 				continue
 			}
-			lines = append(lines, fmt.Sprintf("TEST(%s, offsetof_%s) {", typename, sf.Name))
-			lines = append(lines, fmt.Sprintf("\tEXPECT_EQ(offset::of::%s::%s, %d);", typename, sf.Name, sf.Offset))
-			lines = append(lines, fmt.Sprintf("}"))
-			lines = append(lines, fmt.Sprintf(""))
+			lines = append(lines, fmt.Sprintf("\tEXPECT_EQ(offset::of::%s::%s(), %d);", typename, sf.Name, sf.Offset))
 		}
 	}
 
-	// lines = append(lines, fmt.Sprintf("#endif // !defined(%s)", typename))
+	lines = append(lines, fmt.Sprintf("}"))
+	lines = append(lines, fmt.Sprintf(""))
+
 	if runtime.GOARCH == "amd64" {
 		lines = append(lines, fmt.Sprintf("#endif // defined(_WIN64)"))
 	} else {
